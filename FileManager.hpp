@@ -1,22 +1,26 @@
 //
-//  FileManager.h
-//  CatchiOS
+//  FileManager.hpp
+//  CatchLib
 //
 //  Created by John Barbero Unenge on 9/17/12.
 //  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
 //
 
-#include <OpenGLES/ES1/gl.h>
+#if TARGET_OS_IPHONE
 #include <OpenGLES/ES1/glext.h>
-#include <OpenGLES/ES1/glut.h>
+#else
+#include <GLES/glext.h>
+#endif
 
 #ifndef CatchiOS_FileManager_h
 #define CatchiOS_FileManager_h
 struct Texture{
-    int     width;
-    int     height;
-    void*   pixels;
-    int     type;
+    GLint           internalFormat;
+    GLsizei         width;
+    GLsizei         height;
+    GLenum          format;
+    GLenum          type;
+    const GLvoid*   data;
 };
 
 class FileManager {
