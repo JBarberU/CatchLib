@@ -6,14 +6,15 @@
 //  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
 //
 
-#if TARGET_OS_IPHONE
+#ifdef __APPLE__
+#include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
 #else
 #include <GLES/gl.h>
 #include <GLES/glext.h>
 #endif
 
-struct Texture{
+struct CLTexture{
     GLint           internalFormat;
     GLsizei         width;
     GLsizei         height;
@@ -21,8 +22,7 @@ struct Texture{
     GLenum          type;
     const GLvoid*   data;
 };
-
 class FileManager {
 public:
-    Texture* loadTextureFromFile(const char* file);
+    CLTexture* loadTextureFromFile(const char* file);
 };
