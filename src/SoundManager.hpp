@@ -25,7 +25,7 @@ class SoundManager {
 public:
 
 	//	Constructor
-	Soundmanager();
+	SoundManager();
 
 	//	Destructor
 	~SoundManager();
