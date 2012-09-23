@@ -23,6 +23,13 @@
 //  The sound manager
 class SoundManager {
 public:
+
+	//	Constructor
+	Soundmanager();
+
+	//	Destructor
+	~SoundManager();
+
     //  playSFX
     //  Plays the given file as a sound effect. This means 
     //  that it will playback in parallell with music and 
