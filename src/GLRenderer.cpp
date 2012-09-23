@@ -11,20 +11,20 @@
 
 GLRenderer::GLRenderer()
 {
-	Log("Constructed a GLRenderer!");
+	Log(LOG_INFO, "GLRenderer", "Constructed a GLRenderer!");
 }
 GLRenderer::~GLRenderer()
 {
-	Log("Destroyed a GLRenderer!");
+	Log(LOG_INFO, "GLRenderer", "Destroyed a GLRenderer!");
 }
 
 
 void GLRenderer::init(int width, int height)
 {
-	Log("Initededed");
+	Log(LOG_INFO, "GLRenderer", "Initialized GLRenderer");
 }
 
 void GLRenderer::render()
 {
-	Log("Render!");
+	Log(LOG_INFO, "GLRenderer", "Rendering!");
 }

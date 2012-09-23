@@ -15,4 +15,10 @@
 //  log
 //    Takes a message and displays it in the system log.
 
-void Log(const char* message);
+enum LogTag{
+	LOG_INFO,
+	LOG_EVENT,
+	LOG_ERROR
+};
+
+void Log(LogTag tag, const char* title, const char* message);
