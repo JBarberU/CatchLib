@@ -42,7 +42,11 @@
 //  Struct used as an array would in java (objects + size)
 struct InputListenerArray {
     IInputListener** m_listeners;
-    int m_size = 0;
+    int m_size;
+    InputListenerArray() {
+        m_listeners = 0;
+        m_size = 0;
+    }
 };
 
 //  InputManager
