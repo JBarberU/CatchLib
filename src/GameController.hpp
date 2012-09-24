@@ -16,6 +16,7 @@
 class GameController : public IInputListener {
 private:
     GLRenderer* m_renderer;
+    FileManager* m_fileManager;
 public:
     GameController(int width, int height);
     ~GameController();

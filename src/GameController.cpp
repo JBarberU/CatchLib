@@ -14,6 +14,9 @@ GameController::GameController(int width, int height)
 {
     Log(LOG_INFO, "GameController", "Constructed GameController");
     
+    InputManager::getSharedManager()->addInputListener(this);
+    
+    m_fileManager = new FileManager("CatchLib/src");
     m_renderer = new GLRenderer();
     m_renderer->init(width, height);
 }
