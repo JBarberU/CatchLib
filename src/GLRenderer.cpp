@@ -8,6 +8,7 @@
 
 #include "Logger.hpp"
 #include "GLRenderer.hpp"
+#include "InputManager.hpp"
 
 GLRenderer::GLRenderer()
 {
@@ -23,6 +24,7 @@ GLRenderer::~GLRenderer()
 void GLRenderer::init(int width, int height)
 {
 	Log(LOG_INFO, "GLRenderer", "Initialized GLRenderer");
+    InputManager::getSharedManager()->passInputEvent(TOUCH, 1, 3);
 }
 
 void GLRenderer::render()
