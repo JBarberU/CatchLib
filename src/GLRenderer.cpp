@@ -12,6 +12,7 @@
 GLRenderer::GLRenderer()
 {
 	Log(LOG_INFO, "GLRenderer", "Constructed a GLRenderer!");
+    
 }
 GLRenderer::~GLRenderer()
 {

@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
 //
 
-#if TARGET_OS_IPHONE
+#if __APPLE__
 #include <OpenGLES/ES1/glext.h>
 #else
 #include <GLES/gl.h>
