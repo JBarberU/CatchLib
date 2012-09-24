@@ -53,7 +53,13 @@ struct CLTexture{
 //  Used for managing the files (should have different 
 //  implementation on different devices).
 class FileManager {
+private:
+    const char* m_basePath;
+    
 public:
+    
+    FileManager(const char* basePath);
+    ~FileManager();
     
     //  loadTextureFromFile
     //  Loads a CLTexture from the given filename which 
