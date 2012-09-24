@@ -11,20 +11,35 @@
 //  This class is used to handle and process user input.
 //  It recieves input events and passes them on to the C++ 
 //  core.
-//  
-//  Methods:
+//
+//  NOTE:
+//  This is a singleton class and should be accessed by first
+//  using the getSharedManager function and the calling functions.
+//
+//  Member functions:
 //  passInputEvent
 //      Passes an input event with a certain inputType and if 
 //      suitable a coordinate where the event took place
 //      (mostly useful for InputType: TOUCH).
-
-//  InputType
-//  An enum used to destinguish what kind of input event was
-//  triggered.
+//
+//  addInputListener
+//      Adds the provided IInputListener. All listeners will be
+//      notified when anyone uses the passInputEvent function.
+//
+//  removeInputListener
+//      Removes the first occurance of the given IInputListener.
+//      Note that this function does not guarantee that the given
+//      object is not still in among the listeners. Returns false
+//      if the given listener was not found.
+//
+//  Static functions:
+//  getSharedManager
+//      Get a pointer to the shared instance of InputManager.
 
 #include "IInputListener.hpp"
 #include "EInputType.hpp"
 
+//  Struct used as an array would in java (objects + size)
 struct InputListenerArray {
     IInputListener** m_listeners;
     int m_size = 0;
@@ -37,7 +52,6 @@ private:
     InputListenerArray m_inputArray;
     InputManager();
     ~InputManager();
-    static InputManager* s_sharedManager;
     
 public:
     //  Tell InputManager to pass an input event.
@@ -51,6 +65,10 @@ public:
     //  Add an inputListener which will recieve input events.
     void addInputListener(IInputListener* listener);
     
+    //  Removes an inputListener. Returns true if the listener
+    //  was found, otherwise false.
+    bool removeInputListener(IInputListener* listener);
+    
+    //  Get the shared instance of InputManager.
     static InputManager* getSharedManager();
 };
-
