@@ -7,7 +7,7 @@
 //
 
 #if __APPLE__
-#include <OpenGLES/ES1/glext.h>
+#include <OpenGLES/ES2/gl.h>
 #else
 #include <GLES/gl.h>
 #include <GLES/glext.h>
@@ -31,7 +31,16 @@ public:
 
 	void init(int width, int height);
 	void render();
-
+    
+private:
+    GLuint BuildShader(const char* source, GLenum shaderType) const;
+    GLuint BuildProgram(const char* vShader, const char* fShader) const;
+    void ApplyOrtho(float maxX, float maxY) const;
+    void GLRenderer::ApplyRotation(float degrees) const;
+    
+    GLuint m_simpleProgram;
+    GLuint m_framebuffer;
+    GLuint m_renderbuffer;
 };
 
 
