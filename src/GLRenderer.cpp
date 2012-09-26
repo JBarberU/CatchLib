@@ -10,7 +10,6 @@
 #include "GLRenderer.hpp"
 #include "InputManager.hpp"
 
-#include <iostream>
 #include <cmath>
 
 const char SIMPLE_VERTEX_SHADER[] = 
@@ -104,9 +103,7 @@ void GLRenderer::render()
     
     GLsizei vertexCount = sizeof(Vertecies) / sizeof(Vertex);
     glDrawArrays(GL_TRIANGLES, 0, vertexCount);
-    
-    std::cout << "\nPositionSlot: " << positionSlot;
-    
+
     glDisableVertexAttribArray(positionSlot);
     glDisableVertexAttribArray(colorSlot);
 }
