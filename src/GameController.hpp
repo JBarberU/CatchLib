@@ -20,6 +20,9 @@ private:
 public:
     GameController(int width, int height);
     ~GameController();
+
+    void setRenderer(GLRenderer* r);
+    GLRenderer* getRenderer();
 };
 
 #endif

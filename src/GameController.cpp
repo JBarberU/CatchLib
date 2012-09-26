@@ -26,6 +26,15 @@ GameController::~GameController()
     m_renderer->~GLRenderer();
 }
 
+void GameController::setRenderer(GLRenderer* r)
+{
+	this->m_renderer = r;
+}
+GLRenderer* GameController::getRenderer()
+{
+	return m_renderer;
+}
+
 void IInputListener::didRecieveInputEvent(InputType type, float locX, float locY)
 {
     Log(LOG_EVENT, "GameController", "DidRecieveInputEvent");
