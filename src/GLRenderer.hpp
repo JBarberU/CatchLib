@@ -9,8 +9,8 @@
 #if __APPLE__
 #include <OpenGLES/ES2/gl.h>
 #else
-#include <GLES/gl.h>
-#include <GLES/glext.h>
+#include <GLES2/gl2.h>
+#include <GLES2/gl2ext.h>
 #endif
 
 #ifndef CatchiOS_FileManager_h
@@ -36,7 +36,7 @@ private:
     GLuint BuildShader(const char* source, GLenum shaderType) const;
     GLuint BuildProgram(const char* vShader, const char* fShader) const;
     void ApplyOrtho(float maxX, float maxY) const;
-    void GLRenderer::ApplyRotation(float degrees) const;
+    void ApplyRotation(float degrees) const;
     
     GLuint m_simpleProgram;
     GLuint m_framebuffer;
