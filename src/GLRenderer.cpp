@@ -36,21 +36,25 @@ struct Vertex {
     float Color[4];
 };
 
+float clearColor[] = {0.5f, 0.0f, 0.5f, 1.0f};
+
 // Define the positions and colors of two triangles.
 const Vertex Vertecies[] = {
-    {{-0.5f, -0.866f},  {1, 1, 0.5f, 1}},
-    {{0.5f, -0.866f},   {1, 1, 0.5f, 1}},
-    {{0, 1},            {1, 1, 0.5f, 1}},
+    {{-0.5f, -0.866f},      {1, 1, 0.5f, 1}},
+    {{0.5f, -0.866f},       {1, 1, 0.5f, 1}},
+    {{0, 1},                {1, 1, 0.5f, 1}},
     
-    {{-0.5f, -0.866f}, {0.5f, 0.5f, 0.5f}},
-    {{0.5f, -0.866f}, {0.5f, 0.5f, 0.5f}},
-    {{0, -0.4f}, {0.5f, 0.5f, 0.5f}},
+    {{-0.5f, -0.866f},      {clearColor[0],clearColor[1],clearColor[2],clearColor[3]}},
+    {{0.5f, -0.866f},       {clearColor[0],clearColor[1],clearColor[2],clearColor[3]}},
+    {{0, -0.4f},            {clearColor[0],clearColor[1],clearColor[2],clearColor[3]}},
 };
 
 GLRenderer::GLRenderer()
 {
 	Log(LOG_INFO, "GLRenderer", "Constructed a GLRenderer!");
-
+    Log(LOG_INFO, "GLRenderer", (const char *)glGetString(GL_VERSION));
+    
+    
     glGenRenderbuffers(1, &m_renderbuffer);
     glBindRenderbuffer(GL_RENDERBUFFER, m_renderbuffer);
 }
@@ -79,11 +83,12 @@ void GLRenderer::init(int width, int height)
     // Initialize the projection matrix.
     ApplyOrtho(2, 3);
 
+    Log(LOG_INFO, "GLRenderer", "Done with init code.");
 }
 
 void GLRenderer::render()
 {
-    glClearColor(1.0f, 0.5f, 0.5f, 1);
+    glClearColor(clearColor[0],clearColor[1],clearColor[2],clearColor[3]);
     glClear(GL_COLOR_BUFFER_BIT);
     
     ApplyRotation(0);
@@ -106,6 +111,8 @@ void GLRenderer::render()
 
     glDisableVertexAttribArray(positionSlot);
     glDisableVertexAttribArray(colorSlot);
+    
+
 }
 
 GLuint GLRenderer::BuildProgram(const char* vertexShaderSource, const char* fragmentShaderSource) const
@@ -127,6 +134,7 @@ GLuint GLRenderer::BuildProgram(const char* vertexShaderSource, const char* frag
         Log(LOG_ERROR, "OpenGLES", messages);
     }
     
+    Log(LOG_INFO, "GLRenderer", "Built shader program.");
     return programHandle;
 }
 
