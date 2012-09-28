@@ -13,7 +13,7 @@
 
 class IInputListener {
 public:
-    virtual void didRecieveInputEvent(InputType input, float locX, float locY);
+    virtual void didRecieveInputEvent(InputType input, int locX, int locY);
 };
 
 #endif
