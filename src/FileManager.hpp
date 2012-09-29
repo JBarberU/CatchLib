@@ -20,7 +20,6 @@
 //    The return of the function should be of the herin 
 //    declared struct CLTexture, which is what the core 
 //    needs for later binding OpenGL textures.
-
 #ifdef __APPLE__
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
@@ -28,6 +27,8 @@
 #include <GLES/gl.h>
 #include <GLES/glext.h>
 #endif
+#include <Lodepng.hpp>
+
 
 //  CLTexture
 //  A struct used to represent an Image in a way that is 
