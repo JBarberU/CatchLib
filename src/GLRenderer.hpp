@@ -30,6 +30,7 @@ public:
 	~GLRenderer();
 
 	void init(int width, int height);
+	void createFrameBuffer();
 	void render();
     
 private:
