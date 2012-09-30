@@ -28,8 +28,7 @@ FileManager::~FileManager()
 CLTexture* loadTextureFromFile(const char* filename)
 {
 
-	CLTexture texture;
-	const char filepath = filename;
+	const char* filepath = filename;
 
 	std::vector<unsigned char> rawImage;
 	std::vector<unsigned char> image;
@@ -41,12 +40,22 @@ CLTexture* loadTextureFromFile(const char* filename)
 
 	if (error != 0)
 	{
-		Log(LOG_ERROR, "FileManager", "Error when trying to load file from path: " + filepath);
-		return 1;
+		Log(LOG_ERROR, "FileManager", "Error when trying to load file from path: ");
 	}
 
 	//Set the format and the type
-	texture.data = rawImage;
+
+	int size = rawImage.size();
+	char* data = new char[size];
+
+	for (int i = 0; i < size; i++)
+	{
+		data[i] = rawImage.at(i);
+	}
+
+	CLTexture texture = new CLTexture();
+
+	texture.data = data;
 	texture.height = height;
 	texture.width = width;
 	texture.type = GL_UNSIGNED_BYTE;
