@@ -71,7 +71,7 @@ void GLRenderer::init(int width, int height)
     
     // Create the framebuffer object and attach the color buffer.
     glGenFramebuffers(1, &m_framebuffer);
-    glBindFramebuffer(GL_FRAMEBUFFER, m_framebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, m_renderbuffer);
     
     glViewport(0, 0, width, height);
