@@ -13,16 +13,10 @@
 #include <GLES2/gl2ext.h>
 #endif
 
+#include "SCLTexture.hpp"
+
 #ifndef CatchiOS_FileManager_h
 #define CatchiOS_FileManager_h
-struct Texture{
-	GLint           internalFormat;
-    GLsizei         width;
-    GLsizei         height;
-    GLenum          format;
-    GLenum          type;
-    const GLvoid*   data;
-};
 
 class GLRenderer {
 public:
@@ -32,7 +26,7 @@ public:
 	void init(int width, int height);
 	void createFrameBuffer();
 	void render();
-    
+        
 private:
     GLuint BuildShader(const char* source, GLenum shaderType) const;
     GLuint BuildProgram(const char* vShader, const char* fShader) const;
