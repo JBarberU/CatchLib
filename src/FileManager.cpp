@@ -24,7 +24,6 @@ CLTexture* loadTextureFromFile(const char* filename)
 
 	CLTexture texture;
 	const char filepath = m_basePath + filename;
-	Log(LOG_ERROR, "FileManager", "FilePath: " + filepath);
 
 	//Decode the requested file
 	//Decodes it in a way that it is acceptable to assume it has RGBA format.
@@ -32,7 +31,7 @@ CLTexture* loadTextureFromFile(const char* filename)
 
 	if (error != 0)
 	{
-		Log(LOG_ERROR, "FileManager", "Error when trying to load file");
+		Log(LOG_ERROR, "FileManager", "Error when trying to load file from path: " + filepath);
 		return 1;
 	}
 
