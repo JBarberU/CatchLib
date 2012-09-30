@@ -9,7 +9,10 @@
 #include "FileManager.hpp"
 #include "Includes/Lodepng.hpp"
 #include "Logger.hpp"
+#include <jni.h>
 #include <iostream>
+#include <vector>
+
 
 FileManager::FileManager(const char* basePath)
 {
@@ -27,8 +30,6 @@ FileManager::~FileManager()
  */
 CLTexture* loadTextureFromFile(const char* filename)
 {
-
-	const char* filepath = filename;
 
 	std::vector<unsigned char> rawImage;
 	std::vector<unsigned char> image;
@@ -61,6 +62,7 @@ CLTexture* loadTextureFromFile(const char* filename)
 	texturePtr->width = width;
 	texturePtr->type = GL_UNSIGNED_BYTE;
 	texturePtr->internalFormat = GL_RGBA;
+
 
 	return texturePtr;
 
