@@ -27,7 +27,6 @@
 #include <GLES/gl.h>
 #include <GLES/glext.h>
 #endif
-#include <Lodepng.hpp>
 
 
 //  CLTexture
