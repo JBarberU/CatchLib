@@ -10,6 +10,8 @@
 #include "Logger.hpp"
 #include "InputManager.hpp"
 
+
+
 GameController::GameController(int width, int height)
 {
     Log(LOG_INFO, "GameController", "Constructed GameController");
@@ -26,7 +28,16 @@ GameController::~GameController()
     m_renderer->~GLRenderer();
 }
 
-void IInputListener::didRecieveInputEvent(InputType type, float locX, float locY)
+void GameController::setRenderer(GLRenderer* r)
 {
-    Log(LOG_EVENT, "GameController", "DidRecieveInputEvent");
+	this->m_renderer = r;
+}
+GLRenderer* GameController::getRenderer()
+{
+	return m_renderer;
+}
+
+void IInputListener::didRecieveInputEvent(InputType type, int locX, int locY)
+{
+	Log(LOG_EVENT, "GameController",  "DidRecieveInputEvent");
 }

@@ -18,7 +18,7 @@ InputManager::~InputManager()
     
 }
 
-void InputManager::passInputEvent(InputType input, float locX, float locY)
+void InputManager::passInputEvent(InputType input, int locX, int locY)
 {
     Log(LOG_EVENT, "InputManager", "Passing inputEvent");
     

@@ -64,7 +64,7 @@ public:
     //  coordinates.
     //  The coordinate system used is with origin in the lower left 
     //  corner and coordinates (1,1) in the upper right cornder.
-    void passInputEvent(InputType input, float locX, float locY);
+    void passInputEvent(InputType input, int locX, int locY);
     
     //  Add an inputListener which will recieve input events.
     void addInputListener(IInputListener* listener);

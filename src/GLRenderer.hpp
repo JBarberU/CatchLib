@@ -7,10 +7,10 @@
 //
 
 #if __APPLE__
-#include <OpenGLES/ES1/glext.h>
+#include <OpenGLES/ES2/gl.h>
 #else
-#include <GLES/gl.h>
-#include <GLES/glext.h>
+#include <GLES2/gl2.h>
+#include <GLES2/gl2ext.h>
 #endif
 
 #ifndef CatchiOS_FileManager_h
@@ -30,8 +30,18 @@ public:
 	~GLRenderer();
 
 	void init(int width, int height);
+	void createFrameBuffer();
 	void render();
-
+    
+private:
+    GLuint BuildShader(const char* source, GLenum shaderType) const;
+    GLuint BuildProgram(const char* vShader, const char* fShader) const;
+    void ApplyOrtho(float maxX, float maxY) const;
+    void ApplyRotation(float degrees) const;
+    
+    GLuint m_simpleProgram;
+    GLuint m_framebuffer;
+    GLuint m_renderbuffer;
 };
 
 
