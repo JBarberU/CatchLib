@@ -54,9 +54,26 @@ GLRenderer::GLRenderer()
 	Log(LOG_INFO, "GLRenderer", "Constructed a GLRenderer!");
     Log(LOG_INFO, "GLRenderer", (const char *)glGetString(GL_VERSION));
     
-    
+    // Create a renderbuffer and bind it
     glGenRenderbuffers(1, &m_renderbuffer);
     glBindRenderbuffer(GL_RENDERBUFFER, m_renderbuffer);
+    
+    
+    // Create the framebuffer object and attach the color buffer.
+    m_framebuffer = 0; // Set framebufferID to default ID
+    
+    // Only generate a new framebuffer if running in iOS as
+    // Android seems to have no support for this.
+    #ifdef __APPLE__
+        glGenFramebuffers(1, &m_framebuffer);
+    #endif
+    
+    // Bind the framebuffer
+    glBindFramebuffer(GL_FRAMEBUFFER, m_framebuffer);
+    
+    // Connect the framebuffer and the renderbuffer
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, m_renderbuffer);
+    
 }
 GLRenderer::~GLRenderer()
 {
@@ -67,10 +84,10 @@ GLRenderer::~GLRenderer()
 void GLRenderer::init(int width, int height)
 {
 	Log(LOG_INFO, "GLRenderer", "Initialized GLRenderer");
-    InputManager::getSharedManager()->passInputEvent(TOUCH, 1, 3);
-    
+
     glViewport(0, 0, width, height);
-    
+
+    // Build shader program
     m_simpleProgram = BuildProgram(SIMPLE_VERTEX_SHADER, SIMPLE_FRAGMENT_SHADER);
     
     glUseProgram(m_simpleProgram);
@@ -79,17 +96,6 @@ void GLRenderer::init(int width, int height)
     ApplyOrtho(2, 3);
 
     Log(LOG_INFO, "GLRenderer", "Done with init code.");
-}
-
-void GLRenderer::createFrameBuffer()
-{
-    /*
-     *  Create the framebuffer object and attach the color buffer.
-     *  only needed for iOS
-     */
-    glGenFramebuffers(1, &m_framebuffer);
-    glBindFramebuffer(GL_FRAMEBUFFER, m_framebuffer);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, m_renderbuffer);
 }
 
 void GLRenderer::render()
@@ -117,8 +123,6 @@ void GLRenderer::render()
 
     glDisableVertexAttribArray(positionSlot);
     glDisableVertexAttribArray(colorSlot);
-    
-
 }
 
 GLuint GLRenderer::BuildProgram(const char* vertexShaderSource, const char* fragmentShaderSource) const
