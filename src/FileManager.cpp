@@ -53,14 +53,15 @@ CLTexture* loadTextureFromFile(const char* filename)
 		data[i] = rawImage.at(i);
 	}
 
-	CLTexture texture = new CLTexture();
+	CLTexture *texturePtr;
+	texturePtr = new CLTexture;
 
-	texture.data = data;
-	texture.height = height;
-	texture.width = width;
-	texture.type = GL_UNSIGNED_BYTE;
-	texture.internalFormat = GL_RGBA;
+	texturePtr->data = data;
+	texturePtr->height = height;
+	texturePtr->width = width;
+	texturePtr->type = GL_UNSIGNED_BYTE;
+	texturePtr->internalFormat = GL_RGBA;
 
-	return texture;
+	return texturePtr;
 
 }
