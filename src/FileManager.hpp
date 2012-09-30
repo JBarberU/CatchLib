@@ -27,8 +27,6 @@
 #include <GLES/gl.h>
 #include <GLES/glext.h>
 #endif
-#include <Lodepng.hpp>
-
 
 //  CLTexture
 //  A struct used to represent an Image in a way that is 
