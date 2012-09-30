@@ -28,33 +28,15 @@
 #include <GLES/glext.h>
 #endif
 
-
-//  CLTexture
-//  A struct used to represent an Image in a way that is 
-//  relevant to OpenGL. It contains:
-//  - internalFormat, which must be one of the following:
-//          GL_ALPHA, GL_RGB, GL_RGBA, GL_LUMINANCE, GL_LUMINANCE_ALPHA
-//  - width, the width of the image in pixels.
-//  - height, the height of the image in pixels.
-//  - type, can be one of the following:
-//          GL_UNSIGNED_BYTE, GL_UNSIGNED_SHORT_5_6_5, 
-//          GL_UNSIGNED_SHORT_4_4_4_4, GL_UNSIGNED_SHORT_5_5_5_1
-//  - data, a pointer to the image data in memory.
-
-struct CLTexture{
-    GLint           internalFormat;
-    GLsizei         width;
-    GLsizei         height;
-    GLenum          type;
-    const GLvoid*   data;
-};
+#include <string>
+#include "SCLTexture.hpp"
 
 //  FileManager
 //  Used for managing the files (should have different 
 //  implementation on different devices).
 class FileManager {
 private:
-    const char* m_basePath;
+    std::string m_basePath;
     
 public:
     
