@@ -27,7 +27,7 @@
 #include <GLES/gl.h>
 #include <GLES/glext.h>
 #endif
-
+#include <Lodepng.hpp>
 
 
 //  CLTexture
@@ -38,7 +38,7 @@
 //  - width, the width of the image in pixels.
 //  - height, the height of the image in pixels.
 //  - type, can be one of the following:
-//          GL_UNSIGNED_BYTE, GL_UNSIGNED_SHORT_5_6_5,
+//          GL_UNSIGNED_BYTE, GL_UNSIGNED_SHORT_5_6_5, 
 //          GL_UNSIGNED_SHORT_4_4_4_4, GL_UNSIGNED_SHORT_5_5_5_1
 //  - data, a pointer to the image data in memory.
 
