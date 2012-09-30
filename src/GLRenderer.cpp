@@ -69,11 +69,6 @@ void GLRenderer::init(int width, int height)
 	Log(LOG_INFO, "GLRenderer", "Initialized GLRenderer");
     InputManager::getSharedManager()->passInputEvent(TOUCH, 1, 3);
     
-    // Create the framebuffer object and attach the color buffer.
-    glGenFramebuffers(1, &m_framebuffer);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, m_renderbuffer);
-    
     glViewport(0, 0, width, height);
     
     m_simpleProgram = BuildProgram(SIMPLE_VERTEX_SHADER, SIMPLE_FRAGMENT_SHADER);
@@ -84,6 +79,17 @@ void GLRenderer::init(int width, int height)
     ApplyOrtho(2, 3);
 
     Log(LOG_INFO, "GLRenderer", "Done with init code.");
+}
+
+void GLRenderer::createFrameBuffer()
+{
+    /*
+     *  Create the framebuffer object and attach the color buffer.
+     *  only needed for iOS
+     */
+    glGenFramebuffers(1, &m_framebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, m_framebuffer);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, m_renderbuffer);
 }
 
 void GLRenderer::render()
