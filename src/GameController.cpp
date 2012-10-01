@@ -11,10 +11,9 @@
 #include "InputManager.hpp"
 
 
-
 GameController::GameController(int width, int height, const char* resourcesPath)
 {
-    Log(LOG_INFO, "GameController", "Constructed GameController");
+    Log(LOG_INFO, "GameController", generateCString("GameCon: %ix%i anPB: %s", width, height, resourcesPath));
     
     InputManager::getSharedManager()->addInputListener(this);
     
