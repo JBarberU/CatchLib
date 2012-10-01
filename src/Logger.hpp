@@ -15,6 +15,8 @@
 //  log
 //    Takes a message and displays it in the system log.
 
+#include "CStringer.hpp"
+
 enum LogTag{
 	LOG_INFO,
 	LOG_EVENT,
