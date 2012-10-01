@@ -18,20 +18,19 @@ GameController::GameController(int width, int height, const char* resourcesPath)
     InputManager::getSharedManager()->addInputListener(this);
     
     m_fileManager = new FileManager(resourcesPath);
-    m_renderer = new GLRenderer();
+    m_renderer = CreateRendererWithOpenGL10();
     m_renderer->init(width, height);
 }
 GameController::~GameController()
 {
     Log(LOG_INFO, "GameController", "Destroyed GameController");
-    m_renderer->~GLRenderer();
 }
 
-void GameController::setRenderer(GLRenderer* r)
+void GameController::setRenderer(IRenderer* r)
 {
 	this->m_renderer = r;
 }
-GLRenderer* GameController::getRenderer()
+IRenderer* GameController::getRenderer()
 {
 	return m_renderer;
 }

@@ -9,21 +9,21 @@
 #ifndef CatchiOS_GameController_hpp
 #define CatchiOS_GameController_hpp
 
-#include "GLRenderer.hpp"
+#include "IRenderer.hpp"
 #include "FileManager.hpp"
 #include "IInputListener.hpp"
 #include "EInputType.hpp"
 
 class GameController : public IInputListener {
 private:
-    GLRenderer* m_renderer;
+    IRenderer* m_renderer;
     FileManager* m_fileManager;
 public:
     GameController(int width, int height, const char* resourcesPath);
     ~GameController();
 
-    void setRenderer(GLRenderer* r);
-    GLRenderer* getRenderer();
+    void setRenderer(IRenderer* r);
+    IRenderer* getRenderer();
     
     virtual void didRecieveInputEvent(InputType type, int locX, int locY);
 };

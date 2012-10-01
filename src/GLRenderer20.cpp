@@ -7,7 +7,7 @@
 //
 
 #include "Logger.hpp"
-#include "GLRenderer.hpp"
+#include "GLRenderer20.hpp"
 #include "InputManager.hpp"
 
 #include <cmath>
@@ -49,10 +49,15 @@ const Vertex Vertecies[] = {
     {{0, -0.4f},            {clearColor[0],clearColor[1],clearColor[2],clearColor[3]}},
 };
 
-GLRenderer::GLRenderer()
+IRenderer* CreateRendererWithOpenGL20()
 {
-	Log(LOG_INFO, "GLRenderer", "Constructed a GLRenderer!");
-    Log(LOG_INFO, "GLRenderer", (const char *)glGetString(GL_VERSION));
+    return new GLRenderer20();
+}
+
+GLRenderer20::GLRenderer20()
+{
+	Log(LOG_INFO, "GLRenderer20", "Constructed a GLRenderer!");
+    Log(LOG_INFO, "GLRenderer20", (const char *)glGetString(GL_VERSION));
     
     // Create a renderbuffer and bind it
     glGenRenderbuffers(1, &m_renderbuffer);
@@ -75,13 +80,13 @@ GLRenderer::GLRenderer()
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, m_renderbuffer);
     
 }
-GLRenderer::~GLRenderer()
+GLRenderer20::~GLRenderer20()
 {
 	Log(LOG_INFO, "GLRenderer", "Destroyed a GLRenderer!");
 }
 
 
-void GLRenderer::init(int width, int height)
+void GLRenderer20::init(int width, int height)
 {
 	Log(LOG_INFO, "GLRenderer", "Initialized GLRenderer");
 
@@ -98,7 +103,7 @@ void GLRenderer::init(int width, int height)
     Log(LOG_INFO, "GLRenderer", "Done with init code.");
 }
 
-void GLRenderer::render()
+void GLRenderer20::render()
 {
     glClearColor(clearColor[0],clearColor[1],clearColor[2],clearColor[3]);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -124,8 +129,11 @@ void GLRenderer::render()
     glDisableVertexAttribArray(positionSlot);
     glDisableVertexAttribArray(colorSlot);
 }
-
-GLuint GLRenderer::BuildProgram(const char* vertexShaderSource, const char* fragmentShaderSource) const
+void GLRenderer20::update(float dt)
+{
+    // Intentionally left empty
+}
+GLuint GLRenderer20::BuildProgram(const char* vertexShaderSource, const char* fragmentShaderSource) const
 {
     
     GLuint vertexShader = BuildShader(vertexShaderSource, GL_VERTEX_SHADER);
@@ -148,7 +156,7 @@ GLuint GLRenderer::BuildProgram(const char* vertexShaderSource, const char* frag
     return programHandle;
 }
 
-GLuint GLRenderer::BuildShader(const char* source, GLenum shaderType) const
+GLuint GLRenderer20::BuildShader(const char* source, GLenum shaderType) const
 {
     
     GLuint shaderHandle = glCreateShader(shaderType);
@@ -167,7 +175,7 @@ GLuint GLRenderer::BuildShader(const char* source, GLenum shaderType) const
     return shaderHandle;
 }
 
-void GLRenderer::ApplyOrtho(float maxX, float maxY) const
+void GLRenderer20::ApplyOrtho(float maxX, float maxY) const
 {
     float a = 1.0f / maxX;
     float b = 1.0f / maxY;
@@ -182,7 +190,7 @@ void GLRenderer::ApplyOrtho(float maxX, float maxY) const
     glUniformMatrix4fv(projectionUniform, 1, 0, &ortho[0]);
 }
 
-void GLRenderer::ApplyRotation(float degrees) const
+void GLRenderer20::ApplyRotation(float degrees) const
 {
     float radians = degrees * 3.14159f / 180.0f;
     float s = std::sin(radians);

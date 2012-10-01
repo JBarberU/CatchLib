@@ -14,18 +14,19 @@
 #endif
 
 #include "SCLTexture.hpp"
+#include "IRenderer.hpp"
 
 #ifndef CatchiOS_FileManager_h
 #define CatchiOS_FileManager_h
 
-class GLRenderer {
+class GLRenderer20 : public IRenderer {
 public:
-	GLRenderer();
-	~GLRenderer();
+	GLRenderer20();
+	~GLRenderer20();
 
 	void init(int width, int height);
-	void createFrameBuffer();
 	void render();
+    void update(float dt);
         
 private:
     GLuint BuildShader(const char* source, GLenum shaderType) const;
