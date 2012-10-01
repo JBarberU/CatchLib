@@ -36,12 +36,15 @@ CLTexture* FileManager::loadTextureFromFile(const char* filename)
     
 
 	std::vector<unsigned char> rawImage;
-	std::vector<unsigned char> image;
-
+    std::vector<unsigned char> image;
+    
 	unsigned width, height;
-
-	lodepng::load_file(image, filepath.c_str());
-	unsigned error = lodepng::decode(rawImage, width, height, image);
+    
+	lodepng::load_file(image, filepath);
+    
+    const std::vector<unsigned char> rawIn = std::vector<unsigned char>(image);
+    
+	unsigned error = lodepng::decode(rawImage, width, height, rawIn);
 
 	if (error != 0)
 	{
@@ -52,11 +55,14 @@ CLTexture* FileManager::loadTextureFromFile(const char* filename)
 
 	int size = rawImage.size();
 	char* data = new char[size];
+    
+    std::cout << "Size = " << size << "\n";
+    std::cout << "WxH = " << width * height << "\n";
 
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < size; i +=4 )
 	{
 		data[i] = rawImage.at(i);
-        std::cout << "p: " << (((int)data[i] & 0xFF000000) >> 24) << "," << (((int)data[i] & 0xFF0000) >> 16) << "," << (((int)data[i] & 0xFF00) >> 8) << "," << ((int)data[i] & 0xFF) << "\n";
+        std::cout << "Derp: " << (int)rawImage.at(i) << "," << (int)rawImage.at(i+1) << "," << (int)rawImage.at(i+2) << "," << (int)rawImage.at(i+3) << "\n";
 	}
 
 	CLTexture *texturePtr;
