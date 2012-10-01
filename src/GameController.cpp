@@ -26,13 +26,10 @@ GameController::~GameController()
     Log(LOG_INFO, "GameController", "Destroyed GameController");
 }
 
-void GameController::setRenderer(IRenderer* r)
+void GameController::update(float dt)
 {
-	this->m_renderer = r;
-}
-IRenderer* GameController::getRenderer()
-{
-	return m_renderer;
+    m_renderer->update(dt);
+    m_renderer->render();
 }
 
 void GameController::didRecieveInputEvent(InputType type, int locX, int locY)

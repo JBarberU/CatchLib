@@ -22,9 +22,9 @@ public:
     GameController(int width, int height, const char* resourcesPath);
     ~GameController();
 
-    void setRenderer(IRenderer* r);
-    IRenderer* getRenderer();
+    void update(float dt);
     
+    //  IInputListener
     virtual void didRecieveInputEvent(InputType type, int locX, int locY);
 };
 
