@@ -12,13 +12,13 @@
 
 
 
-GameController::GameController(int width, int height)
+GameController::GameController(int width, int height, const char* resourcesPath)
 {
     Log(LOG_INFO, "GameController", "Constructed GameController");
     
     InputManager::getSharedManager()->addInputListener(this);
     
-    m_fileManager = new FileManager("CatchLib/src");
+    m_fileManager = new FileManager(resourcesPath);
     m_renderer = new GLRenderer();
     m_renderer->init(width, height);
 }
@@ -37,7 +37,8 @@ GLRenderer* GameController::getRenderer()
 	return m_renderer;
 }
 
-void IInputListener::didRecieveInputEvent(InputType type, int locX, int locY)
+void GameController::didRecieveInputEvent(InputType type, int locX, int locY)
 {
 	Log(LOG_EVENT, "GameController",  "DidRecieveInputEvent");
+    m_fileManager->loadTextureFromFile("color");
 }
