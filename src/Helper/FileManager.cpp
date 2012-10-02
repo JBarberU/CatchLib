@@ -7,7 +7,7 @@
 //
 
 #include "FileManager.hpp"
-#include "Includes/Lodepng.hpp"
+#include "../Includes/Lodepng.hpp"
 #include "Logger.hpp"
 #include <iostream>
 #include <vector>
