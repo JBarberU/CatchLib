@@ -9,6 +9,6 @@
 #ifndef __CatchiOS__CStringer__
 #define __CatchiOS__CStringer__
 
-const char* generateCString(const char* format, ...);
+char* generateCString(const char* format, ...);
 
 #endif /* defined(__CatchiOS__CStringer__) */

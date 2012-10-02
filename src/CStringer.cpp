@@ -9,13 +9,12 @@
 #include "CStringer.hpp"
 
 #include <sstream>
-#include <iostream>
-#include <string>
+#include <string.h>
 
 int s_overhead = 50;
 int s_incrementSize = 50;
 
-const char* generateCString(const char* format, ...)
+char* generateCString(const char* format, ...)
 {
     std::ostringstream message;
     
@@ -41,13 +40,16 @@ const char* generateCString(const char* format, ...)
                     break;
             }
         } else {
-            message << *fCpy;
+            message << (char)*fCpy;
         }
         
         fCpy++;
     }
-    
+
     va_end(ap);
+
+    char* c = new char[100];
+    strcpy(c, message.str().c_str());
     
-    return message.str().c_str();
+    return c;
 }
