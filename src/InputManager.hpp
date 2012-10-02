@@ -43,7 +43,8 @@
 struct InputListenerArray {
     IInputListener** m_listeners;
     int m_size;
-    InputListenerArray() {
+    InputListenerArray()
+    {
         m_listeners = 0;
         m_size = 0;
     }
