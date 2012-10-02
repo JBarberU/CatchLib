@@ -17,5 +17,5 @@
 class IEventHandler
 {
 public:
-	virtual void onEvent ()=0;
+	virtual void onEvent (EEvent event)=0;
 };
