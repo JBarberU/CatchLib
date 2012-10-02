@@ -29,7 +29,7 @@
 #endif
 
 #include <string>
-#include "SCLTexture.hpp"
+#include "../View/SCLTexture.hpp"
 
 //  FileManager
 //  Used for managing the files (should have different 

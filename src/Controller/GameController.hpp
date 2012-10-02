@@ -9,10 +9,10 @@
 #ifndef CatchiOS_GameController_hpp
 #define CatchiOS_GameController_hpp
 
-#include "IRenderer.hpp"
-#include "FileManager.hpp"
-#include "IInputListener.hpp"
-#include "EInputType.hpp"
+#include "../View/IRenderer.hpp"
+#include "../Helper/FileManager.hpp"
+#include "../Helper/IInputListener.hpp"
+#include "../Helper/EInputType.hpp"
 
 class GameController : public IInputListener {
 private:

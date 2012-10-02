@@ -6,13 +6,9 @@
 //  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
 //
 
-#include "Logger.hpp"
+#include "../Helper/Logger.hpp"
 #include "GLRenderer10.hpp"
-
-struct Vertex {
-    float Position[2];
-    float Color[4];
-};
+#include "Vertex.hpp"
 
 // Define the positions and colors of two triangles.
 const Vertex Vertecies[] = {
@@ -70,7 +66,8 @@ void GLRenderer10::render()
 {
     glClearColor(1, 0.5f, 0.5f, 1);
     glClear(GL_COLOR_BUFFER_BIT);
-        
+    
+    
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
     
