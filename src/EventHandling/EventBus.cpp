@@ -23,6 +23,9 @@ EventBus* EventBus::getSharedInstance()
 
 void EventBus::publishEvent(EEvent event, void* source)
 {
+	for(int i=0; i <= m_listeners->m_index; i++) {
+		m_listeners->m_eventListeners[i]->onEvent(event, source);
+	}
 
 }
 void EventBus::addEventListener(IEventListener* listener)
