@@ -22,7 +22,7 @@ public:
            int textureID);
     ~Sprite();
     
-    const Vertex* getVertexData();
+    const Vertex* getTextureVertexData();
     int getTextudeID();
 };
 

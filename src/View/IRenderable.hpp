@@ -14,6 +14,7 @@
 class IRenderable {
 public:
     virtual const Vertex* getVertexData() = 0;
+    virtual const Vertex* getTextureVertexData() = 0;
     virtual int getTextureID() = 0;
     virtual void update(float dt) = 0;
 };

@@ -13,6 +13,7 @@
 
 class PBody
 {
+public:
 	~PBody();
 	PBody();
 };

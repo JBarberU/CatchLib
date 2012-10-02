@@ -26,7 +26,7 @@ public:
     ~Animation();
     
     int getTextureID();
-    const Vertex* getVertexData();
+    const Vertex* getTextureVertexData();
     void update(float dt);
 };
 

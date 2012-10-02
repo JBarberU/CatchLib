@@ -29,7 +29,7 @@ Sprite::~Sprite()
     
 }
 
-const Vertex* Sprite::getVertexData()
+const Vertex* Sprite::getTextureVertexData()
 {
     return m_vertex;
 }

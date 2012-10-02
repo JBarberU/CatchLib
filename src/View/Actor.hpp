@@ -18,7 +18,11 @@ private:
     Animation** m_animations;
     Animation* m_currentAnimation;
 public:
+    Actor(Animation** animations, Animation* currentAnimation);
+    ~Actor();
+    
     virtual const Vertex* getVertexData();
+    virtual const Vertex* getTextureVertexData();
     virtual int getTextureID();
     virtual void update(float dt);    // Setter for the object to follow
     // Reset actor

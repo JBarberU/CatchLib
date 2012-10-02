@@ -22,9 +22,9 @@ int Animation::getTextureID()
 {
     return m_currentSprite->getTextudeID();
 }
-const Vertex* Animation::getVertexData()
+const Vertex* Animation::getTextureVertexData()
 {
-    return m_currentSprite->getVertexData();
+    return m_currentSprite->getTextureVertexData();
 }
 void Animation::update(float dt)
 {
