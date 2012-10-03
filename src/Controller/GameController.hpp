@@ -13,8 +13,14 @@
 #include "../Helper/FileManager.hpp"
 #include "../Helper/IInputListener.hpp"
 #include "../Helper/EInputType.hpp"
+#include "IRenderer.hpp"
+#include "FileManager.hpp"
+#include "IInputListener.hpp"
+#include "EInputType.hpp"
+#include "EventHandling/IEventListener.hpp"
+#include "EventHandling/EEvent.hpp"
 
-class GameController : public IInputListener {
+class GameController : public IInputListener, public IEventListener {
 private:
     IRenderer* m_renderer;
     FileManager* m_fileManager;
@@ -26,6 +32,8 @@ public:
     
     //  IInputListener
     virtual void didRecieveInputEvent(InputType type, int locX, int locY);
+
+    virtual void onEvent(EEvent event, void* source);
 };
 
 #endif

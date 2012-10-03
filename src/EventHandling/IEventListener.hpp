@@ -14,6 +14,8 @@
 //	 event callback.
 //
 
+#include "EEvent.hpp"
+#pragma once
 class IEventListener
 {
 public:
