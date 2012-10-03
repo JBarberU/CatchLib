@@ -9,6 +9,7 @@
 #include "FileManager.hpp"
 #include "../Includes/Lodepng.hpp"
 #include "Logger.hpp"
+#include "CStringer.hpp"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -56,13 +57,16 @@ CLTexture* FileManager::loadTextureFromFile(const char* filename)
 	int size = rawImage.size();
 	char* data = new char[size];
     
-    std::cout << "Size = " << size << "\n";
-    std::cout << "WxH = " << width * height << "\n";
+//  std::cout << "Size = " << size << "\n";
+//  std::cout << "WxH = " << width * height << "\n";
+    Log(LOG_TAG, "FileManager", CStringer.generateCString("Size = %i", size));
+    Log(LOG_TAG, "FileManager", CStringer.generateCString("WxH = %i", width * height));
 
 	for (int i = 0; i < size; i +=4 )
 	{
 		data[i] = rawImage.at(i);
-        std::cout << "Derp: " << (int)rawImage.at(i) << "," << (int)rawImage.at(i+1) << "," << (int)rawImage.at(i+2) << "," << (int)rawImage.at(i+3) << "\n";
+        //std::cout << "Derp: " << (int)rawImage.at(i) << "," << (int)rawImage.at(i+1) << "," << (int)rawImage.at(i+2) << "," << (int)rawImage.at(i+3) << "\n";
+	    Log(LOG_TAG, "FileManager", CStringer.generateCString("Derp:  = %i, %i, %i, %i", (int)rawImage.at(i), (int)rawImage.at(i+1), (int)rawImage.at(i+2), (int)rawImage.at(i+3)));
 	}
 
 	CLTexture *texturePtr;
