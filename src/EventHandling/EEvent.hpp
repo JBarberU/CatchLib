@@ -8,6 +8,8 @@
 //	Enum class for different events.
 //
 //
+#pragma once
+
 
 enum EEvent
 {
@@ -18,3 +20,4 @@ enum EEvent
 	GAME_PAUSED,
 	GAME_OVER
 };
+
