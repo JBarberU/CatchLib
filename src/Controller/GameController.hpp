@@ -10,7 +10,6 @@
 #define CatchiOS_GameController_hpp
 
 #include "../View/IRenderer.hpp"
-#include "../Helper/FileManager.hpp"
 #include "../Helper/IInputListener.hpp"
 #include "../Helper/EInputType.hpp"
 #include "IRenderer.hpp"
@@ -21,9 +20,8 @@
 class GameController : public IInputListener {
 private:
     IRenderer* m_renderer;
-    FileManager* m_fileManager;
 public:
-    GameController(int width, int height, const char* resourcesPath);
+    GameController(int width, int height);
     ~GameController();
 
     void update(float dt);
