@@ -35,16 +35,7 @@
 //  Used for managing the files (should have different 
 //  implementation on different devices).
 class FileManager {
-private:
-    std::string m_basePath;
-    
+
 public:
-    
-    FileManager(const char* basePath);
-    ~FileManager();
-    
-    //  loadTextureFromFile
-    //  Loads a CLTexture from the given filename which 
-    //  is then ready for use with OpenGL.
-    CLTexture* loadTextureFromFile(const char* file);
+    static CLTexture* loadTexture(const char* fileName);
 };
