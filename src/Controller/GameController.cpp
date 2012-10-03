@@ -7,8 +7,8 @@
 //
 
 #include "GameController.hpp"
-#include "Logger.hpp"
-#include "InputManager.hpp"
+#include "../Helper/Logger.hpp"
+#include "../Helper/InputManager.hpp"
 
 
 GameController::GameController(int width, int height, const char* resourcesPath)
