@@ -88,7 +88,7 @@ void GLRenderer10::init(int width, int height)
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glEnableClientState(GL_VERTEX_ARRAY);
     
-//    CLTexture *texture = FileManager::loadTexture("color");
+//    CLTexture *texture = FileManager::loadTexture("Sprite");
     
     GLuint imgW = 4;
     GLuint imgH = 4;
@@ -117,10 +117,6 @@ GLuint GLRenderer10::loadTexture(CLTexture* texture)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     
-    for (int i = 0; i < texture->getWidth() * texture->getHeight() * 4; i+=4) {
-        Log(LOG_INFO, "Loaoding tex", generateCString("CLR: %i,%i,%i.%i", (int)texture->getData()[i], (int)texture->getData()[i+1], (int)texture->getData()[i+2], (int)texture->getData()[i+3]));
-    }
-    
     return tID;
 }
 
@@ -142,11 +138,9 @@ void GLRenderer10::render()
 }
 
 void GLRenderer10::update(float dt)
-{
-    Log(LOG_INFO, "GLRenderer", generateCString("Update with dt: %d", dt));
-    
+{    
     glMatrixMode(GL_MODELVIEW);
-    glRotatef(500*dt, 0, 0, 1);
+    glRotatef(200*dt, 0, 0, 1);
 }
 
 
