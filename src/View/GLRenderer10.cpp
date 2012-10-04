@@ -53,7 +53,6 @@ GLRenderer10::GLRenderer10()
     // Create the framebuffer object and attach the color buffer.
     glGenFramebuffersOES(1, &m_framebuffer);
     glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_framebuffer);
-    glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, m_renderbuffer);
 #endif
 }
 GLRenderer10::~GLRenderer10()
@@ -65,6 +64,11 @@ GLuint texID;
 
 void GLRenderer10::init(int width, int height)
 {
+    
+#ifdef __APPLE__
+    glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, m_renderbuffer);
+#endif
+    
 	Log(LOG_INFO, "GLRenderer10", generateCString("Init WH: %ix%i", width, height));
  
     glViewport(0, 0, width, height);
@@ -84,24 +88,21 @@ void GLRenderer10::init(int width, int height)
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glEnableClientState(GL_VERTEX_ARRAY);
     
-//    CLTexture *texture = FileManager::loadTexture("Sprite");
+//    CLTexture *texture = FileManager::loadTexture("color");
     
-    GLuint imgW = 10;
-    GLuint imgH = 10;
+    GLuint imgW = 4;
+    GLuint imgH = 4;
     
-    GLubyte* imgData = (GLubyte *) calloc(imgW * imgH * 4, sizeof(GLubyte));
-    
-    for (int i = 0; i < imgW * imgH * 4; i+=4) {
-        imgData[i] = 0x00;
-        imgData[i+1] = 0x70;
-        imgData[i+2] = 0xff;
-        imgData[i+3] = 0xff;
-    }
+    unsigned char imgData2[] = {
+        0xff,0x00,0x00,0xff, 0xff,0x00,0x00,0xff, 0xff,0x00,0x00,0xff, 0xff,0x00,0x00,0xff,
+        0x00,0xff,0x00,0xff, 0x00,0xff,0x00,0xff, 0x00,0xff,0x00,0xff, 0x00,0xff,0x00,0xff,
+        0x00,0x00,0xff,0xff, 0x00,0x00,0xff,0xff, 0x00,0x00,0xff,0xff, 0x00,0x00,0xff,0xff,
+        0x00,0x00,0x00,0xa0, 0x00,0x00,0x00,0xa0, 0x00,0x00,0x00,0xa0, 0x00,0x00,0x00,0xa0, 
+
+    };
     
     CLTexture *texture = new CLTexture();
-    texture->width = imgW;
-    texture->height = imgH;
-    texture->data = imgData;
+    texture->setData(imgData2, imgW, imgH);
     
     m_texture = this->loadTexture(texture);
 }
@@ -112,9 +113,14 @@ GLuint GLRenderer10::loadTexture(CLTexture* texture)
     
     glGenTextures(1, &tID);
     glBindTexture(GL_TEXTURE_2D, tID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->width, texture->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture->data);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->getWidth(), texture->getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, texture->getData());
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    
+    for (int i = 0; i < texture->getWidth() * texture->getHeight() * 4; i+=4) {
+        Log(LOG_INFO, "Loaoding tex", generateCString("CLR: %i,%i,%i.%i", (int)texture->getData()[i], (int)texture->getData()[i+1], (int)texture->getData()[i+2], (int)texture->getData()[i+3]));
+    }
+    
     return tID;
 }
 
