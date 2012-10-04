@@ -12,10 +12,6 @@
 #include "../View/IRenderer.hpp"
 #include "../Helper/IInputListener.hpp"
 #include "../Helper/EInputType.hpp"
-#include "IRenderer.hpp"
-#include "FileManager.hpp"
-#include "IInputListener.hpp"
-#include "EInputType.hpp"
 
 class GameController : public IInputListener {
 private:
