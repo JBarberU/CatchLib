@@ -137,8 +137,10 @@ void GLRenderer10::render()
 
 void GLRenderer10::update(float dt)
 {
-//    glMatrixMode(GL_MODELVIEW);
-//    glRotatef(500*dt, 0, 0, 1);
+    Log(LOG_INFO, "GLRenderer", generateCString("Update with dt: %d", dt));
+    
+    glMatrixMode(GL_MODELVIEW);
+    glRotatef(500*dt, 0, 0, 1);
 }
 
 
