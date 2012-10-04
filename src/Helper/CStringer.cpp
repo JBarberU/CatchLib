@@ -48,7 +48,7 @@ char* generateCString(const char* format, ...)
 
     va_end(ap);
 
-    char* c = new char[100];
+    char* c = new char[200];
     strcpy(c, message.str().c_str());
     
     return c;

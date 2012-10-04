@@ -15,6 +15,7 @@
 #endif
 
 #include "IRenderer.hpp"
+#include "SCLTexture.hpp"
 
 class GLRenderer10 : public IRenderer{
 public:
@@ -27,5 +28,8 @@ public:
 
 private:
     GLuint m_framebuffer;
+    GLuint m_texture;
     GLuint m_renderbuffer;
+    
+    GLuint loadTexture(CLTexture *texture);
 };

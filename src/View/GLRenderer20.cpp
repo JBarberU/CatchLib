@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
 //
 
-#include "Logger.hpp"
+#include "../Helper/Logger.hpp"
 #include "GLRenderer20.hpp"
-#include "InputManager.hpp"
+#include "../Helper/InputManager.hpp"
 
 #include <cmath>
 
