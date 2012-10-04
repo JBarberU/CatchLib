@@ -15,7 +15,7 @@
 #endif
 
 #include "IRenderer.hpp"
-#include "SCLTexture.hpp"
+#include "CLTexture.hpp"
 
 class GLRenderer10 : public IRenderer{
 public:

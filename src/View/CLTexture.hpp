@@ -1,5 +1,5 @@
 //
-//  SCLTexture.h
+//  SCLTexture.hpp
 //  CatchiOS
 //
 //  Created by John Barbero Unenge on 10/1/12.
@@ -21,13 +21,18 @@
 //          GL_UNSIGNED_BYTE, GL_UNSIGNED_SHORT_5_6_5,
 //          GL_UNSIGNED_SHORT_4_4_4_4, GL_UNSIGNED_SHORT_5_5_5_1
 //  - data, a pointer to the image data in memory.
-struct CLTexture{
-	GLint           internalFormat;
-    GLsizei         width;
-    GLsizei         height;
-    GLenum          format;
-    GLenum          type;
-    const GLvoid*   data;
+class CLTexture{
+private:
+    unsigned char*  m_data;
+    int             m_width;
+    int             m_height;
+    
+public:
+    void setData(unsigned char* newData, int width, int height);
+    unsigned char* getData();
+    int getWidth();
+    int getHeight();
+    
 };
 
 #endif /* defined(__CatchiOS__SCLTexture__) */

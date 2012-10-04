@@ -13,7 +13,7 @@
 #include <GLES2/gl2ext.h>
 #endif
 
-#include "SCLTexture.hpp"
+#include "CLTexture.hpp"
 #include "IRenderer.hpp"
 
 #ifndef CatchiOS_FileManager_h
