@@ -1,6 +1,5 @@
 #include "EEvent.hpp"
 #include "EventBus.hpp"
-#include "../Helper/Logger.hpp"
 
 
 EventBus::~EventBus()
@@ -19,7 +18,6 @@ EventBus* EventBus::getSharedInstance()
 	{
 		s_sharedBus = new EventBus();
 	}
-    Log(LOG_INFO, "EventBus", "Shared instance accesed");
 	return s_sharedBus;
 }
 
@@ -33,7 +31,6 @@ void EventBus::publishEvent(EEvent event, void* source)
 
 void EventBus::addEventListener(IEventListener* listener)
 {
-    Log(LOG_INFO, "EventBus", "Added event listener");
 	listeners.push_back(listener);
 }
 
