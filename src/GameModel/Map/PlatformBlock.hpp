@@ -9,14 +9,27 @@
 //
 //
 
-#include "PBody.hpp"
+#include "../Physics/PBody.hpp"
+#include "../Physics/Vector2d.hpp"
 
-class PlatformBlock: public PBody
+enum Blocktype
+{
+	INCLINE,
+	HORIZONTAL,
+	DECLINE
+};
+
+class PlatformBlock
 {
 public:
 	~PlatformBlock();
-	PlatformBlock();
+	PlatformBlock(Blocktype type);
+	void setStartPoint(Vector2d* vector);
+	Blocktype getType();
+	Vector2d* getStartVector();
+	Vector2d* getEndVector();
 
 private:
-	float xStart, yStart, xEnd, yEnd;
+	Blocktype type;
+	Vector2d* startVector;
 };
