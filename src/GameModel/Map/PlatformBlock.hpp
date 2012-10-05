@@ -16,4 +16,7 @@ class PlatformBlock: public PBody
 public:
 	~PlatformBlock();
 	PlatformBlock();
+
+private:
+	float xStart, yStart, xEnd, yEnd;
 };
