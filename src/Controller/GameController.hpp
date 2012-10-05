@@ -12,12 +12,13 @@
 #include "../View/IRenderer.hpp"
 #include "../Helper/IInputListener.hpp"
 #include "../Helper/EInputType.hpp"
+#include "../View/CLTexture.hpp"
 
 class GameController : public IInputListener {
 private:
     IRenderer* m_renderer;
 public:
-    GameController(int width, int height);
+    GameController(int width, int height, CLTexture* texture);
     ~GameController();
 
     void update(float dt);
