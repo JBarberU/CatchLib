@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
 //
 
-#ifdef __APPLE__
+#ifdef __IPHONE_NA
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
 #else
@@ -22,14 +22,18 @@ public:
 	GLRenderer10();
 	~GLRenderer10();
 
-	void init(int width, int height);
+	void init(int width, int height, CLTexture* texture);
 	void render();
     void update(float dt);
+    void addActor(Actor* actor);
+    void removeActor(Actor* actor);
 
 private:
     GLuint m_framebuffer;
     GLuint m_texture;
     GLuint m_renderbuffer;
+    
+    ActorArray* m_actors;
     
     GLuint loadTexture(CLTexture *texture);
 };

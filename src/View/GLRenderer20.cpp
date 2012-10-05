@@ -31,22 +31,17 @@ const char SIMPLE_FRAGMENT_SHADER[] =
         "gl_FragColor = DestinationColor;\n"
     "}\n";
 
-struct Vertex {
-    float Position[2];
-    float Color[4];
-};
-
 float clearColor[] = {0.5f, 0.0f, 0.5f, 1.0f};
 
 // Define the positions and colors of two triangles.
 const Vertex Vertecies[] = {
-    {{-0.5f, -0.866f},      {1, 1, 0.5f, 1}},
-    {{0.5f, -0.866f},       {1, 1, 0.5f, 1}},
-    {{0, 1},                {1, 1, 0.5f, 1}},
+    Vertex(-0.5f, -0.866f),
+    Vertex(0.5f, -0.866f),
+    Vertex(0,01),
     
-    {{-0.5f, -0.866f},      {clearColor[0],clearColor[1],clearColor[2],clearColor[3]}},
-    {{0.5f, -0.866f},       {clearColor[0],clearColor[1],clearColor[2],clearColor[3]}},
-    {{0, -0.4f},            {clearColor[0],clearColor[1],clearColor[2],clearColor[3]}},
+    Vertex(-0.5f, -0.866f),
+    Vertex(0.5f, -0.866f),
+    Vertex(0, -0.4f),
 };
 
 IRenderer* CreateRendererWithOpenGL20()
@@ -86,7 +81,7 @@ GLRenderer20::~GLRenderer20()
 }
 
 
-void GLRenderer20::init(int width, int height)
+void GLRenderer20::init(int width, int height, CLTexture* texture)
 {
 	Log(LOG_INFO, "GLRenderer", "Initialized GLRenderer");
 
@@ -133,6 +128,16 @@ void GLRenderer20::update(float dt)
 {
     // Intentionally left empty
 }
+void GLRenderer20::addActor(Actor* actor)
+{
+    // Intentionally left empty
+}
+void GLRenderer20::removeActor(Actor* actor)
+{
+    // Intentionally left empty
+}
+
+
 GLuint GLRenderer20::BuildProgram(const char* vertexShaderSource, const char* fragmentShaderSource) const
 {
     

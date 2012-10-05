@@ -13,17 +13,16 @@
 
 class Sprite {
 private:
-    int m_textureID;
-    const Vertex *m_vertex;
+    int             m_textureID;
+    const Vertex*   m_vertex;
     
 public:
-    Sprite(float spriteLocX, float spriteLocY,
-           float spriteLocWidth, float spriteLocHeight,
-           int textureID);
+    Sprite(float spriteLocX, float spriteLocY, float spriteLocWidth, float spriteLocHeight, int textureID);
+    Sprite(Sprite* sprite);
     ~Sprite();
     
     const Vertex* getTextureVertexData();
-    int getTextudeID();
+    int getTextureID();
 };
 
 #endif /* defined(__CatchiOS__Sprite__) */

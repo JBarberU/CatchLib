@@ -12,17 +12,28 @@
 #include "Vertex.hpp"
 #include "Sprite.hpp"
 
+struct SpriteArray{
+    Sprite**    m_spritesArray;
+    int         m_size;
+    SpriteArray(Sprite** sprites, int size) {
+        m_spritesArray = sprites;
+        m_size = size;
+    }
+};
+
 class Animation {
 private:
     float m_timeElapsed;
     float m_timePerFrame;
     bool m_looping;
-    Sprite** m_sprites;
+    
+    SpriteArray* m_sprites;
     Sprite* m_currentSprite;
     // Callback function pointer should be saved here
     
 public:
-    Animation();
+    Animation(SpriteArray* sprites, Sprite* currentSprite, float timePerFrameMillis, bool looping);
+    Animation(Animation* animation);
     ~Animation();
     
     int getTextureID();

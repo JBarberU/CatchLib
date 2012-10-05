@@ -10,30 +10,19 @@
 #include "GLRenderer10.hpp"
 #include "Vertex.hpp"
 #include "../Helper/FileManager.hpp"
-
-// Define the positions and colors of two triangles.
-const Vertex Vertecies[] = {
-    {{-0.5f, -0.866f},  {1, 1, 0.5f, 1}},
-    {{0.5f, -0.866f},   {1, 1, 0.5f, 1}},
-    {{0, 1},            {1, 1, 0.5f, 1}},
-    
-    {{-0.5f, -0.866f},  {0.5f, 0.5f, 0.5f}},
-    {{0.5f, -0.866f},   {0.5f, 0.5f, 0.5f}},
-    {{0, -0.4f},        {0.5f, 0.5f, 0.5f}},
-};
+#include "ActorsLoader.hpp"
 
 const Vertex shape[] = {
-    {{0,0}, {1,1,1,1}},
-    {{1,0}, {1,1,1,1}},
-    {{0,1}, {1,1,1,1}},
-    {{1,1}, {0,0,0,0}},
-    
+    Vertex(0,0),
+    Vertex(1,0),
+    Vertex(0,1),
+    Vertex(1,1),
 };
 const Vertex txPos[] = {
-    {{0,0}, {0,0,0,0}},
-    {{1,0}, {0,0,0,0}},
-    {{0,1}, {0,0,0,0}},
-    {{1,1}, {0,0,0,0}},
+    Vertex(0,0),
+    Vertex(1,0),
+    Vertex(0,1),
+    Vertex(1,1),
     
 };
 
@@ -62,7 +51,7 @@ GLRenderer10::~GLRenderer10()
 
 GLuint texID;
 
-void GLRenderer10::init(int width, int height)
+void GLRenderer10::init(int width, int height, CLTexture* texture)
 {
     
 #ifdef __APPLE__
@@ -82,27 +71,15 @@ void GLRenderer10::init(int width, int height)
     
     glMatrixMode(GL_MODELVIEW);
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable(GL_DEPTH_TEST);
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glEnableClientState(GL_VERTEX_ARRAY);
+        
+    m_actors = new ActorArray();
     
-//    CLTexture *texture = FileManager::loadTexture("Sprite");
-    
-    GLuint imgW = 4;
-    GLuint imgH = 4;
-    
-    unsigned char imgData2[] = {
-        0xff,0x00,0x00,0xff, 0xff,0x00,0x00,0xff, 0xff,0x00,0x00,0xff, 0xff,0x00,0x00,0xff,
-        0x00,0xff,0x00,0xff, 0x00,0xff,0x00,0xff, 0x00,0xff,0x00,0xff, 0x00,0xff,0x00,0xff,
-        0x00,0x00,0xff,0xff, 0x00,0x00,0xff,0xff, 0x00,0x00,0xff,0xff, 0x00,0x00,0xff,0xff,
-        0x00,0x00,0x00,0xa0, 0x00,0x00,0x00,0xa0, 0x00,0x00,0x00,0xa0, 0x00,0x00,0x00,0xa0, 
-
-    };
-    
-    CLTexture *texture = new CLTexture();
-    texture->setData(imgData2, imgW, imgH);
+    ActorsLoader::init(m_texture);
+    this->addActor(ActorsLoader::newMainCharacterActor());
     
     m_texture = this->loadTexture(texture);
 }
@@ -121,26 +98,57 @@ GLuint GLRenderer10::loadTexture(CLTexture* texture)
 }
 
 void GLRenderer10::render()
-{
-//    glBindTexture(GL_TEXTURE_2D, m_texture);
-    
+{    
     glClearColor(10, 0.5f, 0.5f, 1);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
 
     glBindTexture(GL_TEXTURE_2D, m_texture);
     
-    glVertexPointer(2, GL_FLOAT, sizeof(Vertex), &shape[0].Position[0]);
-    glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), &txPos[0].Position[0]);
-
-    GLsizei vCount = sizeof(shape) / sizeof(Vertex);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, vCount);
-
+    
+    for (int i = 0; i < m_actors->m_index; i++) {
+        glVertexPointer(2, GL_FLOAT, sizeof(Vertex), &m_actors->m_actors[i]->getVertexData()[0].Position[0]);
+        glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), &m_actors->m_actors[i]->getTextureVertexData()[0].Position[0]);
+        
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    }
 }
 
 void GLRenderer10::update(float dt)
 {    
-    glMatrixMode(GL_MODELVIEW);
-    glRotatef(200*dt, 0, 0, 1);
+//    glRotatef(200*dt, 0, 0, 1);
+    
+    for (int i = 0; i < m_actors->m_index; i++) {
+        m_actors->m_actors[i]->update(dt);
+    }
 }
-
-
+void GLRenderer10::addActor(Actor* actor)
+{
+    if (m_actors == 0)
+        m_actors = new ActorArray();
+    
+    if (m_actors->m_index == m_actors->m_size) {
+        Log(LOG_INFO, "GLRenderer10", "Needed to expand actor array");
+        m_actors->m_size += 20;
+        Actor** newActors = new Actor*[m_actors->m_size];
+        
+        for (int i = 0; i < m_actors->m_index; i++) {
+            newActors[i] = m_actors->m_actors[i];
+        }
+        
+        m_actors->m_actors = newActors;
+    }
+    
+    Log(LOG_INFO, "GLRenderer10", "Added an actor");
+    m_actors->m_actors[m_actors->m_index++] = actor;
+}
+void GLRenderer10::removeActor(Actor* actor)
+{
+    if (actor == 0)
+        return;
+    
+    for (int i = 0; i < m_actors->m_index; i++) {
+        if (m_actors->m_actors[i] == actor) {
+            m_actors->m_actors[i] = m_actors->m_actors[--m_actors->m_index];
+        }
+    }
+}

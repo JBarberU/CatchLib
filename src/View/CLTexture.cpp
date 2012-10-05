@@ -13,7 +13,7 @@ void CLTexture::setData(unsigned char* newData, int width, int height)
     m_width = width;
     m_height = height;
     
-    delete [] m_data;
+//    delete [] m_data;
     
     this->m_data = new unsigned char[m_width * m_height * 4];
     

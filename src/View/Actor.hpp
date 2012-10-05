@@ -12,13 +12,25 @@
 #include "IRenderable.hpp"
 #include "Animation.hpp"
 
+struct AnimationArray {
+    Animation** m_animationArray;
+    int         m_size;
+    
+    AnimationArray(Animation** animations, int size) {
+        m_animationArray = animations;
+        m_size = size;
+    }
+};
+
 class Actor : public IRenderable {
     // Pointer to some model object to represent
 private:
-    Animation** m_animations;
-    Animation* m_currentAnimation;
+    AnimationArray* m_animations;
+    Animation*  	m_currentAnimation;
+    
 public:
-    Actor(Animation** animations, Animation* currentAnimation);
+    Actor(AnimationArray* animations, Animation* currentAnimation);
+    Actor(Actor* actor);
     ~Actor();
     
     virtual const Vertex* getVertexData();
