@@ -13,13 +13,16 @@
 #include "PlatformBlock.hpp"
 #include <vector>
 
+using namespace std;
+
 class Platform
 {
 public:
 	~Platform();
 	Platform();
-	vector<PlatformBlocks*> const &getPlatformBlocks() const;
-
-private:
+	vector<PlatformBlock*> getPlatformBlocks();
+	void addPlatformBlock(PlatformBlock* block);
+	void clearPlatformBlocks();
 	vector<PlatformBlock*> platformblocks;
+
 };
