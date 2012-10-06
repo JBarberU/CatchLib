@@ -33,3 +33,10 @@ Vector2d Vector2d::operator-=(const Vector2d& v){
     this->m_y -= v.m_y;
     return *this;
 }
+
+Vector2d Vector2d::operator*=(double scale)
+{
+    this->m_x *=scale;
+    this->m_y *=scale;
+    return *this;
+}

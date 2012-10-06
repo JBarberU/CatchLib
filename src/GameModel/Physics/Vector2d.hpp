@@ -17,6 +17,7 @@ struct Vector2d {
     bool operator==(const Vector2d&);
     Vector2d operator+=(const Vector2d&);
     Vector2d operator-=(const Vector2d&);
+    Vector2d operator*=(double);
 };
 
 #endif /* defined(__CatchiOS__Vector__) */
