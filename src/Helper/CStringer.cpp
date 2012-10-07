@@ -1,11 +1,13 @@
 //
-//  CStringer.cpp
-//  CatchiOS
+//  File:   CStringer.cpp
 //
-//  Created by John Barbero Unenge on 10/1/12.
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Author: John Barbero Unenge
+//      All code is my own except where credited to others.
 //
-
+//  Copyright (c) 2012 Catch22. All Rights Reserved.
+//
+//  Date:   1/10/12
+//
 #include "CStringer.hpp"
 
 #include <sstream>
@@ -51,7 +53,6 @@ char* generateCString(const char* format, ...)
     char* c = new char[200];
     strcpy(c, message.str().c_str());
     
-#pragma warning - If the CStringer stops working, this is where to look
     delete [] c;
     return c;
 }

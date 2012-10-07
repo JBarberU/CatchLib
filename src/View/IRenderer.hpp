@@ -1,11 +1,16 @@
 //
-//  IRenderer.h
-//  CatchiOS
+//  File:   IRenderer.h
+//  Class:  IRenderer
+//  Author: John Barbero Unenge
+//          All code is my own except where credited to others.
 //
-//  Created by John Barbero Unenge on 10/1/12.
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Copyright (c) 2012 Catch22. All Rights Reserved.
 //
-
+//  Date:   1/10/12.
+//
+//  Description:
+//  An interface used to provide basic rendering functionality.
+//
 #ifndef __CatchiOS__IRenderer__
 #define __CatchiOS__IRenderer__
 
@@ -26,16 +31,25 @@ struct ActorArray {
 
 class IRenderer : public IDeviceRotationResponder{
 public:
-    // IRenderer
+    //  Initialize the renderer with the provided width, height and texture data.
     virtual void init(int width, int height, CLTexture* texture) = 0;
+    
+    //  Render one frame
     virtual void render() = 0;
+    
+    //  Update
     virtual void update(float dt) = 0;
     
+    //  Add an actor, which is used to ecapsulate amimations.
     virtual void addActor(Actor* actor) = 0;
+    
+    // Remove the given actor.
     virtual void removeActor(Actor* actor) = 0;
 };
 
+//  Create an instance of IRenderer through GLRenderer10
 IRenderer* CreateRendererWithOpenGL10();
+//  Create an instance of IRenderer through GLRenderer20
 IRenderer* CreateRendererWithOpenGL20();
 
 #endif /* defined(__CatchiOS__IRenderer__) */

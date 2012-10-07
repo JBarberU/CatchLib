@@ -1,11 +1,13 @@
 //
-//  Animation.cpp
-//  CatchiOS
+//  File:   Animation.cpp
+//  Class:  Animation
+//  Author: John Barbero Unenge
+//          All code is my own except where credited to others.
 //
-//  Created by John Barbero Unenge on 10/2/12.
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Copyright (c) 2012 Catch22. All Rights Reserved.
 //
-
+//  Date:   2/10/2012
+//
 #include "Animation.hpp"
 #include "../Helper/Logger.hpp"
 
