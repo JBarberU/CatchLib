@@ -24,7 +24,9 @@
 #include "IRenderer.hpp"
 #include "CLTexture.hpp"
 
-class GLRenderer10 : public IRenderer{
+#include "../EventHandling/IEventListener.hpp"
+
+class GLRenderer10 : public IRenderer, public IEventListener{
 public:
 	GLRenderer10();
 	~GLRenderer10();
@@ -36,6 +38,9 @@ public:
     void onRotate(DeviceOrientation orientation);
     void addActor(Actor* actor);
     void removeActor(Actor* actor);
+    
+    //  Inherited from IEventListener
+    void onEvent (EEvent event, void* source);
 
 private:
     GLuint m_framebuffer;

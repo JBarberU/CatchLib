@@ -13,6 +13,7 @@
 #include "Vertex.hpp"
 #include "../Helper/FileManager.hpp"
 #include "ActorsLoader.hpp"
+#include "../EventHandling/EventBus.hpp"
 
 const GLfloat ANGLE_LEFT = -90;
 const GLfloat ANGLE_RIGHT = 90;
@@ -53,6 +54,7 @@ GLRenderer10::GLRenderer10()
     glGenFramebuffersOES(1, &m_framebuffer);
     glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_framebuffer);
 #endif
+    EventBus::getSharedInstance()->addEventListener(this);
 }
 GLRenderer10::~GLRenderer10()
 {
@@ -84,14 +86,14 @@ void GLRenderer10::init(int width, int height, CLTexture* texture)
     glEnableClientState(GL_VERTEX_ARRAY);
     
     m_desiredAngle = ANGLE_LEFT;
-    m_currentAngle = 0;
+    m_currentAngle = m_desiredAngle;
     m_deviceWidth = width;
     m_deviceHeight = height;
     
     m_actors = new ActorArray();
     
     ActorsLoader::init(m_texture);
-    this->addActor(ActorsLoader::newMainCharacterActor());
+//    this->addActor(ActorsLoader::newMainCharacterActor());
     
     m_texture = this->loadTexture(texture);
 }
@@ -189,4 +191,16 @@ void GLRenderer10::removeActor(Actor* actor)
             m_actors->m_actors[i] = m_actors->m_actors[--m_actors->m_index];
         }
     }
+}
+
+void GLRenderer10::onEvent (EEvent event, void* source)
+{
+    if (event == PBODY_CREATED) {
+        
+        Actor* newActor = ActorsLoader::newMainCharacterActor();
+        newActor->setPBody((PBody *) source);
+        this->addActor(newActor);
+        Log(LOG_INFO, "GLRenderer10", generateCString("Added an actor: %i", m_actors->m_index));
+    }
+    
 }
