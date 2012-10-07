@@ -1,9 +1,12 @@
 //
-//  GameController.cpp
-//  CatchiOS
+//  File:   GameController.cpp
+//  Class:  GameController
+//  Author: John Barbero Unenge
+//      All code is my own except where credited to others.
 //
-//  Created by John Barbero Unenge on 9/24/12.
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Copyright (c) 2012 Catch22. All Rights Reserved.
+//
+//  Date:   24/9/12
 //
 
 #include "GameController.hpp"

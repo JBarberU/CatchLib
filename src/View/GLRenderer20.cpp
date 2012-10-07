@@ -1,10 +1,22 @@
 //
-//  FileManager.hpp
-//  CatchLib
+//  File:   GLRenderer20.cpp
+//  Class:  GLRenderer20
+//  Author: John Barbero Unenge
+//          All code is my own except where credited to others.
 //
-//  Created by John Barbero Unenge on 9/17/12.
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Copyright (c) 2012 Catch22. All Rights Reserved.
 //
+//  Date:   17/9/2012.
+//
+
+//  Important note!
+//  This class contains a lot of rendering code from
+//  git@github.com:JBarberU/OpenGL-ES-Exercises.git which in
+//  turn is taken from a book called iPhone 3D Programming
+//  written by Philip Rideout. This class is not currently
+//  used by this project.
+
+
 
 #include "../Helper/Logger.hpp"
 #include "GLRenderer20.hpp"

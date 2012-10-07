@@ -1,9 +1,12 @@
 //
-//  EInputType.h
-//  CatchiOS
+//  File:   EInputType.h
 //
-//  Created by John Barbero Unenge on 9/24/12.
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Author: John Barbero Unenge
+//      All code is my own except where credited to others.
+//
+//  Copyright (c) 2012 Catch22. All rights reserved.
+//
+//  Date:   9/24/2012
 //
 
 #ifndef CatchiOS_EInputType_hpp

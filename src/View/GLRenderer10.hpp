@@ -1,9 +1,16 @@
 //
-//  FileManager.hpp
-//  CatchLib
+//  File:   GLRenderer10.hpp
+//  Class:  GLRenderer10
+//  Author: John Barbero Unenge
+//          All code is my own except where credited to others.
 //
-//  Created by John Barbero Unenge on 9/17/12.
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Copyright (c) 2012. All Rights Reserved.
+//
+//  Date:   17/9/12
+//
+//  Description:
+//  A class used for rendering with OpenGL ES 1.0. It implements
+//  the functions in IRenderer.
 //
 
 #ifdef __IPHONE_NA
@@ -22,11 +29,11 @@ public:
 	GLRenderer10();
 	~GLRenderer10();
 
+    //  Inherited from IRenderer
 	void init(int width, int height, CLTexture* texture);
 	void render();
     void update(float dt);
     void onRotate(DeviceOrientation orientation);
-    
     void addActor(Actor* actor);
     void removeActor(Actor* actor);
 

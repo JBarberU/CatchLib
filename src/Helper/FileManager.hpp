@@ -1,9 +1,10 @@
 //
-//  File:       FileManager.hpp
-//  Class:      FileManager
-//  Structs:    CLTexture
-//  Author:     John Barbero Unenge
-//              All code is my own except where credited to others.
+//  File:   FileManager.hpp
+//  Class:  FileManager
+//  Author: John Barbero Unenge
+//      All code is my own except where credited to others.
+//
+//  Copyright (c) 2012 Catch22. All Rights Reserved.
 //
 //  Date: 17/9-2012
 //
@@ -13,13 +14,6 @@
 //  wants the data and each platform that uses the C++ core 
 //  needs to implement this header in a suitable way.
 //
-//  Methods:
-//
-//  loadTextureFromFile
-//    Loads a texture from a file with the given name.
-//    The return of the function should be of the herin 
-//    declared struct CLTexture, which is what the core 
-//    needs for later binding OpenGL textures.
 #ifdef __APPLE__
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
@@ -31,11 +25,11 @@
 #include <string>
 #include "../View/CLTexture.hpp"
 
-//  FileManager
-//  Used for managing the files (should have different 
-//  implementation on different devices).
 class FileManager {
 
 public:
+    //  Loads a texture from file and stores it in a
+    //  CLTexture which contains all the information
+    //  needed to create an OpenGL texture.
     static CLTexture* loadTexture(const char* fileName);
 };

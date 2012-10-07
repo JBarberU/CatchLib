@@ -1,11 +1,16 @@
 //
 //  File:	ActorsLoader.hpp
+//  Class:  ActorsLoader
 //  Author: John Barbero Unenge 
-//	Date:  	10/5/12.
+//          All code is my own except where credited to others.
 //
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Copyright (c) 2012 Catch22. All Rights Reserved.
 //
-//	All code is my own except where credited to others.
+//	Date:  	5/10/12.
+//
+//  Description:
+//  This class is used to hold Actor data. This is used since
+//  data loading in Android is quite tedious.
 //
 
 
@@ -17,7 +22,9 @@
 class ActorsLoader {
     
 public:
+    //  Initialise the ActorLoader
     static void init(int textureID);
+    //  Create a new MainCharacter Actor
     static Actor* newMainCharacterActor();
 };
 

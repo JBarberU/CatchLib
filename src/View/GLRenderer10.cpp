@@ -1,11 +1,13 @@
 //
-//  FileManager.hpp
-//  CatchLib
+//  File:   GLRenderer10.cpp
+//  Class:  GLRenderer10
+//  Author: John Barbero Unenge
+//          All code is my own except where credited to others.
 //
-//  Created by John Barbero Unenge on 9/17/12.
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Copyright (c) 2012. All Rights Reserved.
 //
-
+//  Date:   17/9/12
+//
 #include "../Helper/Logger.hpp"
 #include "GLRenderer10.hpp"
 #include "Vertex.hpp"
@@ -15,6 +17,7 @@
 const GLfloat ANGLE_LEFT = -90;
 const GLfloat ANGLE_RIGHT = 90;
 
+//  Dummy shaped used until game model is in place
 const Vertex shape[] = {
     Vertex(0,0),
     Vertex(1,0),
@@ -37,6 +40,10 @@ IRenderer* CreateRendererWithOpenGL10()
 GLRenderer10::GLRenderer10()
 {
     Log(LOG_INFO, "GLRenderer10", "Constructed a GLRenderer!");
+    
+//    OpenGL ES 1.0 implementation in Android doesn't support creating
+//    your own framebuffer and renderbuffer so we have to do this only
+//    when compiling for iOS.
 #ifdef __APPLE__
     Log(LOG_INFO, "GLRenderer10", "Additional iOS setup!");
     glGenRenderbuffersOES(1, &m_renderbuffer);
@@ -51,8 +58,6 @@ GLRenderer10::~GLRenderer10()
 {
 	Log(LOG_INFO, "GLRenderer10", "Destroyed a GLRenderer10!");
 }
-
-GLuint texID;
 
 void GLRenderer10::init(int width, int height, CLTexture* texture)
 {
