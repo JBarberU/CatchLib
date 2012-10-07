@@ -13,24 +13,35 @@ Vector2d::Vector2d(double x, double y)
     this->m_x = x;
     this->m_y = y;
 }
-Vector2d & Vector2d::operator=(const Vector2d& v)
+Vector2d::Vector2d(Vector2d* vec)
 {
-    this->m_x = v.m_x;
-    this->m_y = v.m_y;
+    this->m_x = vec->m_x;
+    this->m_y = vec->m_y;
+}
+void Vector2d::zap()
+{
+    this->m_x = 0;
+    this->m_y = 0;
+}
+
+Vector2d Vector2d::operator=(Vector2d vector)
+{
+    this->m_x = vector.m_x;
+    this->m_y = vector.m_y;
     return *this;
 }
-bool Vector2d::operator==(const Vector2d& v)
+bool Vector2d::operator==(Vector2d vector)
 {
-    return (this->m_x == v.m_x && this->m_y == v.m_y);
+    return (this->m_x == vector.m_x && this->m_y == vector.m_y);
 }
-Vector2d & Vector2d::operator+=(const Vector2d& v){
-    this->m_x += v.m_x;
-    this->m_y += v.m_y;
+Vector2d Vector2d::operator+=(Vector2d vector){
+    this->m_x += vector.m_x;
+    this->m_y += vector.m_y;
     return *this;
 }
-Vector2d & Vector2d::operator-=(const Vector2d& v){
-    this->m_x -= v.m_x;
-    this->m_y -= v.m_y;
+Vector2d Vector2d::operator-=(Vector2d vector){
+    this->m_x -= vector.m_x;
+    this->m_y -= vector.m_y;
     return *this;
 }
 

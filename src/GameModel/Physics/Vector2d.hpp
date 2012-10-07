@@ -11,12 +11,16 @@
 
 struct Vector2d {
     Vector2d(double x, double y);
+    Vector2d(Vector2d* vec);
     double m_x, m_y;
     double lengthSquared();
-    Vector2d operator=(const Vector2d&);
-    bool operator==(const Vector2d&);
-    Vector2d operator+=(const Vector2d&);
-    Vector2d operator-=(const Vector2d&);
+    void zap();
+    
+    //  Operators
+    Vector2d operator=(Vector2d vector);
+    bool operator==(Vector2d vector);
+    Vector2d operator+=(Vector2d vector);
+    Vector2d operator-=(Vector2d vector);
     Vector2d operator*=(double);
 };
 
