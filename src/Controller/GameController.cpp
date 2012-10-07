@@ -19,9 +19,10 @@ GameController::GameController(int width, int height, CLTexture* texture)
     Log(LOG_INFO, "GameController", generateCString("GameCon: %ix%i", width, height));
     
     InputManager::getSharedManager()->addInputListener(this);
-    
+
     m_renderer = CreateRendererWithOpenGL10();
     m_renderer->init(width, height, texture);
+    m_gameModel = new GameModel();
 }
 GameController::~GameController()
 {
@@ -31,6 +32,8 @@ GameController::~GameController()
 void GameController::update(float dt)
 {
     m_renderer->update(dt);
+    m_gameModel->update(dt);
+    
     m_renderer->render();
 }
 void GameController::onRotate(DeviceOrientation orientation)
@@ -41,4 +44,5 @@ void GameController::onRotate(DeviceOrientation orientation)
 void GameController::didRecieveInputEvent(InputType type, int locX, int locY)
 {
 	Log(LOG_EVENT, "GameController",  "DidRecieveInputEvent");
+    m_gameModel->playerJump();
 }

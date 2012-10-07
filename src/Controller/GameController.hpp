@@ -20,10 +20,12 @@
 #include "../Helper/EInputType.hpp"
 #include "../View/CLTexture.hpp"
 #include "IDeviceRotationResponder.hpp"
+#include "../GameModel/GameModel.hpp"
 
 class GameController : public IInputListener, public IDeviceRotationResponder {
 private:
-    IRenderer* m_renderer;
+    IRenderer*  m_renderer;
+    GameModel*  m_gameModel;
 public:
     GameController(int width, int height, CLTexture* texture);
     ~GameController();
