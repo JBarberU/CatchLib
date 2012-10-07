@@ -9,14 +9,21 @@
 //
 //
 //
-#include "Map/GameMap.hpp"
+//#include "Map/GameMap.hpp"
+#include "Physics/PhysicsManager.hpp"
+#include "Entities/Player.hpp"
 
-class GameModel
-{
+class GameModel {
 private:
-    
+//    GameMap*    m_gameMap;
+    PhysicsManager* m_physicsManager;
+    Player* m_player;
     
 public:
 	~GameModel();
 	GameModel();
+    
+    void update(float dt);
+    
+    void playerJump();
 };
