@@ -1,10 +1,22 @@
 //
-//  FileManager.hpp
-//  CatchLib
+//  File:   GLRenderer20.cpp
+//  Class:  GLRenderer20
+//  Author: John Barbero Unenge
+//          All code is my own except where credited to others.
 //
-//  Created by John Barbero Unenge on 9/17/12.
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Copyright (c) 2012 Catch22. All Rights Reserved.
 //
+//  Date:   17/9/2012.
+//
+
+//  Important note!
+//  This class contains a lot of rendering code from
+//  git@github.com:JBarberU/OpenGL-ES-Exercises.git which in
+//  turn is taken from a book called iPhone 3D Programming
+//  written by Philip Rideout. This class is not currently
+//  used by this project.
+
+
 
 #include "../Helper/Logger.hpp"
 #include "GLRenderer20.hpp"
@@ -31,22 +43,17 @@ const char SIMPLE_FRAGMENT_SHADER[] =
         "gl_FragColor = DestinationColor;\n"
     "}\n";
 
-struct Vertex {
-    float Position[2];
-    float Color[4];
-};
-
 float clearColor[] = {0.5f, 0.0f, 0.5f, 1.0f};
 
 // Define the positions and colors of two triangles.
 const Vertex Vertecies[] = {
-    {{-0.5f, -0.866f},      {1, 1, 0.5f, 1}},
-    {{0.5f, -0.866f},       {1, 1, 0.5f, 1}},
-    {{0, 1},                {1, 1, 0.5f, 1}},
+    Vertex(-0.5f, -0.866f),
+    Vertex(0.5f, -0.866f),
+    Vertex(0,01),
     
-    {{-0.5f, -0.866f},      {clearColor[0],clearColor[1],clearColor[2],clearColor[3]}},
-    {{0.5f, -0.866f},       {clearColor[0],clearColor[1],clearColor[2],clearColor[3]}},
-    {{0, -0.4f},            {clearColor[0],clearColor[1],clearColor[2],clearColor[3]}},
+    Vertex(-0.5f, -0.866f),
+    Vertex(0.5f, -0.866f),
+    Vertex(0, -0.4f),
 };
 
 IRenderer* CreateRendererWithOpenGL20()
@@ -86,7 +93,7 @@ GLRenderer20::~GLRenderer20()
 }
 
 
-void GLRenderer20::init(int width, int height)
+void GLRenderer20::init(int width, int height, CLTexture* texture)
 {
 	Log(LOG_INFO, "GLRenderer", "Initialized GLRenderer");
 
@@ -133,6 +140,20 @@ void GLRenderer20::update(float dt)
 {
     // Intentionally left empty
 }
+void GLRenderer20::onRotate(DeviceOrientation orientation)
+{
+    // Intentionally left empty
+}
+void GLRenderer20::addActor(Actor* actor)
+{
+    // Intentionally left empty
+}
+void GLRenderer20::removeActor(Actor* actor)
+{
+    // Intentionally left empty
+}
+
+
 GLuint GLRenderer20::BuildProgram(const char* vertexShaderSource, const char* fragmentShaderSource) const
 {
     

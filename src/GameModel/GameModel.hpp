@@ -9,9 +9,13 @@
 //
 //
 //
+#include "Map/GameMap.hpp"
 
 class GameModel
 {
+private:
+    
+    
 public:
 	~GameModel();
 	GameModel();
