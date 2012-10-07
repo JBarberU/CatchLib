@@ -1,11 +1,14 @@
 //
-//  EEvent.hpp
-//  CatchLib
+//  File:       EEvent.hpp
+//  Class:      EEvent
+//  Author:     Jesper Persson and Sebastian Odbjer
+//              All code is our own except where credited to others.
 //
-//  Created by Jesper Persson and Sebastian Odbjer on 2/10-12.
-//  Copyright (c) 2012 Catch22. All rights reserved.
+//	Copyright (c) 2012 by Catch22. All Rights Reserved.
+//  Date: 		02/10-2012
 //
-//	Enum class for different events.
+//  Description:
+//	Enumiration of different types of events.
 //
 //
 #pragma once

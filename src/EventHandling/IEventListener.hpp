@@ -1,17 +1,17 @@
-
 //
-//  IEventListener.hpp
-//  CatchLib
+//  File:       IEventListener.hpp
+//  Class:      IEventListener
+//  Authors:     Jesper Persson and Sebastian Odbjer
+//              All code is our own except where credited to others.
 //
-//  Created by Jesper Persson and Sebastian Odbjer on 2/10-12.
-//  Copyright (c) 2012 Catch22. All rights reserved.
+//	Copyright (c) 2012 by Catch22. All Rights Reserved.
+//  Date: 		02/10-2012
 //
+//  Description:
 //	Abstract class to be extented by classes fit to listen for events.
-//  Classes extending this class are event listeners, that is, they are capable of listening to events.
+//  Classes extending this class are event listeners, that is, they are capable of
+//  listening to events.
 //
-// Methods:
-// 	onEvent:
-//	 event callback.
 //
 
 #include "EEvent.hpp"
@@ -19,5 +19,6 @@
 class IEventListener
 {
 public:
+	// Event callback.
 	virtual void onEvent (EEvent event, void* source)=0;
 };

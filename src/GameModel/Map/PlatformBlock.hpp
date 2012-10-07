@@ -1,10 +1,13 @@
 //
-//  PlatformBlock.hpp
-//  CatchLib
+//  File:       PlatformBlock.hpp
+//  Class:      PlatformBlock
+//  Author:     Jesper Persson
+//              All code is my own except where credited to others.
 //
-//  Created by Jesper Persson on 9/29/12.
-//  Copyright (c) 2012 Jesper Persson. All rights reserved.
+//	Copyright (c) 2012 by Catch22. All Rights Reserved.
+//  Date: 		29/09-2012
 //
+//  Description:
 //	A class for representing a block in a Platform.
 //
 //
