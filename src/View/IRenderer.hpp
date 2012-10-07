@@ -9,11 +9,30 @@
 #ifndef __CatchiOS__IRenderer__
 #define __CatchiOS__IRenderer__
 
-class IRenderer {
+#include "Actor.hpp"
+#include "CLTexture.hpp"
+#include "../Controller/IDeviceRotationResponder.hpp"
+
+struct ActorArray {
+    Actor**  m_actors;
+    int     m_size;
+    int     m_index;
+    ActorArray() {
+        m_size = 20;
+        m_index = 0;
+        m_actors = new Actor*[m_size];
+    }
+};
+
+class IRenderer : public IDeviceRotationResponder{
 public:
-    virtual void init(int width, int height) = 0;
+    // IRenderer
+    virtual void init(int width, int height, CLTexture* texture) = 0;
     virtual void render() = 0;
     virtual void update(float dt) = 0;
+    
+    virtual void addActor(Actor* actor) = 0;
+    virtual void removeActor(Actor* actor) = 0;
 };
 
 IRenderer* CreateRendererWithOpenGL10();

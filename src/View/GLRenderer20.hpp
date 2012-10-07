@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
 //
 
-#if __APPLE__
+#if __IPHONE_NA
 #include <OpenGLES/ES2/gl.h>
 #else
 #include <GLES2/gl2.h>
@@ -24,10 +24,14 @@ public:
 	GLRenderer20();
 	~GLRenderer20();
 
-	void init(int width, int height);
+	void init(int width, int height, CLTexture* texture);
 	void render();
     void update(float dt);
-        
+    void onRotate(DeviceOrientation orientation);
+    
+    virtual void addActor(Actor* actor);
+    virtual void removeActor(Actor* actor);
+    
 private:
     GLuint BuildShader(const char* source, GLenum shaderType) const;
     GLuint BuildProgram(const char* vShader, const char* fShader) const;

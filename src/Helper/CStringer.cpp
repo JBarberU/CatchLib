@@ -51,5 +51,7 @@ char* generateCString(const char* format, ...)
     char* c = new char[200];
     strcpy(c, message.str().c_str());
     
+#pragma warning - If the CStringer stops working, this is where to look
+    delete [] c;
     return c;
 }
