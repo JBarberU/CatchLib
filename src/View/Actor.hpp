@@ -18,6 +18,7 @@
 
 #include "IRenderable.hpp"
 #include "Animation.hpp"
+#include "../GameModel/Physics/PBody.hpp"
 
 //  A structure used keep track of animations and
 //  the current number of animations.
@@ -35,11 +36,14 @@ class Actor : public IRenderable {
 private:
     AnimationArray* m_animations;
     Animation*  	m_currentAnimation;
+    PBody*          m_pBody;
     
 public:
     Actor(AnimationArray* animations, Animation* currentAnimation);
     Actor(Actor* actor);
     ~Actor();
+    
+    void setPBody(PBody* pBody);
     
     //  Inherited from IRenderable
     virtual const Vertex* getVertexData();

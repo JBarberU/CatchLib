@@ -23,11 +23,15 @@ const Vertex txPos[] = {
 
 Actor::Actor(AnimationArray* animations, Animation* currentAnimation)
 {
+    m_pBody = 0;
+    
     m_animations = animations;
     m_currentAnimation = currentAnimation;
 }
 Actor::Actor(Actor* actor)
 {
+    m_pBody = 0;
+    
     Animation** newAnimations = new Animation*[actor->m_animations->m_size];
     for (int i = 0; i < actor->m_animations->m_size; i++) {
         newAnimations[i] = new Animation(actor->m_animations->m_animationArray[i]);
@@ -36,10 +40,19 @@ Actor::Actor(Actor* actor)
     m_animations = new AnimationArray(newAnimations, actor->m_animations->m_size);
     m_currentAnimation = m_animations->m_animationArray[0];
 }
+void Actor::setPBody(PBody* pBody)
+{
+    m_pBody = pBody;
+}
 const Vertex* Actor::getVertexData()
 {
-    // Needs to keep track of a model object in order to do
-    // something here :)
+    if (m_pBody != 0)
+    return new Vertex[4]{
+        Vertex(m_pBody->getPosition()->m_x ,m_pBody->getPosition()->m_y),
+        Vertex(m_pBody->getPosition()->m_x + m_pBody->getSize()->m_x,m_pBody->getPosition()->m_y),
+        Vertex(m_pBody->getPosition()->m_x ,m_pBody->getPosition()->m_y + m_pBody->getSize()->m_y),
+        Vertex(m_pBody->getPosition()->m_x + m_pBody->getSize()->m_x,m_pBody->getPosition()->m_y + m_pBody->getSize()->m_y),
+    };
     return txPos;
 }
 const Vertex* Actor::getTextureVertexData()
