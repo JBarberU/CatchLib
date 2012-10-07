@@ -128,6 +128,10 @@ void GLRenderer20::update(float dt)
 {
     // Intentionally left empty
 }
+void GLRenderer20::onRotate(DeviceOrientation orientation)
+{
+    // Intentionally left empty
+}
 void GLRenderer20::addActor(Actor* actor)
 {
     // Intentionally left empty

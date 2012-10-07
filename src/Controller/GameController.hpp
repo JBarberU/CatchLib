@@ -13,8 +13,9 @@
 #include "../Helper/IInputListener.hpp"
 #include "../Helper/EInputType.hpp"
 #include "../View/CLTexture.hpp"
+#include "IDeviceRotationResponder.hpp"
 
-class GameController : public IInputListener {
+class GameController : public IInputListener, public IDeviceRotationResponder {
 private:
     IRenderer* m_renderer;
 public:
@@ -22,6 +23,7 @@ public:
     ~GameController();
 
     void update(float dt);
+    void onRotate(DeviceOrientation orientation);
     
     //  IInputListener
     virtual void didRecieveInputEvent(InputType type, int locX, int locY);

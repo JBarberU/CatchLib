@@ -11,6 +11,7 @@
 
 #include "Actor.hpp"
 #include "CLTexture.hpp"
+#include "../Controller/IDeviceRotationResponder.hpp"
 
 struct ActorArray {
     Actor**  m_actors;
@@ -23,8 +24,9 @@ struct ActorArray {
     }
 };
 
-class IRenderer {
+class IRenderer : public IDeviceRotationResponder{
 public:
+    // IRenderer
     virtual void init(int width, int height, CLTexture* texture) = 0;
     virtual void render() = 0;
     virtual void update(float dt) = 0;

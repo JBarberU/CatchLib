@@ -25,6 +25,8 @@ public:
 	void init(int width, int height, CLTexture* texture);
 	void render();
     void update(float dt);
+    void onRotate(DeviceOrientation orientation);
+    
     void addActor(Actor* actor);
     void removeActor(Actor* actor);
 
@@ -34,6 +36,12 @@ private:
     GLuint m_renderbuffer;
     
     ActorArray* m_actors;
+    
+    GLfloat m_currentAngle;
+    GLfloat m_desiredAngle;
+    
+    float m_deviceWidth;
+    float m_deviceHeight;
     
     GLuint loadTexture(CLTexture *texture);
 };

@@ -12,6 +12,9 @@
 #include "../Helper/FileManager.hpp"
 #include "ActorsLoader.hpp"
 
+const GLfloat ANGLE_LEFT = -90;
+const GLfloat ANGLE_RIGHT = 90;
+
 const Vertex shape[] = {
     Vertex(0,0),
     Vertex(1,0),
@@ -65,17 +68,21 @@ void GLRenderer10::init(int width, int height, CLTexture* texture)
     glMatrixMode(GL_PROJECTION);
     
     // Initialize the projection matrix.
-    const float maxX = 2;
-    const float maxY = 3;
-    glOrthof(-maxX, +maxX, -maxY, +maxY, -1, 1);
+    glOrthof(0, width, 0, height, -1, 1);
     
     glMatrixMode(GL_MODELVIEW);
+    
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glEnableClientState(GL_VERTEX_ARRAY);
-        
+    
+    m_desiredAngle = ANGLE_LEFT;
+    m_currentAngle = 0;
+    m_deviceWidth = width;
+    m_deviceHeight = height;
+    
     m_actors = new ActorArray();
     
     ActorsLoader::init(m_texture);
@@ -101,6 +108,14 @@ void GLRenderer10::render()
 {    
     glClearColor(10, 0.5f, 0.5f, 1);
     glClear(GL_COLOR_BUFFER_BIT);
+    
+    glPushMatrix();
+    if (m_desiredAngle == 90)
+        glTranslatef(m_deviceWidth, 0, 0);
+    else
+        glTranslatef(0, m_deviceHeight, 0);
+    glRotatef(m_currentAngle, 0, 0, 1);
+
 
     glBindTexture(GL_TEXTURE_2D, m_texture);
     
@@ -111,11 +126,15 @@ void GLRenderer10::render()
         
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     }
+    glPopMatrix();
 }
 
 void GLRenderer10::update(float dt)
-{    
-//    glRotatef(200*dt, 0, 0, 1);
+{
+    if (m_currentAngle != m_desiredAngle) {
+        // If the desired angle is greater than the current angle, add 1, otherwise -1.
+        m_currentAngle += m_desiredAngle > m_currentAngle ? 10 : -10;
+    }
     
     for (int i = 0; i < m_actors->m_index; i++) {
         m_actors->m_actors[i]->update(dt);
@@ -141,6 +160,20 @@ void GLRenderer10::addActor(Actor* actor)
     Log(LOG_INFO, "GLRenderer10", "Added an actor");
     m_actors->m_actors[m_actors->m_index++] = actor;
 }
+void GLRenderer10::onRotate(DeviceOrientation orientation)
+{
+    switch (orientation) {
+        case DeviceOrientationLandscapeLeft:
+            m_desiredAngle = ANGLE_LEFT;
+            break;
+            
+        case DeviceOrientationLandscapeRight:
+            m_desiredAngle = ANGLE_RIGHT;
+            break;
+    }
+    
+}
+
 void GLRenderer10::removeActor(Actor* actor)
 {
     if (actor == 0)

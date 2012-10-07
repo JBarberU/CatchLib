@@ -30,6 +30,10 @@ void GameController::update(float dt)
     m_renderer->update(dt);
     m_renderer->render();
 }
+void GameController::onRotate(DeviceOrientation orientation)
+{
+    m_renderer->onRotate(orientation);
+}
 
 void GameController::didRecieveInputEvent(InputType type, int locX, int locY)
 {
