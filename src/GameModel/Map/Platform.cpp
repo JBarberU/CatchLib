@@ -7,7 +7,7 @@
 
 #include "Platform.hpp"
 
-/*
+
 Platform::Platform()
 {
 
@@ -35,9 +35,9 @@ void Platform::clearPlatformBlocks()
 
 Vector2d* Platform::getPlatformStartPoint()
 {
-	return platformblocks.first();
+	return platformblocks.front()->getStartVector();
 }
 
 
 
-*/
+

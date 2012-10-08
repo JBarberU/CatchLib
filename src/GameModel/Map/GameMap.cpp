@@ -7,7 +7,7 @@
 
 #include "GameMap.hpp"
 
-/*GameMap::GameMap()
+GameMap::GameMap()
 {
 
 }
@@ -24,11 +24,10 @@ void GameMap::addPlatform(Platform* platform)
 
 void GameMap::reformFirstPlatform()
 {
-	platforms.erase(platforms.first());
+	platforms.erase(platforms.begin());
 	//Generate new platformBlocks in this platform
 	// addPlatform(mapGenerator.generatePlatform());
 
 }
 
 
-*/
