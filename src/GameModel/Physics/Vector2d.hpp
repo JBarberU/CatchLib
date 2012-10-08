@@ -22,6 +22,7 @@ struct Vector2d {
     Vector2d operator+=(Vector2d vector);
     Vector2d operator-=(Vector2d vector);
     Vector2d operator*=(double);
+    Vector2d operator*(double);
 };
 
 #endif /* defined(__CatchiOS__Vector__) */

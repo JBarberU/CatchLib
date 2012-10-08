@@ -51,3 +51,7 @@ Vector2d Vector2d::operator*=(double scale)
     this->m_y *=scale;
     return *this;
 }
+Vector2d Vector2d::operator*(double scale)
+{
+    return Vector2d(this->m_x * scale, this->m_y * scale);
+}

@@ -13,11 +13,11 @@
 
 void PBody::applyForce(float dt)
 {
-    *m_position += (Vector2d(m_movement) *= dt);
+    *m_position += (*m_movement * dt);
 }
 void PBody::revertForce(float dt)
 {
-    *m_position -= (Vector2d(m_movement) *= dt);
+    *m_position -= (*m_movement * dt);
 }
 void PBody::addVector(Vector2d* vector)
 {
