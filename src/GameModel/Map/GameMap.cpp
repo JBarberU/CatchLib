@@ -7,7 +7,7 @@
 
 #include "GameMap.hpp"
 
-GameMap::GameMap()
+/*GameMap::GameMap()
 {
 
 }
@@ -31,3 +31,4 @@ void GameMap::reformFirstPlatform()
 }
 
 
+*/

@@ -7,6 +7,7 @@
 
 #include "Platform.hpp"
 
+/*
 Platform::Platform()
 {
 
@@ -34,3 +35,4 @@ void Platform::clearPlatformBlocks()
 
 
 
+*/
