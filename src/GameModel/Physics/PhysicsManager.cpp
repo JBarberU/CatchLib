@@ -50,6 +50,7 @@ void PhysicsManager::update(float dt)
                 source[0] = m_pBodyArray->m_bodies[i];
                 source[1] =  m_pBodyArray->m_bodies[j];
                 EventBus::getSharedInstance()->publishEvent(DID_COLLIDE, source);
+                delete [] source;
             }
         }
     }

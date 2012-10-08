@@ -108,6 +108,8 @@ GLuint GLRenderer10::loadTexture(CLTexture* texture)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     
+    delete texture;
+    
     return tID;
 }
 
@@ -128,10 +130,12 @@ void GLRenderer10::render()
     
     
     for (int i = 0; i < m_actors->m_index; i++) {
-        glVertexPointer(2, GL_FLOAT, sizeof(Vertex), &m_actors->m_actors[i]->getVertexData()[0].Position[0]);
+        const Vertex* vertexData = m_actors->m_actors[i]->getVertexData();
+        glVertexPointer(2, GL_FLOAT, sizeof(Vertex), &vertexData[0].Position[0]);
         glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), &m_actors->m_actors[i]->getTextureVertexData()[0].Position[0]);
         
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        delete [] vertexData;
     }
     glPopMatrix();
 }
