@@ -23,6 +23,9 @@ public:
 	vector<PlatformBlock*> getPlatformBlocks();
 	void addPlatformBlock(PlatformBlock* block);
 	void clearPlatformBlocks();
+	Vector2d* getPlatformStartPoint();
+
+private:
 	vector<PlatformBlock*> platformblocks;
 
 };

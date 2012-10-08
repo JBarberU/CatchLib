@@ -17,7 +17,7 @@ Platform::~Platform()
 
 }
 
-vector<PlatformBlock*> getPlatformBlocks()
+vector<PlatformBlock*> Platform::getPlatformBlocks()
 {
 	return platformblocks;
 }
@@ -30,6 +30,11 @@ void Platform::addPlatformBlock(PlatformBlock* block)
 void Platform::clearPlatformBlocks()
 {
 	platformblocks.clear();
+}
+
+Vector2d* Platform::getPlatformStartPoint()
+{
+	return platformblocks.first();
 }
 
 
