@@ -41,4 +41,7 @@ public:
     Vector2d* getPosition();
     Vector2d* getSize();
     bool isAffectedByGravity();
+    bool isStationary();
+    bool isColliding(PBody* otherBody);
+    bool intersectionWithPoint(Vector2d* point);
 };
