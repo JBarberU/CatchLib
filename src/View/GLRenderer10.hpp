@@ -1,12 +1,19 @@
 //
-//  FileManager.hpp
-//  CatchLib
+//  File:   GLRenderer10.hpp
+//  Class:  GLRenderer10
+//  Author: John Barbero Unenge
+//          All code is my own except where credited to others.
 //
-//  Created by John Barbero Unenge on 9/17/12.
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Copyright (c) 2012. All Rights Reserved.
+//
+//  Date:   17/9/12
+//
+//  Description:
+//  A class used for rendering with OpenGL ES 1.0. It implements
+//  the functions in IRenderer.
 //
 
-#ifdef __APPLE__
+#ifdef __IPHONE_NA
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
 #else
@@ -15,21 +22,38 @@
 #endif
 
 #include "IRenderer.hpp"
-#include "SCLTexture.hpp"
+#include "CLTexture.hpp"
 
-class GLRenderer10 : public IRenderer{
+#include "../EventHandling/IEventListener.hpp"
+
+class GLRenderer10 : public IRenderer, public IEventListener{
 public:
 	GLRenderer10();
 	~GLRenderer10();
 
-	void init(int width, int height);
+    //  Inherited from IRenderer
+	void init(int width, int height, CLTexture* texture);
 	void render();
     void update(float dt);
+    void onRotate(DeviceOrientation orientation);
+    void addActor(Actor* actor);
+    void removeActor(Actor* actor);
+    
+    //  Inherited from IEventListener
+    void onEvent (EEvent event, void* source);
 
 private:
     GLuint m_framebuffer;
     GLuint m_texture;
     GLuint m_renderbuffer;
+    
+    ActorArray* m_actors;
+    
+    GLfloat m_currentAngle;
+    GLfloat m_desiredAngle;
+    
+    float m_deviceWidth;
+    float m_deviceHeight;
     
     GLuint loadTexture(CLTexture *texture);
 };

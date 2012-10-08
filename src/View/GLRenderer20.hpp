@@ -1,19 +1,25 @@
 //
-//  FileManager.hpp
-//  CatchLib
+//  File:   GLRenderer20.hpp
+//  Class:  GLRenderer20
+//  Author: John Barbero Unenge
+//          All code is my own except where credited to others.
 //
-//  Created by John Barbero Unenge on 9/17/12.
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Copyright (c) 2012 Catch22. All Rights Reserved.
 //
-
-#if __APPLE__
+//  Date:   17/9/2012.
+//
+//  Description:
+//  A class used for rendering with OpenGL ES 2.0. It implements
+//  the functions in IRenderer.
+//
+#if __IPHONE_NA
 #include <OpenGLES/ES2/gl.h>
 #else
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 #endif
 
-#include "SCLTexture.hpp"
+#include "CLTexture.hpp"
 #include "IRenderer.hpp"
 
 #ifndef CatchiOS_FileManager_h
@@ -24,14 +30,25 @@ public:
 	GLRenderer20();
 	~GLRenderer20();
 
-	void init(int width, int height);
+    //  Inherited by IRenderer
+	void init(int width, int height, CLTexture* texture);
 	void render();
     void update(float dt);
-        
+    void onRotate(DeviceOrientation orientation);
+    virtual void addActor(Actor* actor);
+    virtual void removeActor(Actor* actor);
+    
 private:
+    //  Build a shader.
     GLuint BuildShader(const char* source, GLenum shaderType) const;
+    
+    //  Build a shader program from a vertex shader and a fragment shader.
     GLuint BuildProgram(const char* vShader, const char* fShader) const;
+    
+    //  Function to set ortho
     void ApplyOrtho(float maxX, float maxY) const;
+    
+    //  Function to apply rotation.
     void ApplyRotation(float degrees) const;
     
     GLuint m_simpleProgram;

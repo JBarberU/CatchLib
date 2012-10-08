@@ -1,6 +1,15 @@
+//
+//  File:       EventBus.hpp
+//  Class:      EventBus
+//  Author:     Jesper Persson and Sebastian Odbjer
+//              All code is our own except where credited to others.
+//
+//	Copyright (c) 2012 by Catch22. All Rights Reserved.
+//  Date: 		02/10-2012
+//
+
 #include "EEvent.hpp"
 #include "EventBus.hpp"
-#include "../Helper/Logger.hpp"
 
 
 EventBus::~EventBus()
@@ -19,7 +28,6 @@ EventBus* EventBus::getSharedInstance()
 	{
 		s_sharedBus = new EventBus();
 	}
-    Log(LOG_INFO, "EventBus", "Shared instance accesed");
 	return s_sharedBus;
 }
 
@@ -33,7 +41,6 @@ void EventBus::publishEvent(EEvent event, void* source)
 
 void EventBus::addEventListener(IEventListener* listener)
 {
-    Log(LOG_INFO, "EventBus", "Added event listener");
 	listeners.push_back(listener);
 }
 

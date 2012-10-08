@@ -7,6 +7,7 @@
 
 #include "Platform.hpp"
 
+/*
 Platform::Platform()
 {
 
@@ -39,3 +40,4 @@ Vector2d* Platform::getPlatformStartPoint()
 
 
 
+*/

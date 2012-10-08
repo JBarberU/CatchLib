@@ -1,30 +1,50 @@
 //
-//  Animation.hpp
-//  CatchiOS
+//  File:   Animation.hpp
+//  Class:  Animation
+//  Author: John Barbero Unenge
+//          All code is my own except where credited to others.
 //
-//  Created by John Barbero Unenge on 10/2/12.
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Copyright (c) 2012 Catch22. All Rights Reserved.
 //
-
+//  Date:   2/10/2012
+//
+//  Description:
+//  A class used to represent an animation. It has its sprites
+//  which are included in said animation and some properties such
+//  as time per frame and whether to loop or not.
+//
 #ifndef __CatchiOS__Animation__
 #define __CatchiOS__Animation__
 
 #include "Vertex.hpp"
 #include "Sprite.hpp"
 
+struct SpriteArray{
+    Sprite**    m_spritesArray;
+    int         m_size;
+    SpriteArray(Sprite** sprites, int size) {
+        m_spritesArray = sprites;
+        m_size = size;
+    }
+};
+
 class Animation {
 private:
     float m_timeElapsed;
     float m_timePerFrame;
     bool m_looping;
-    Sprite** m_sprites;
+    
+    SpriteArray* m_sprites;
     Sprite* m_currentSprite;
-    // Callback function pointer should be saved here
     
 public:
-    Animation();
+    //  Creates an animation with the given sprites, current sprite, number of milliseconds per frame
+    //  and whether to loop or not.
+    Animation(SpriteArray* sprites, Sprite* currentSprite, float timePerFrameMillis, bool looping);
+    Animation(Animation* animation);
     ~Animation();
     
+    //  Same as the ones in IRenderable
     int getTextureID();
     const Vertex* getTextureVertexData();
     void update(float dt);

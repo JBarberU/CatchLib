@@ -1,28 +1,66 @@
 //
-//  Actor.cpp
-//  CatchiOS
+//  File:   Actor.cpp
+//  Class:  Actor
+//  Author: John Barbero Unenge
+//          All code is my own except where credited to others.
 //
-//  Created by John Barbero Unenge on 10/2/12.
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Copyright (c) 2012 Catch22. All Rights Reserved.
 //
+//  Date:   2/10/12
+//
+
 
 #include "Actor.hpp"
+#include "../Helper/Logger.hpp"
 
-Actor::Actor(Animation** animations, Animation* currentAnimation)
+//  Used until proper model object is used to track rendering location
+const Vertex txPos[] = {
+    Vertex(100.0f ,100.0f),
+    Vertex(132.0f ,100.0f),
+    Vertex(100.0f ,132.0f),
+    Vertex(132.0f ,132.0f),
+};
+
+Actor::Actor(AnimationArray* animations, Animation* currentAnimation)
 {
+    m_pBody = 0;
+    
     m_animations = animations;
     m_currentAnimation = currentAnimation;
 }
+Actor::Actor(Actor* actor)
+{
+    m_pBody = 0;
+    
+    Animation** newAnimations = new Animation*[actor->m_animations->m_size];
+    for (int i = 0; i < actor->m_animations->m_size; i++) {
+        newAnimations[i] = new Animation(actor->m_animations->m_animationArray[i]);
+    }
+    
+    m_animations = new AnimationArray(newAnimations, actor->m_animations->m_size);
+    m_currentAnimation = m_animations->m_animationArray[0];
+}
+void Actor::setPBody(PBody* pBody)
+{
+    m_pBody = pBody;
+}
 const Vertex* Actor::getVertexData()
 {
-    // Needs to keep track of a model object in order to do
-    // something here :)
-    return 0;
+    if (m_pBody != 0)
+    return new Vertex[4]{
+        Vertex(m_pBody->getPosition()->m_x ,m_pBody->getPosition()->m_y),
+        Vertex(m_pBody->getPosition()->m_x + m_pBody->getSize()->m_x,m_pBody->getPosition()->m_y),
+        Vertex(m_pBody->getPosition()->m_x ,m_pBody->getPosition()->m_y + m_pBody->getSize()->m_y),
+        Vertex(m_pBody->getPosition()->m_x + m_pBody->getSize()->m_x,m_pBody->getPosition()->m_y + m_pBody->getSize()->m_y),
+    };
+    return txPos;
 }
 const Vertex* Actor::getTextureVertexData()
 {
-    if (m_currentAnimation == 0)
+    if (m_currentAnimation == 0) {
+        Log(LOG_ERROR, "Actor", "Current animation null!");
         return 0;
+    }
     
     return m_currentAnimation->getTextureVertexData();
 }
