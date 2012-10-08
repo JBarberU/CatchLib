@@ -9,9 +9,10 @@
 #include "PlatformBlock.hpp"
 
 
-PlatformBlock::PlatformBlock(Blocktype type)
+PlatformBlock::PlatformBlock(Blocktype type, Vector2d* vector)
 {
 	this->type = type;
+	this->startVector = vector;
 }
 
 PlatformBlock::~PlatformBlock()

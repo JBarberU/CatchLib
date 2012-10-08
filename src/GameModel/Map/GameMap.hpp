@@ -1,7 +1,7 @@
 //
 //  File:       GameMap.hpp
 //  Class:      GameMap
-//  Author:     Jesper Persson
+//  Author:     Sebastian Odbjer
 //              All code is my own except where credited to others.
 //
 //	Copyright (c) 2012 by Catch22. All Rights Reserved.
@@ -18,8 +18,10 @@ class GameMap
 public:
 	~GameMap();
 	GameMap();
+	void generateStartMap();
 	void addPlatform(Platform* platform);
-	void reformFirstPlatform();
+	void reformGameMap();
+	Platform* generatePlatform(Vector2d* startpoint);
 
 private:
 	vector<Platform*> platforms;

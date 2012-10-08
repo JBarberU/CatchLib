@@ -1,7 +1,7 @@
 //
 //  File:       Platform.hpp
 //  Class:      Platform
-//  Author:     Jesper Persson
+//  Author:     Sebastian Odbjer
 //              All code is my own except where credited to others.
 //
 //	Copyright (c) 2012 by Catch22. All Rights Reserved.
@@ -26,7 +26,8 @@ public:
 	vector<PlatformBlock*> getPlatformBlocks();
 	void addPlatformBlock(PlatformBlock* block);
 	void clearPlatformBlocks();
-	Vector2d* getPlatformStartPoint();
+	Vector2d* endPoint();
+	Vector2d* startPoint();
 
 private:
 	vector<PlatformBlock*> platformblocks;

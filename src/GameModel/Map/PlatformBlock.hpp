@@ -1,7 +1,7 @@
 //
 //  File:       PlatformBlock.hpp
 //  Class:      PlatformBlock
-//  Author:     Jesper Persson
+//  Author:     Sebastian Odbjer
 //              All code is my own except where credited to others.
 //
 //	Copyright (c) 2012 by Catch22. All Rights Reserved.
@@ -22,11 +22,10 @@ enum Blocktype
 	DECLINE
 };
 
-class PlatformBlock
-{
+class PlatformBlock {
 public:
 	~PlatformBlock();
-	PlatformBlock(Blocktype type);
+	PlatformBlock(Blocktype type, Vector2d* vector);
 	void setStartPoint(Vector2d* vector);
 	Blocktype getType();
 	Vector2d* getStartVector();

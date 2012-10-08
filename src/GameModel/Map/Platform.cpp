@@ -33,9 +33,14 @@ void Platform::clearPlatformBlocks()
 	platformblocks.clear();
 }
 
-Vector2d* Platform::getPlatformStartPoint()
+Vector2d* Platform::startPoint()
 {
 	return platformblocks.front()->getStartVector();
+}
+
+Vector2d* Platform::endPoint()
+{
+	return platformblocks.back()->getEndVector();
 }
 
 
