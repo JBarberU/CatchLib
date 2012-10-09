@@ -16,11 +16,12 @@ Team members
 * rappp (Jonatan Rapp)
 * Z3B0 (Sebastian Odbjer)
 
-SCRUM Master: JBarberU Project Owner: Z3B0
+SCRUM Master: JBarberU  
+Project Owner: Z3B0
 
 
-Tets
-----
+Tests
+-----
 
 To run the tests you'll need to create a new project/target in Eclipse (new C++ project).
 
