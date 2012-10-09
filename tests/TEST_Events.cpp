@@ -28,6 +28,26 @@ TEST_CASE("EventBus", "Tests the EventBus-system. Adds listener, publishes event
     EventBus::getSharedInstance()->publishEvent(GAME_STARTED, eventTest);
     //Make sure no event was recieved (that is, that is, the TEST_Event is no longer registring published events.
     REQUIRE(eventTest->eventType == GAME_OVER);
+    
+    //Test if the bus is capable of handling greater amount of listeners
+    EventBus* bus = EventBus::getSharedInstance();
+    bus->addEventListener(eventTest);
+    
+    //Add a great number of dummy-listeners
+    TEST_Events listenerArray [1000];
+    for (int i = 0; i < 1000; i++){
+        bus->addEventListener(&listenerArray[i]);
+    }
+    
+    //Publish event, and make sure that our eventTest got the correct Event.
+    bus->publishEvent(GAME_STARTED, eventTest);
+    REQUIRE(eventTest->eventType == GAME_STARTED);
+    
+    //Remove our eventTest, publish new event, and make sure eventTest doesn't recive it.
+    bus->removeEventListener(eventTest);
+    bus->publishEvent(GAME_PAUSED, eventTest);
+    REQUIRE(eventTest->eventType == GAME_STARTED);
+    
 }
 
 void TEST_Events::onEvent (EEvent event, void* source)
