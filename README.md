@@ -23,28 +23,16 @@ Project Owner: Z3B0
 Tests
 -----
 
-To run the tests you'll need to create a new project/target in Eclipse (new C++ project).
+To run the tests all you have to do is run the following commands:  
+  
+$ cd PathToCatchLib/
+$ make compile
+$ make
 
-Then enter the following commands in Terminal (example name of the project is CatchTests): 
-  
-$ cd "PathToCatchTests/CatchTests/src"  
-$ rm CatchTests.cpp  
-$ ln -s "PathToCatchLib/CatchLib/tests" tests  
-$ mkdir src  
-$ cd src  
-$ ln -s "PathToCatchLib/CatchLib/src/GameModel" GameModel  
-$ ln -s "PathToCatchLib/CatchLib/src/Helper" Helper  
-$ ln -s "PathToCatchLib/CatchLib/src/EventHandling" EventHandling  
-  
-(If more packages are added they'll all have to be symlinked in this fashion)  
-  
-The important thing is that Controller and View packages are not symlinked as they will cause build failure as they utilize code only available on mobile devices.  
-  
-The resulting directory structure should look like this:  
-$ ls "PathToCatchTests/CatchTests/src"  
-src/ tests/  
-  
-$ ls "PathToCatchTests/CatchTests/src/src"  
-EventHandling/ GameModel/ Helper/  
-  
-If the test won't compile for seemingly mysterious reasons, try cleaning the project (Project->Clean... in Eclipse).
+or 
+
+$ cd PathToCatchLib/
+$ make compile
+$ ./Tests.so 
+
+By running Tests.so this way one can use different flags to affect the output of the tests. More info can be found here: https://github.com/philsquared/Catch/wiki/Command-line
