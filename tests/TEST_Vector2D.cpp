@@ -16,13 +16,14 @@ TEST_CASE("Test Vector2D", "Testing basic vetor operations")
     Vector2d vecB(2.0, 2.0);
     Vector2d vecC(1.0, 2.0);
     //Make sure the vectors initiated with correct values.
-    REQUIRE(vecA.m_x < vecB.m_x);
-    REQUIRE(vecA.m_y < vecB.m_y);
-    
+    REQUIRE(vecA.m_x == 1.0);
+    REQUIRE(vecA.m_y == 1.0);
+    REQUIRE(vecB.m_x == 2.0);
+    REQUIRE(vecB.m_y == 2.0);    
     //Test the += operator
     vecA +=(vecB);
-    REQUIRE(vecA.m_x > vecB.m_x);
-    REQUIRE(vecA.m_y > vecB.m_y);
+    REQUIRE(vecA.m_x == 1.0 + 2.0);
+    REQUIRE(vecA.m_y == 1.0 + 2.0);
     
     //Test the ==, = and the -= operators
     vecA -=(vecC);
@@ -36,6 +37,9 @@ TEST_CASE("Test Vector2D", "Testing basic vetor operations")
     vecC*=(2.0);
     REQUIRE(vecC.m_x == 2.0);
     REQUIRE(vecC.m_y == 4.0);
+    vecC*=(-4.0);
+    REQUIRE(vecC.m_x == -8.0);
+    REQUIRE(vecC.m_y == -16.0);
     
     //  Test the scalar multiplication operator (Vector2d * double)
     Vector2d v1 = Vector2d(10,9);
