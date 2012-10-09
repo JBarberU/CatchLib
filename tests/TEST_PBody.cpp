@@ -7,7 +7,7 @@
 //
 
 #include "catch.hpp"
-#include "PBody.hpp"
+#include "../src/GameModel/Physics/PBody.hpp"
 
 TEST_CASE("PBody: Constructor", "Checks so all instance variables have the expected values.")
 {

@@ -9,8 +9,8 @@
 //  and implements onEvent function. Keeps track of the last EEvent recieved.
 
 
-#include "EEvent.hpp"
-#include "IEventListener.hpp"
+#include "../src/EventHandling/EEvent.hpp"
+#include "../src/EventHandling/IEventListener.hpp"
 
 
 class TEST_Events: public IEventListener

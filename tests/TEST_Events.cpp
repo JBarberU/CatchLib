@@ -8,8 +8,7 @@
 
 #include "catch.hpp"
 #include "TEST_Events.hpp"
-#include "EEvent.hpp"
-#include "EventBus.hpp"
+#include "../src/EventHandling/EventBus.hpp"
 
 TEST_CASE("EventBus", "Tests the EventBus-system. Adds listener, publishes events, makes sure event was recieved correctly")
 {
