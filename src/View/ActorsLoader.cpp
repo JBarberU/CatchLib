@@ -30,7 +30,7 @@ void ActorsLoader::init(int textureID)
     
     SpriteArray* arr = new SpriteArray(sp, 4);
     
-    Animation* a = new Animation(arr, s1, 150, true);
+    Animation* a = new Animation(arr, s1, 300, true);
     Animation** aArr = new Animation*[1];
     aArr[0] = a;
     AnimationArray* aAnimArr = new AnimationArray(aArr, 1);

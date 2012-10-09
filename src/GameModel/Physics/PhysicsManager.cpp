@@ -37,7 +37,7 @@ void PhysicsManager::update(float dt)
     }
     for (int i = 0; i < m_pBodyArray->m_index; i++) {
         for (int j = 0; j < m_pBodyArray->m_index; j++) {
-            if (isColliding(m_pBodyArray->m_bodies[i], m_pBodyArray->m_bodies[j]) && m_pBodyArray->m_bodies[i] != m_pBodyArray->m_bodies[j]) {
+            if (m_pBodyArray->m_bodies[i]->isStationary() && m_pBodyArray->m_bodies[i] != m_pBodyArray->m_bodies[j] && m_pBodyArray->m_bodies[i]->isColliding(m_pBodyArray->m_bodies[j])) {
                 if (m_pBodyArray->m_bodies[i]->isAffectedByGravity()) {
                     m_pBodyArray->m_bodies[i]->revertForce(dt);
                     m_pBodyArray->m_bodies[i]->resetMovementVector();

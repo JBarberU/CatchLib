@@ -12,6 +12,8 @@
 #ifndef __CatchiOS__CStringer__
 #define __CatchiOS__CStringer__
 
+#include <cstdarg>
+
 //  Generates a string constant from a format string
 //  any number of arguments. It currently supports
 //  string constants, double values and int values.
