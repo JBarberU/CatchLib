@@ -46,13 +46,16 @@ void Actor::setPBody(PBody* pBody)
 }
 const Vertex* Actor::getVertexData()
 {
-    if (m_pBody != 0)
-    return new Vertex[4]{
-        Vertex(m_pBody->getPosition()->m_x ,m_pBody->getPosition()->m_y),
-        Vertex(m_pBody->getPosition()->m_x + m_pBody->getSize()->m_x,m_pBody->getPosition()->m_y),
-        Vertex(m_pBody->getPosition()->m_x ,m_pBody->getPosition()->m_y + m_pBody->getSize()->m_y),
-        Vertex(m_pBody->getPosition()->m_x + m_pBody->getSize()->m_x,m_pBody->getPosition()->m_y + m_pBody->getSize()->m_y),
-    };
+    if (m_pBody != 0) {
+        Vertex* v = new Vertex[4];
+        v[0] = Vertex(m_pBody->getPosition()->m_x ,m_pBody->getPosition()->m_y);
+        v[1] = Vertex(m_pBody->getPosition()->m_x + m_pBody->getSize()->m_x,m_pBody->getPosition()->m_y);
+        v[2] = Vertex(m_pBody->getPosition()->m_x ,m_pBody->getPosition()->m_y + m_pBody->getSize()->m_y);
+        v[3] = Vertex(m_pBody->getPosition()->m_x + m_pBody->getSize()->m_x,m_pBody->getPosition()->m_y + m_pBody->getSize()->m_y);
+        
+        return v;
+    }
+    
     return txPos;
 }
 const Vertex* Actor::getTextureVertexData()
