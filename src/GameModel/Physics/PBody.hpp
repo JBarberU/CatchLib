@@ -23,21 +23,20 @@ class PBody
 private:
 	Vector2d* m_position;
     Vector2d* m_size;
+    Vector2d* m_movement;
     bool m_affectedByGravity;
+    bool m_stationary;
     
 public:
-//  FIXME: Should be made private again
-    Vector2d* m_movement;
-
-    
-	~PBody();
-	PBody(bool affectedByGravity, Vector2d* position, Vector2d* size, Vector2d* movement);
+	PBody(bool affectedByGravity, bool isStationary, Vector2d* position, Vector2d* size, Vector2d* movement);
+    ~PBody();
     
     void applyForce(float dt);
     void revertForce(float dt);
     void addVector(Vector2d* vector);
     void removeVector(Vector2d* vector);
     void resetMovementVector();
+    
     Vector2d* getPosition();
     Vector2d* getSize();
     bool isAffectedByGravity();
