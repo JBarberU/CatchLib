@@ -15,6 +15,9 @@
 #include "../Physics/PBody.hpp"
 #include "../Physics/Vector2d.hpp"
 
+#ifndef PLATFORMBLOCK_H
+#define PLATFORMBLOCK_H
+
 enum Blocktype
 {
 	INCLINE,
@@ -49,3 +52,5 @@ private:
 	Blocktype type;
 	Vector2d* startVector;
 };
+
+#endif
