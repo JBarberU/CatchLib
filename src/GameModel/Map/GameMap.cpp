@@ -1,3 +1,11 @@
+//
+//  File:		GameMap.cpp
+//  Class:      GameMap
+//  Author:     Sebastian Odbjer
+//              All code is my own except where credited to others.
+//
+//	Copyright (c) 2012 by Catch22. All Rights Reserved.
+//  Date: 		07/10-2012
 
 
 #include "stdlib.h"
