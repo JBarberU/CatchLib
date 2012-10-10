@@ -21,30 +21,30 @@ class MapGenerator {
 
 private:
 
-	set<GeneratedBlock*> all;
+	set<GeneratedBlock> all;
 
-	set<GeneratedBlock*> zeroIncline;
+	set<GeneratedBlock> zeroIncline;
 
-	set<GeneratedBlock*> zeroDecline;
+	set<GeneratedBlock> zeroDecline;
 
-	set<GeneratedBlock*> plusTwo;
+	set<GeneratedBlock> plusTwo;
 
-    set<GeneratedBlock*> plusOne;
+    set<GeneratedBlock> plusOne;
 
-	set<GeneratedBlock*> allDeltaY;
+	set<GeneratedBlock> allDeltaY;
 
-	set<GeneratedBlock*> allZeroes;
+	set<GeneratedBlock> allZeroes;
 
 	/*
 	 * Returns a set of GeneratedBlocks which contain the allowed
 	 * blocks to place after the given block.
 	 */
-	set<GeneratedBlock*> getPossibleSet(GeneratedBlock* previousBlock);
+	set<GeneratedBlock> getPossibleSet(GeneratedBlock* previousBlock);
 
 	/*
 	 *
 	 */
-	set<GeneratedBlock*> getAllowedSet(set<GeneratedBlock*> possibleSet);
+	set<GeneratedBlock> getAllowedSet(set<GeneratedBlock> possibleSet, Vector2d* startVector);
 
 public:
 
@@ -52,6 +52,11 @@ public:
 	const static int HEIGHT_MAX = 7;
 	const static int PLATFORM_LENGTH_MIN = 5;
 	const static int PLATFORM_LENGTH_MAX = 15;
+
+	/*
+	 * Internal testing of private functions
+	 */
+	bool testFunc();
 
 	~MapGenerator();
 	MapGenerator();
@@ -73,6 +78,5 @@ public:
 	 * - Only horizontal blocktypes.
 	 */
 	Platform* generateFlatPlatform(Vector2d* startPoint, int length);
-
 };
 
