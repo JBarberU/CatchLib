@@ -12,6 +12,7 @@
 //
 //
 #include "GeneratedBlock.hpp"
+#include <stdio.h>
 
 GeneratedBlock::GeneratedBlock(int dy, Blocktype type)
 {
@@ -35,7 +36,7 @@ bool operator<(GeneratedBlock const& lhsBlock, GeneratedBlock const& rhsBlock)
 	 * return value based on type and dY to order
 	 * the GeneratedBlocks.
 	 */
-	int thisValue = lhsBlock.dy*3 + lhsBlock.type == INCLINE ? 0 : lhsBlock.type == HORIZONTAL ? 1 : 2;
-	int otherValue = rhsBlock.dy*3 + rhsBlock.type == INCLINE ? 0 : rhsBlock.type == HORIZONTAL ? 1 : 2;
+	int thisValue = lhsBlock.dy*3 + (lhsBlock.type == INCLINE ? 0 : lhsBlock.type == HORIZONTAL ? 1 : 2);
+	int otherValue = rhsBlock.dy*3 + (rhsBlock.type == INCLINE ? 0 : rhsBlock.type == HORIZONTAL ? 1 : 2);
 	return thisValue < otherValue;
 }
