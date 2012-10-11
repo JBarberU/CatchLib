@@ -21,6 +21,22 @@ class MapGenerator {
 
 private:
 
+	static const GeneratedBlock I2;
+	static const GeneratedBlock H2;
+	static const GeneratedBlock D2;
+
+	static const GeneratedBlock Ip1;
+	static const GeneratedBlock Hp1;
+
+	static const GeneratedBlock I0;
+	static const GeneratedBlock H0;
+	static const GeneratedBlock D0;
+
+	static const GeneratedBlock Hn1;
+	static const GeneratedBlock Dn1;
+
+	static const GeneratedBlock Hn2;
+
 	set<GeneratedBlock> all;
 
 	set<GeneratedBlock> zeroIncline;
@@ -93,3 +109,18 @@ public:
 	Platform* generateFlatPlatform(Vector2d* startPoint, int length);
 };
 
+const GeneratedBlock MapGenerator::I2 = GeneratedBlock(2, INCLINE);
+const GeneratedBlock MapGenerator::H2 = GeneratedBlock(2, HORIZONTAL);
+const GeneratedBlock MapGenerator::D2 = GeneratedBlock(2, DECLINE);
+
+const GeneratedBlock MapGenerator::Ip1 = GeneratedBlock(1, INCLINE);
+const GeneratedBlock MapGenerator::Hp1 = GeneratedBlock(1, HORIZONTAL);
+
+const GeneratedBlock MapGenerator::I0 = GeneratedBlock(0, INCLINE);
+const GeneratedBlock MapGenerator::H0 = GeneratedBlock(0, HORIZONTAL);
+const GeneratedBlock MapGenerator::D0 = GeneratedBlock(0, DECLINE);
+
+const GeneratedBlock MapGenerator::Hn1 = GeneratedBlock(-1, HORIZONTAL);
+const GeneratedBlock MapGenerator::Dn1 = GeneratedBlock(-1, DECLINE);
+
+const GeneratedBlock MapGenerator::Hn2 = GeneratedBlock(-2, HORIZONTAL);
