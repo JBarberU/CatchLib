@@ -36,13 +36,26 @@ private:
 	set<GeneratedBlock> allZeroes;
 
 	/*
-	 * Returns a set of GeneratedBlocks which contain the allowed
+	 * Returns a set of GeneratedBlocks which contain the possible
 	 * blocks to place after the given block.
+	 *
+	 * The purpose of this method is to prevent undesirable
+	 * map structures. Note though that no checks are made
+	 * to obey the height limitations.
+	 * see getAllowedSet()
 	 */
 	set<GeneratedBlock> getPossibleSet(GeneratedBlock* previousBlock);
 
 	/*
+	 * Sifts through the provided set of GeneratedBlocks, finding and
+	 * removing those that may not be placed upon the starting point
+	 * defined by startVector without breaking the height limitations placed
+	 * by HEIGH_MAX and HEIGHT_MIN.
 	 *
+	 * Returns a set containing the remaining GeneratedBlocks.
+	 *
+	 * the possibleSet is a set of GeneretedBlocks either from the predefined sets
+	 * or preferably generated through getPossibleSet().
 	 */
 	set<GeneratedBlock> getAllowedSet(set<GeneratedBlock> possibleSet, Vector2d* startVector);
 
