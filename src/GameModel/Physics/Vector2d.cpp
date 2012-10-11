@@ -55,3 +55,8 @@ Vector2d Vector2d::operator*(double scale)
 {
     return Vector2d(this->m_x * scale, this->m_y * scale);
 }
+Vector2d Vector2d::operator*(Vector2d vector)
+{
+    return Vector2d(this->m_x * vector.m_x, this->m_y * vector.m_y);
+}
+
