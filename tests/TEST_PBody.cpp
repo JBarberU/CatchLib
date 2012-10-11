@@ -18,12 +18,14 @@ TEST_CASE("PBody: Constructor", "Checks so all instance variables have the expec
     v[2] = new Vector2d(-50, -60);
     v[3] = new Vector2d(-50, -119);
     
-    PBody* b1 = new PBody(new Vector2dArray(v, 4), new Vector2d(0,0), true, false, true);
+    PBody* b1 = new PBody(new Vector2dArray(v, 4), new Vector2d(0,0), true, false, true, PB_PLAYER);
     
     CHECK_FALSE(b1->isStationary());
     CHECK(b1->isAffectedByGravity());
     CHECK(b1->getVectorArray()->m_size == 4);
     CHECK(b1->getVectorArray()->m_vectors[3]->m_y == -119);
+    
+    CHECK(b1->getTag() == PB_PLAYER);
         
     delete b1;
 }
@@ -38,7 +40,7 @@ TEST_CASE("PBody: Force application and reversion", "Makes sure force addition, 
     v1[2] = new Vector2d(-50, -60);
     v1[3] = new Vector2d(-50, -119);
     
-    PBody* b1 = new PBody(new Vector2dArray(v1, 4), new Vector2d(0,0), true, false, true);
+    PBody* b1 = new PBody(new Vector2dArray(v1, 4), new Vector2d(0,0), true, false, true, PB_PLAYER);
     
     float dt = 10;
     
@@ -73,9 +75,9 @@ TEST_CASE("PBody: Collision detection rectangles", "Checks so that collision det
     v2[2] = new Vector2d(63, 63);
     v2[3] = new Vector2d(63, 32);
     
-    PBody* b1 = new PBody(new Vector2dArray(v, 4), new Vector2d(0,0), true, false, true);
+    PBody* b1 = new PBody(new Vector2dArray(v, 4), new Vector2d(0,0), true, false, true, PB_PLAYER);
     
-    PBody* b2 = new PBody(new Vector2dArray(v2, 4), new Vector2d(0,0), true, false, true);
+    PBody* b2 = new PBody(new Vector2dArray(v2, 4), new Vector2d(0,0), true, false, true, PB_PLAYER);
     
     CHECK_FALSE(b1->isCollidingWithBody(b2));
     
@@ -100,7 +102,7 @@ TEST_CASE("PBody: Collision detection polygons", "Checks so that collision detec
     v1[2] = new Vector2d(0,0);
     
     Vector2dArray* vArr1 = new Vector2dArray(v1, 3);
-    PBody* b1 = new PBody(vArr1, true, false, true);
+    PBody* b1 = new PBody(vArr1, true, false, true, PB_PLAYER);
     
     Vector2d** v2 = new Vector2d*[3];
     
@@ -109,7 +111,7 @@ TEST_CASE("PBody: Collision detection polygons", "Checks so that collision detec
     v2[2] = new Vector2d(3,1);
     
     Vector2dArray* vArr2 = new Vector2dArray(v2, 3);
-    PBody* b2 = new PBody(vArr2, true, false, true);
+    PBody* b2 = new PBody(vArr2, true, false, true, PB_PLAYER);
     
     CHECK_FALSE(b1->isCollidingWithBody(b2));
     
@@ -121,7 +123,7 @@ TEST_CASE("PBody: Collision detection polygons", "Checks so that collision detec
     v3[2] = new Vector2d(0,0);
     
     Vector2dArray* vArr3 = new Vector2dArray(v3, 3);
-    PBody* b3 = new PBody(vArr3, true, false, true);
+    PBody* b3 = new PBody(vArr3, true, false, true, PB_PLAYER);
     
     Vector2d** v4 = new Vector2d*[4];
     
@@ -131,7 +133,7 @@ TEST_CASE("PBody: Collision detection polygons", "Checks so that collision detec
     v4[3] = new Vector2d(5,6);
     
     Vector2dArray* vArr4 = new Vector2dArray(v4, 4);
-    PBody* b4 = new PBody(vArr4, true, false, true);
+    PBody* b4 = new PBody(vArr4, true, false, true, PB_PLAYER);
     
     CHECK_FALSE(b3->isCollidingWithBody(b4));
     
