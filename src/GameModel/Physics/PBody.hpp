@@ -17,30 +17,53 @@
 #pragma once
 
 #include "Vector2d.hpp"
+#include "EPBodyType.hpp"
+
+struct Vector2dArray {
+    Vector2d**  m_vectors;
+    int         m_size;
+    Vector2dArray(Vector2d** vectors, int size)
+    {
+        m_vectors = vectors;
+        m_size = size;
+    }
+};
 
 class PBody
 {
 private:
-	Vector2d* m_position;
-    Vector2d* m_size;
-    Vector2d* m_movement;
-    bool m_affectedByGravity;
-    bool m_stationary;
+	Vector2dArray*  m_vectorArray;
+    Vector2d*       m_centerOfMassOffset;
+    bool            m_affectedByGravity;
+    bool            m_stationaryObject;
+    bool            m_rotatableObject;
+    
+    Vector2d*       m_movementVector;
+    
+    PBodyType       m_tag;
     
 public:
-	PBody(bool affectedByGravity, bool isStationary, Vector2d* position, Vector2d* size, Vector2d* movement);
+	PBody(Vector2dArray* vectorArray, Vector2d* centerOfMassOffset, bool affectedByGravity, bool stationaryObject, bool rotatableObject, PBodyType tag);
+    PBody(Vector2dArray* vectorArray, bool affectedByGravity, bool stationaryObject, bool rotatableObject, PBodyType tag);
+    PBody(Vector2dArray* vectorArray, bool stationaryObject, PBodyType tag);
+    PBody(Vector2d* position, Vector2d* size, bool affectedByGravity, bool stationaryObject, bool rotatableObject, PBodyType tag);
     ~PBody();
     
-    void applyForce(float dt);
-    void revertForce(float dt);
+    virtual void applyForce(float dt);
+    virtual void revertForce(float dt);
+    virtual void applyForceWithMask(Vector2d* mask, float dt);
+    virtual void revertForceWithMask(Vector2d* mask, float dt);
     void addVector(Vector2d* vector);
     void removeVector(Vector2d* vector);
     void resetMovementVector();
+    void maskMovementVector(float x, float y);
+    virtual void rotateAround(Vector2d* pivotPoint, float degrees);
+    virtual void translateBy(Vector2d* vector);
     
-    Vector2d* getPosition();
-    Vector2d* getSize();
+    Vector2dArray* getVectorArray();
+    
     bool isAffectedByGravity();
     bool isStationary();
-    bool isColliding(PBody* otherBody);
-    bool intersectionWithPoint(Vector2d* point);
+    virtual bool isCollidingWithBody(PBody* otherBody);
+    PBodyType getTag();
 };
