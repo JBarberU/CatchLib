@@ -16,7 +16,7 @@
 //
 #pragma once
 
-#include "Vector2d.hpp"
+#include "../../Math/Vector2d.hpp"
 #include "EPBodyType.hpp"
 
 struct Vector2dArray {
@@ -66,4 +66,7 @@ public:
     bool isStationary();
     virtual bool isCollidingWithBody(PBody* otherBody);
     PBodyType getTag();
+    Vector2d* getSize();
+    Vector2d* getPosition();
+    
 };

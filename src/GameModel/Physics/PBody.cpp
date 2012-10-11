@@ -48,9 +48,9 @@ PBody::PBody(Vector2d* position, Vector2d* size, bool affectedByGravity, bool st
 {
     Vector2d** vArr = new Vector2d*[4];
     vArr[0] = new Vector2d(position->m_x, position->m_y);
-    vArr[1] = new Vector2d(position->m_x + size->m_x, position->m_y);
-    vArr[2] = new Vector2d(position->m_x, position->m_y + size->m_y);
-    vArr[3] = new Vector2d(position->m_x + size->m_x, position->m_y + size->m_y);
+    vArr[1] = new Vector2d(position->m_x, position->m_y + size->m_y);
+    vArr[2] = new Vector2d(position->m_x + size->m_x, position->m_y + size->m_y);
+    vArr[3] = new Vector2d(position->m_x + size->m_x, position->m_y);
     
     m_vectorArray = new Vector2dArray(vArr, 4);
     m_centerOfMassOffset = new Vector2d(0,0);
@@ -140,39 +140,42 @@ bool PBody::isStationary()
 }
 bool PBody::isCollidingWithBody(PBody* otherBody)
 {
-    float min_x_1 = this->m_vectorArray->m_vectors[0]->m_x;
-    float max_x_1 = this->m_vectorArray->m_vectors[0]->m_x;
-    float min_x_2 = otherBody->m_vectorArray->m_vectors[0]->m_x;
-    float max_x_2 = otherBody->m_vectorArray->m_vectors[0]->m_x;
+//    for (int a = 0; a < this->m_vectorArray->m_size; a++) {
+//        Vector2d* v = new Vector2d();
+//    }
     
-    float min_y_1 = this->m_vectorArray->m_vectors[0]->m_y;
-    float max_y_1 = this->m_vectorArray->m_vectors[0]->m_y;
-    float min_y_2 = otherBody->m_vectorArray->m_vectors[0]->m_y;
-    float max_y_2 = otherBody->m_vectorArray->m_vectors[0]->m_y;
-    
-    for (int i = 0; i < this->m_vectorArray->m_size; i++) {
-        min_x_1 = min_x_1 > this->m_vectorArray->m_vectors[i]->m_x ? this->m_vectorArray->m_vectors[i]->m_x : min_x_1;
-        max_x_1 = max_x_1 < this->m_vectorArray->m_vectors[i]->m_x ? this->m_vectorArray->m_vectors[i]->m_x : max_x_1;
-        
-        min_y_1 = min_y_1 > this->m_vectorArray->m_vectors[i]->m_y ? this->m_vectorArray->m_vectors[i]->m_y : min_y_1;
-        max_y_1 = max_y_1 < this->m_vectorArray->m_vectors[i]->m_y ? this->m_vectorArray->m_vectors[i]->m_y : max_y_1;
-    }
-        
-    for (int i = 0; i < otherBody->m_vectorArray->m_size; i++) {
-        min_x_2 = min_x_2 > otherBody->m_vectorArray->m_vectors[i]->m_x ? otherBody->m_vectorArray->m_vectors[i]->m_x : min_x_2;
-        max_x_2 = max_x_2 < otherBody->m_vectorArray->m_vectors[i]->m_x ? otherBody->m_vectorArray->m_vectors[i]->m_x : max_x_2;
-        
-        min_y_2 = min_y_2 > otherBody->m_vectorArray->m_vectors[i]->m_y ? otherBody->m_vectorArray->m_vectors[i]->m_y : min_y_2;
-        max_y_2 = max_y_2 < otherBody->m_vectorArray->m_vectors[i]->m_y ? otherBody->m_vectorArray->m_vectors[i]->m_y : max_y_2;
-    }
-    
-    if (!((min_x_1 < min_x_2 && max_x_1 < min_x_2) || (min_x_2 < min_x_1 && max_x_2 < min_x_1)))
-        if (!((min_y_1 < min_y_2 && max_y_1 < min_y_2) || (min_y_2 < min_y_1 && max_y_2 < min_y_1))) {
-            return true;
-        }
-    return false;
+    return true;
 }
 PBodyType PBody::getTag()
 {
     return m_tag;
+}
+Vector2d* PBody::getSize()
+{
+    double xmin = this->m_vectorArray->m_size > 0 ? this->m_vectorArray->m_vectors[0]->m_x : 0;
+    double xmax = this->m_vectorArray->m_size > 0 ? this->m_vectorArray->m_vectors[0]->m_x : 0;
+    double ymin = this->m_vectorArray->m_size > 0 ? this->m_vectorArray->m_vectors[0]->m_y : 0;
+    double ymax = this->m_vectorArray->m_size > 0 ? this->m_vectorArray->m_vectors[0]->m_y : 0;
+    
+    for (int i = 0; i < this->m_vectorArray->m_size; i++) {
+        xmin = this->m_vectorArray->m_vectors[i]->m_x < xmin ? this->m_vectorArray->m_vectors[i]->m_x : xmin;
+        ymin = this->m_vectorArray->m_vectors[i]->m_y < ymin ? this->m_vectorArray->m_vectors[i]->m_y : ymin;
+        
+        xmax = this->m_vectorArray->m_vectors[i]->m_x > xmax ? this->m_vectorArray->m_vectors[i]->m_x : xmax;
+        ymax = this->m_vectorArray->m_vectors[i]->m_y > ymax ? this->m_vectorArray->m_vectors[i]->m_y : ymax;
+    }
+    
+    return new Vector2d(xmax - xmin, ymax - ymin);
+}
+Vector2d* PBody::getPosition()
+{
+    double x = this->m_vectorArray->m_size > 0 ? this->m_vectorArray->m_vectors[0]->m_x : 0;
+    double y = this->m_vectorArray->m_size > 0 ? this->m_vectorArray->m_vectors[0]->m_y : 0;
+    
+    for (int i = 0; i < this->m_vectorArray->m_size; i++) {
+        x = this->m_vectorArray->m_vectors[i]->m_x < x ? this->m_vectorArray->m_vectors[i]->m_x : x;
+        y = this->m_vectorArray->m_vectors[i]->m_y < y ? this->m_vectorArray->m_vectors[i]->m_y : y;
+    }
+    
+    return new Vector2d(x, y);
 }
