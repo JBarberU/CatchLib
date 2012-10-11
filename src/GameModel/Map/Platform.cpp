@@ -1,9 +1,11 @@
 //
-//  Platform.cpp
-//  CatchLib
+//  File:		Platform.cpp
+//  Class:      Platform
+//  Author:     Sebastian Odbjer
+//              All code is my own except where credited to others.
 //
-//  Created by Sebastian Odbjer on 5/10/12.
-//  Copyright (c) 2012 Catch22. All rights reserved.
+//	Copyright (c) 2012 by Catch22. All Rights Reserved.
+//  Date: 		05/10-2012
 
 #include "Platform.hpp"
 
