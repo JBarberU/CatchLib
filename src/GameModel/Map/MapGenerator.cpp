@@ -23,41 +23,41 @@ MapGenerator::~MapGenerator()
 
 MapGenerator::MapGenerator()
 {
-	all.insert(GeneratedBlock(2, INCLINE));
-	all.insert(GeneratedBlock(2, HORIZONTAL));
-	all.insert(GeneratedBlock(2, DECLINE));
-	all.insert(GeneratedBlock(1, INCLINE));
-	all.insert(GeneratedBlock(1, HORIZONTAL));
-	all.insert(GeneratedBlock(0, INCLINE));
-	all.insert(GeneratedBlock(0, HORIZONTAL));
-	all.insert(GeneratedBlock(0, DECLINE));
-	all.insert(GeneratedBlock(-1, HORIZONTAL));
-	all.insert(GeneratedBlock(-1, DECLINE));
-	all.insert(GeneratedBlock(-2, HORIZONTAL));
+	all.insert(Ip2);
+	all.insert(Hp2);
+	all.insert(Dp2);
+	all.insert(Ip1);
+	all.insert(Hp1);
+	all.insert(I0);
+	all.insert(H0);
+	all.insert(D0);
+	all.insert(Hn1);
+	all.insert(Dn1);
+	all.insert(Hn2);
 
-	zeroIncline.insert(GeneratedBlock(0, INCLINE));
+	zeroIncline.insert(I0);
 
-	zeroDecline.insert(GeneratedBlock(0, DECLINE));
+	zeroDecline.insert(D0);
 
-	plusTwo.insert(GeneratedBlock(2, INCLINE));
-	plusTwo.insert(GeneratedBlock(2, HORIZONTAL));
-	plusTwo.insert(GeneratedBlock(2, DECLINE));
+	plusTwo.insert(Ip2);
+	plusTwo.insert(Hp2);
+	plusTwo.insert(Dp2);
 
-	plusOne.insert(GeneratedBlock(1, INCLINE));
-	plusOne.insert(GeneratedBlock(1, HORIZONTAL));
+	plusOne.insert(Ip1);
+	plusOne.insert(Hp1);
 
-	allZeroes.insert(GeneratedBlock(0, INCLINE));
-	allZeroes.insert(GeneratedBlock(0, HORIZONTAL));
-	allZeroes.insert(GeneratedBlock(0, DECLINE));
+	allZeroes.insert(I0);
+	allZeroes.insert(H0);
+	allZeroes.insert(D0);
 
-	allDeltaY.insert(GeneratedBlock(2, INCLINE));
-	allDeltaY.insert(GeneratedBlock(2, HORIZONTAL));
-	allDeltaY.insert(GeneratedBlock(2, DECLINE));
-	allDeltaY.insert(GeneratedBlock(1, INCLINE));
-	allDeltaY.insert(GeneratedBlock(1, HORIZONTAL));
-	allDeltaY.insert(GeneratedBlock(-1, HORIZONTAL));
-	allDeltaY.insert(GeneratedBlock(-1, DECLINE));
-	allDeltaY.insert(GeneratedBlock(-2, HORIZONTAL));
+	allDeltaY.insert(Ip2);
+	allDeltaY.insert(Hp2);
+	allDeltaY.insert(Dp2);
+	allDeltaY.insert(Ip1);
+	allDeltaY.insert(Hp1);
+	allDeltaY.insert(Hn1);
+	allDeltaY.insert(Dn1);
+	allDeltaY.insert(Hn2);
 }
 
 set<GeneratedBlock> MapGenerator::getPossibleSet(GeneratedBlock* previousBlock)
@@ -147,14 +147,14 @@ bool MapGenerator::testFunc()
 	set<GeneratedBlock> testSet = 	getPossibleSet(0);
 	printf("Size (input: 0) = %i\n", (int)testSet.size());
 
-	GeneratedBlock* lastBlock = new GeneratedBlock(0, HORIZONTAL);
+	GeneratedBlock lastBlock = H0;
 
-	testSet = getPossibleSet(lastBlock);
-	printf("Size (input: -2,H) = %i\n", (int)testSet.size());
+	testSet = getPossibleSet(&lastBlock);
+	printf("Size (input: 0,H) = %i\n", (int)testSet.size());
 
 	testSet = getAllowedSet(testSet, new Vector2d(0, 4));
 
-	printf("Size (input: -2,H) (0, 4) = %i\n", (int)testSet.size());
+	printf("Size (input: 0,H) V(0, 4) = %i\n", (int)testSet.size());
 
 	int nbr = testSet.size();
 	for (int i = 0; i < nbr; i++) {

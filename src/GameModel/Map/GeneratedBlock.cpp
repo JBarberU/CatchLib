@@ -14,10 +14,11 @@
 #include "GeneratedBlock.hpp"
 #include <stdio.h>
 
-GeneratedBlock::GeneratedBlock(int dy, Blocktype type)
+GeneratedBlock::GeneratedBlock(int dy, Blocktype type, int baseChance)
 {
 	this->dy = dy;
 	this->type = type;
+	this->baseChance = baseChance;
 }
 
 GeneratedBlock::~GeneratedBlock()

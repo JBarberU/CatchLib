@@ -21,9 +21,9 @@ class MapGenerator {
 
 private:
 
-	static const GeneratedBlock I2;
-	static const GeneratedBlock H2;
-	static const GeneratedBlock D2;
+	static const GeneratedBlock Ip2;
+	static const GeneratedBlock Hp2;
+	static const GeneratedBlock Dp2;
 
 	static const GeneratedBlock Ip1;
 	static const GeneratedBlock Hp1;
@@ -109,18 +109,18 @@ public:
 	Platform* generateFlatPlatform(Vector2d* startPoint, int length);
 };
 
-const GeneratedBlock MapGenerator::I2 = GeneratedBlock(2, INCLINE);
-const GeneratedBlock MapGenerator::H2 = GeneratedBlock(2, HORIZONTAL);
-const GeneratedBlock MapGenerator::D2 = GeneratedBlock(2, DECLINE);
+const GeneratedBlock MapGenerator::Ip2 = GeneratedBlock(2, INCLINE, 12);
+const GeneratedBlock MapGenerator::Hp2 = GeneratedBlock(2, HORIZONTAL, 12);
+const GeneratedBlock MapGenerator::Dp2 = GeneratedBlock(2, DECLINE, 8);
 
-const GeneratedBlock MapGenerator::Ip1 = GeneratedBlock(1, INCLINE);
-const GeneratedBlock MapGenerator::Hp1 = GeneratedBlock(1, HORIZONTAL);
+const GeneratedBlock MapGenerator::Ip1 = GeneratedBlock(1, INCLINE, 16);
+const GeneratedBlock MapGenerator::Hp1 = GeneratedBlock(1, HORIZONTAL, 16);
 
-const GeneratedBlock MapGenerator::I0 = GeneratedBlock(0, INCLINE);
-const GeneratedBlock MapGenerator::H0 = GeneratedBlock(0, HORIZONTAL);
-const GeneratedBlock MapGenerator::D0 = GeneratedBlock(0, DECLINE);
+const GeneratedBlock MapGenerator::I0 = GeneratedBlock(0, INCLINE, 52);
+const GeneratedBlock MapGenerator::H0 = GeneratedBlock(0, HORIZONTAL, 300);
+const GeneratedBlock MapGenerator::D0 = GeneratedBlock(0, DECLINE, 52);
 
-const GeneratedBlock MapGenerator::Hn1 = GeneratedBlock(-1, HORIZONTAL);
-const GeneratedBlock MapGenerator::Dn1 = GeneratedBlock(-1, DECLINE);
+const GeneratedBlock MapGenerator::Hn1 = GeneratedBlock(-1, HORIZONTAL, 20);
+const GeneratedBlock MapGenerator::Dn1 = GeneratedBlock(-1, DECLINE, 20);
 
-const GeneratedBlock MapGenerator::Hn2 = GeneratedBlock(-2, HORIZONTAL);
+const GeneratedBlock MapGenerator::Hn2 = GeneratedBlock(-2, HORIZONTAL, 12);

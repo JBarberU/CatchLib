@@ -18,9 +18,10 @@ class GeneratedBlock {
 public:
 	int dy;
 	Blocktype type;
+	int baseChance;
 
 	~GeneratedBlock();
-	GeneratedBlock(int dy, Blocktype type);
+	GeneratedBlock(int dy, Blocktype type, int baseChance);
 	friend bool operator==(GeneratedBlock const& lhsBlock, GeneratedBlock const& rhsBlock);
 	friend bool operator<(GeneratedBlock const& lhsBlock, GeneratedBlock const& rhsBlock);
 };
