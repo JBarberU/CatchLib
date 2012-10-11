@@ -10,7 +10,9 @@
 #include "../../EventHandling/EventBus.hpp"
 #include "../../Helper/Logger.hpp"
 
-Vector2d * GRAVITY_VECTOR = new Vector2d(0.0, -15.0);
+Vector2d* GRAVITY_VECTOR = new Vector2d(0.0, -15.);
+Vector2d* VECTOR_X_ONLY = new Vector2d(1,0);
+Vector2d* VECTOR_Y_ONLY = new Vector2d(0,1);
 
 PhysicsManager::PhysicsManager()
 {
@@ -32,25 +34,38 @@ void PhysicsManager::update(float dt)
     for (int i = 0; i < m_pBodyArray->m_index; i++) {
         if (m_pBodyArray->m_bodies[i]->isAffectedByGravity()) {
             m_pBodyArray->m_bodies[i]->addVector(GRAVITY_VECTOR);
-            m_pBodyArray->m_bodies[i]->applyForce(dt);
         }
     }
+    
     for (int i = 0; i < m_pBodyArray->m_index; i++) {
-        for (int j = 0; j < m_pBodyArray->m_index; j++) {
-            if (m_pBodyArray->m_bodies[i]->isStationary() && m_pBodyArray->m_bodies[i] != m_pBodyArray->m_bodies[j] && m_pBodyArray->m_bodies[i]->isColliding(m_pBodyArray->m_bodies[j])) {
-                if (m_pBodyArray->m_bodies[i]->isAffectedByGravity()) {
-                    m_pBodyArray->m_bodies[i]->revertForce(dt);
-                    m_pBodyArray->m_bodies[i]->resetMovementVector();
+        if (!m_pBodyArray->m_bodies[i]->isStationary()) {
+            
+            if (m_pBodyArray->m_bodies[i]->isAffectedByGravity()) {
+                m_pBodyArray->m_bodies[i]->applyForceWithMask(VECTOR_X_ONLY, dt);
+            
+            for (int j = 0; j < m_pBodyArray->m_index; j++) {
+                if (m_pBodyArray->m_bodies[i] != m_pBodyArray->m_bodies[j] && m_pBodyArray->m_bodies[i]->isCollidingWithBody(m_pBodyArray->m_bodies[j])) {
+                    m_pBodyArray->m_bodies[i]->revertForceWithMask(VECTOR_X_ONLY, dt);
+                    Vector2d v = *GRAVITY_VECTOR * *VECTOR_X_ONLY;
+                    m_pBodyArray->m_bodies[i]->removeVector(&v);
+                    
+                    // Extra logic when colliding on the X axis
+                    m_pBodyArray->m_bodies[i]->maskMovementVector(0, 1);
                 }
-                if (m_pBodyArray->m_bodies[j]->isAffectedByGravity()) {
-                    m_pBodyArray->m_bodies[j]->revertForce(dt);
-                    m_pBodyArray->m_bodies[j]->resetMovementVector();
+            }
+            
+            
+            m_pBodyArray->m_bodies[i]->applyForceWithMask(VECTOR_Y_ONLY, dt);
+            for (int j = 0; j < m_pBodyArray->m_index; j++) {
+                if (m_pBodyArray->m_bodies[i] != m_pBodyArray->m_bodies[j] && m_pBodyArray->m_bodies[i]->isCollidingWithBody(m_pBodyArray->m_bodies[j])) {
+                    m_pBodyArray->m_bodies[i]->revertForceWithMask(VECTOR_Y_ONLY, dt);
+                    Vector2d v = *GRAVITY_VECTOR * *VECTOR_Y_ONLY;
+                    m_pBodyArray->m_bodies[i]->removeVector(&v);
+                    
+                    // Extra logic when colliding on the Y axis
+                    m_pBodyArray->m_bodies[i]->maskMovementVector(1, 0);
                 }
-                PBody**  source = new PBody*[2];
-                source[0] = m_pBodyArray->m_bodies[i];
-                source[1] =  m_pBodyArray->m_bodies[j];
-                EventBus::getSharedInstance()->publishEvent(DID_COLLIDE, source);
-                delete [] source;
+                }
             }
         }
     }
@@ -83,20 +98,6 @@ void PhysicsManager::removePBody(PBody* pBody)
             m_pBodyArray->m_bodies[i] = m_pBodyArray->m_bodies[--m_pBodyArray->m_index];
         }
     }
-}
-
-bool PhysicsManager::isColliding(PBody* b1, PBody* b2)
-{
-    if (b1->getPosition()->m_x + b1->getSize()->m_x < b2->getPosition()->m_x)
-        return false;
-    if (b1->getPosition()->m_y > b2->getPosition()->m_y + b2->getSize()->m_y)
-        return false;
-    if (b1->getPosition()->m_x > b2->getPosition()->m_x + b2->getSize()->m_x)
-        return false;
-    if (b1->getPosition()->m_y + b1->getSize()->m_y < b2->getPosition()->m_y)
-        return false;
-    
-    return true;
 }
 
 void PhysicsManager::onEvent (EEvent event, void* source)
