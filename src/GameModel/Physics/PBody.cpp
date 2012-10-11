@@ -52,8 +52,6 @@ PBody::PBody(Vector2d* position, Vector2d* size, bool affectedByGravity, bool st
     vArr[2] = new Vector2d(position->m_x, position->m_y + size->m_y);
     vArr[3] = new Vector2d(position->m_x + size->m_x, position->m_y + size->m_y);
     
-    Log(LOG_INFO, "PBody", generateCString("vArr3: %d", vArr[3]->m_x));
-    
     m_vectorArray = new Vector2dArray(vArr, 4);
     m_centerOfMassOffset = new Vector2d(0,0);
     m_affectedByGravity = affectedByGravity;
@@ -168,16 +166,10 @@ bool PBody::isCollidingWithBody(PBody* otherBody)
         max_y_2 = max_y_2 < otherBody->m_vectorArray->m_vectors[i]->m_y ? otherBody->m_vectorArray->m_vectors[i]->m_y : max_y_2;
     }
     
-//    Log(LOG_INFO, "PBody", generateCString("Movement: %d,%d", m_movementVector->m_x, m_movementVector->m_y));
-    Log(LOG_INFO, "PBody", generateCString("x1: %d,%d y1: %d,%d", min_x_1, max_x_1, min_y_1, max_y_1));
-    Log(LOG_INFO, "PBody", generateCString("x2: %d,%d y2: %d,%d", min_x_2, max_x_2, min_y_2, max_y_2));
-    
     if (!((min_x_1 < min_x_2 && max_x_1 < min_x_2) || (min_x_2 < min_x_1 && max_x_2 < min_x_1)))
         if (!((min_y_1 < min_y_2 && max_y_1 < min_y_2) || (min_y_2 < min_y_1 && max_y_2 < min_y_1))) {
-            Log(LOG_INFO, "Collision", "True!");
             return true;
         }
-    Log(LOG_INFO, "Collision", "False!");
     return false;
 }
 PBodyType PBody::getTag()
