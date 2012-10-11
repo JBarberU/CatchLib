@@ -36,9 +36,7 @@ struct PBodyArray {
 class PhysicsManager : public IEventListener {
 private:
     PBodyArray* m_pBodyArray;
-    
-    bool isColliding(PBody* b1, PBody* b2);
-    
+        
 public:
     PhysicsManager();
     ~PhysicsManager();
