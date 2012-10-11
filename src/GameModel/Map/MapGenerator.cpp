@@ -1,7 +1,7 @@
 //
 //  File:	MapGenerator.cpp
 //  Class	MapGenerator
-//  Author	Jonatan Rapp
+//  Author	Jonatan Rapp & Alexander Hederstaf
 //			All code is my own except where credited to others.
 //
 //  Copyright © 2012 Catch22. All Rights Reserved.
@@ -14,7 +14,26 @@
 
 #include "MapGenerator.hpp"
 #include <algorithm>
+#include <math.h>
 #include <stdio.h>
+
+// All possible GeneratedBlocks
+const GeneratedBlock Ip2 = GeneratedBlock(2, INCLINE, 12);
+const GeneratedBlock Hp2 = GeneratedBlock(2, HORIZONTAL, 12);
+const GeneratedBlock Dp2 = GeneratedBlock(2, DECLINE, 8);
+
+const GeneratedBlock Ip1 = GeneratedBlock(1, INCLINE, 16);
+const GeneratedBlock Hp1 = GeneratedBlock(1, HORIZONTAL, 16);
+
+const GeneratedBlock I0 = GeneratedBlock(0, INCLINE, 52);
+const GeneratedBlock H0 = GeneratedBlock(0, HORIZONTAL, 300);
+const GeneratedBlock D0 = GeneratedBlock(0, DECLINE, 52);
+
+const GeneratedBlock Hn1 = GeneratedBlock(-1, HORIZONTAL, 20);
+const GeneratedBlock Dn1 = GeneratedBlock(-1, DECLINE, 20);
+
+const GeneratedBlock Hn2 = GeneratedBlock(-2, HORIZONTAL, 12);
+// End of GeneratedBlocks
 
 MapGenerator::~MapGenerator()
 {
@@ -23,6 +42,10 @@ MapGenerator::~MapGenerator()
 
 MapGenerator::MapGenerator()
 {
+	recentlyUsedBuffer.resize(BUFFER_SIZE, H0);
+	bufferElementCounter.resize(11, 0);
+	bufferElementCounter[4] = 20; //20x Horizontal dy = 0 blocks
+
 	all.insert(Ip2);
 	all.insert(Hp2);
 	all.insert(Dp2);
@@ -129,9 +152,51 @@ set<GeneratedBlock> MapGenerator::getAllowedSet(set<GeneratedBlock> possibleSet,
 	return allowedSet;
 }
 
+void MapGenerator::addToBuffer(GeneratedBlock usedBlock)
+{
+	vector<GeneratedBlock>::iterator it = recentlyUsedBuffer.begin();
+	recentlyUsedBuffer.erase(recentlyUsedBuffer.begin());
+	GeneratedBlock removed = *it;
+	int position = distance(all.begin(), all.find(removed));
+	bufferElementCounter[position]--;
+
+	recentlyUsedBuffer.push_back(usedBlock);
+	position = distance(all.begin(), all.find(usedBlock));
+	bufferElementCounter[position]++;
+}
+
+void MapGenerator::modifyChances(set<GeneratedBlock>& allowedSet, Vector2d* startVector)
+{
+	set<GeneratedBlock>::iterator it;
+	for (it = allowedSet.begin(); it != allowedSet.end(); ++it) {
+		GeneratedBlock block = *it;
+		block.baseChance -=  2 * bufferElementCounter[distance(all.begin(), all.find(block))];
+		if ((block.dy + ((-1) * (block.type - 1)) < 0 && startVector->m_y < 4)
+				|| (block.dy + ((-1) * (block.type - 1)) > 0 && startVector->m_y > 4)) {
+			int z = abs((int) (startVector->m_y - 4));
+			if (z == 1) {
+				block.baseChance *= 3;
+			}
+			if (z == 2) {
+				block.baseChance *= 2;
+			}
+			block.baseChance /= 4;
+		}
+		allowedSet.erase(*it);
+		allowedSet.insert(block);
+	}
+}
+
+
 
 Platform* MapGenerator::generatePlatform(Vector2d* startVector)
 {
+	// 1. get possible set
+	// 2. get allowed set
+	// 3. modify chance (using buffer & deltaY)
+	// 4. select GeneratedBlock
+	// 5. add platformblock to platform
+	// 6. add used GeneratedBlock to buffer
 	return 0;
 }
 
@@ -144,7 +209,7 @@ bool MapGenerator::testFunc()
 {
 	printf("Size all = %i\n", (int)all.size());
 
-	set<GeneratedBlock> testSet = 	getPossibleSet(0);
+	set<GeneratedBlock> testSet = getPossibleSet(0);
 	printf("Size (input: 0) = %i\n", (int)testSet.size());
 
 	GeneratedBlock lastBlock = H0;
@@ -152,17 +217,33 @@ bool MapGenerator::testFunc()
 	testSet = getPossibleSet(&lastBlock);
 	printf("Size (input: 0,H) = %i\n", (int)testSet.size());
 
-	testSet = getAllowedSet(testSet, new Vector2d(0, 4));
+	testSet = getAllowedSet(testSet, new Vector2d(0, 5));
 
-	printf("Size (input: 0,H) V(0, 4) = %i\n", (int)testSet.size());
+	printf("Size (input: 0,H) V(0, 3) = %i\n", (int)testSet.size());
 
 	int nbr = testSet.size();
+	set<GeneratedBlock> printSet = testSet;
+	printf("allowedSet --------\n");
 	for (int i = 0; i < nbr; i++) {
-		set<GeneratedBlock>::iterator it = testSet.begin();
+		set<GeneratedBlock>::iterator it = printSet.begin();
 		int y = (&*it)->dy;
 		int t = (&*it)->type;
-		printf("Element #%i: dy: %i, type %i\n", i, y, t);
-		testSet.erase(it);
+		int c = (&*it)->baseChance;
+		printf("Element #%i: dy: %i, type %i, chance %i\n", i, y, t, c);
+		printSet.erase(it);
+	}
+
+	modifyChances(testSet, new Vector2d(0, 5));
+
+	printf("After modifyChances()--------\n");
+	printSet = testSet;
+	for (int i = 0; i < nbr; i++) {
+		set<GeneratedBlock>::iterator it = printSet.begin();
+		int y = (&*it)->dy;
+		int t = (&*it)->type;
+		int c = (&*it)->baseChance;
+		printf("Element #%i: dy: %i, type %i, chance %i\n", i, y, t, c);
+		printSet.erase(it);
 	}
 	return true;
 }

@@ -16,39 +16,25 @@
 #include "Platform.hpp"
 #include "GeneratedBlock.hpp"
 #include <set>
+#include <vector>
+
+
+#ifndef MAPGENERATOR_H_
+#define MAPGENERATOR_H_
 
 class MapGenerator {
 
 private:
 
-	static const GeneratedBlock Ip2;
-	static const GeneratedBlock Hp2;
-	static const GeneratedBlock Dp2;
-
-	static const GeneratedBlock Ip1;
-	static const GeneratedBlock Hp1;
-
-	static const GeneratedBlock I0;
-	static const GeneratedBlock H0;
-	static const GeneratedBlock D0;
-
-	static const GeneratedBlock Hn1;
-	static const GeneratedBlock Dn1;
-
-	static const GeneratedBlock Hn2;
+	vector<GeneratedBlock> recentlyUsedBuffer;
+	vector<int> bufferElementCounter;
 
 	set<GeneratedBlock> all;
-
 	set<GeneratedBlock> zeroIncline;
-
 	set<GeneratedBlock> zeroDecline;
-
 	set<GeneratedBlock> plusTwo;
-
     set<GeneratedBlock> plusOne;
-
 	set<GeneratedBlock> allDeltaY;
-
 	set<GeneratedBlock> allZeroes;
 
 	/*
@@ -75,12 +61,25 @@ private:
 	 */
 	set<GeneratedBlock> getAllowedSet(set<GeneratedBlock> possibleSet, Vector2d* startVector);
 
+	/*
+	 * TODO:
+	 */
+	void modifyChances(set<GeneratedBlock>& allowedSet, Vector2d* startVector);
+
+	/*
+	 * Adds a GeneratedBlock at the end of recentlyUsedBuffer
+	 * vector, and removes the first one. This way the buffer vector
+	 * will always maintain the size defined in BUFFER_SIZE.
+	 */
+	void addToBuffer(GeneratedBlock usedBlock);
+
 public:
 
 	const static int HEIGHT_MIN = 1;
 	const static int HEIGHT_MAX = 7;
 	const static int PLATFORM_LENGTH_MIN = 5;
 	const static int PLATFORM_LENGTH_MAX = 15;
+	const static int BUFFER_SIZE = 20;
 
 	/*
 	 * Internal testing of private functions
@@ -109,18 +108,4 @@ public:
 	Platform* generateFlatPlatform(Vector2d* startPoint, int length);
 };
 
-const GeneratedBlock MapGenerator::Ip2 = GeneratedBlock(2, INCLINE, 12);
-const GeneratedBlock MapGenerator::Hp2 = GeneratedBlock(2, HORIZONTAL, 12);
-const GeneratedBlock MapGenerator::Dp2 = GeneratedBlock(2, DECLINE, 8);
-
-const GeneratedBlock MapGenerator::Ip1 = GeneratedBlock(1, INCLINE, 16);
-const GeneratedBlock MapGenerator::Hp1 = GeneratedBlock(1, HORIZONTAL, 16);
-
-const GeneratedBlock MapGenerator::I0 = GeneratedBlock(0, INCLINE, 52);
-const GeneratedBlock MapGenerator::H0 = GeneratedBlock(0, HORIZONTAL, 300);
-const GeneratedBlock MapGenerator::D0 = GeneratedBlock(0, DECLINE, 52);
-
-const GeneratedBlock MapGenerator::Hn1 = GeneratedBlock(-1, HORIZONTAL, 20);
-const GeneratedBlock MapGenerator::Dn1 = GeneratedBlock(-1, DECLINE, 20);
-
-const GeneratedBlock MapGenerator::Hn2 = GeneratedBlock(-2, HORIZONTAL, 12);
+#endif
