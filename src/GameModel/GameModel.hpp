@@ -26,4 +26,5 @@ public:
     void update(float dt);
     
     void playerJump();
+    void playerThrowAt(int x, int y);
 };
