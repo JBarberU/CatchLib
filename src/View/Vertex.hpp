@@ -23,7 +23,7 @@ public:
         Position[0] = x;
         Position[1] = y;
     }
-    Vertex();
+    Vertex(){}
 };
 
 #endif
