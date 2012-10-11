@@ -26,6 +26,7 @@ public:
     static void init(int textureID);
     //  Create a new MainCharacter Actor
     static Actor* newMainCharacterActor();
+    static Actor* newPlatformActor();
 };
 
 #endif /* defined(__CatchiOS__ActorsLoader__) */

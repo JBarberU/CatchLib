@@ -47,11 +47,11 @@ void Actor::setPBody(PBody* pBody)
 const Vertex* Actor::getVertexData()
 {
     if (m_pBody != 0) {
-        Vertex* v = new Vertex[4];
-        v[0] = Vertex(m_pBody->getPosition()->m_x ,m_pBody->getPosition()->m_y);
-        v[1] = Vertex(m_pBody->getPosition()->m_x + m_pBody->getSize()->m_x,m_pBody->getPosition()->m_y);
-        v[2] = Vertex(m_pBody->getPosition()->m_x ,m_pBody->getPosition()->m_y + m_pBody->getSize()->m_y);
-        v[3] = Vertex(m_pBody->getPosition()->m_x + m_pBody->getSize()->m_x,m_pBody->getPosition()->m_y + m_pBody->getSize()->m_y);
+        Vertex* v = new Vertex[m_pBody->getVectorArray()->m_size];
+        
+        for (int i = 0; i < m_pBody->getVectorArray()->m_size; i++) {
+            v[i] = Vertex(m_pBody->getVectorArray()->m_vectors[i]->m_x, m_pBody->getVectorArray()->m_vectors[i]->m_y);
+        }
         
         return v;
     }

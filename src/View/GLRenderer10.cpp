@@ -200,8 +200,20 @@ void GLRenderer10::removeActor(Actor* actor)
 void GLRenderer10::onEvent (EEvent event, void* source)
 {
     if (event == PBODY_CREATED) {
+        Log(LOG_INFO, "Player", generateCString("player pbody: %d", ((PBody*)source)->getVectorArray()->m_vectors[0]->m_y));
         
-        Actor* newActor = ActorsLoader::newMainCharacterActor();
+        Actor* newActor;
+        switch (((PBody *) source)->getTag()) {
+            case PB_PLAYER:
+                newActor = ActorsLoader::newMainCharacterActor();
+                break;
+            case PB_PLATFORM:
+                newActor = ActorsLoader::newPlatformActor();
+                break;
+            default:
+                return;
+        }
+        
         newActor->setPBody((PBody *) source);
         this->addActor(newActor);
         Log(LOG_INFO, "GLRenderer10", generateCString("Added an actor: %i", m_actors->m_index));
