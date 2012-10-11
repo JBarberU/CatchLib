@@ -11,103 +11,133 @@
 
 TEST_CASE("PBody: Constructor", "Checks so all instance variables have the expected values.")
 {
-    PBody* b1 = new PBody(true, false, new Vector2d(-100, -119), new Vector2d(50, 59), new Vector2d(-0, 951));
+    Vector2d** v = new Vector2d*[4];
     
-    CHECK(b1->getPosition()->m_x == -100);
-    CHECK(b1->getPosition()->m_y == -119);
-    CHECK(b1->getSize()->m_x == 50);
-    CHECK(b1->getSize()->m_y == 59);
-    CHECK(b1->isAffectedByGravity() == true);
-    CHECK(b1->isStationary() == false);
+    v[0] = new Vector2d(-100, -119);
+    v[1] = new Vector2d(-100, -60);
+    v[2] = new Vector2d(-50, -60);
+    v[3] = new Vector2d(-50, -119);
     
-    delete b1;
+    PBody* b1 = new PBody(new Vector2dArray(v, 4), new Vector2d(0,0), true, false, true);
     
-    b1 = new PBody(false, true, new Vector2d(-100, -119), new Vector2d(50, 59), new Vector2d(-0, 951));
-    CHECK(b1->isAffectedByGravity() == false);
-    CHECK(b1->isStationary() == true);
-    
+    CHECK_FALSE(b1->isStationary());
+    CHECK(b1->isAffectedByGravity());
+    CHECK(b1->getVectorArray()->m_size == 4);
+    CHECK(b1->getVectorArray()->m_vectors[3]->m_y == -119);
+        
     delete b1;
 }
 TEST_CASE("PBody: Force application and reversion", "Makes sure force addition, application, subtraction and reversion works as intended.")
 {
     Vector2d v = Vector2d(-20, -10);
+ 
+    Vector2d** v1 = new Vector2d*[4];
     
-    PBody* b1 = new PBody(true, false, new Vector2d(-100, -119), new Vector2d(50, 59), new Vector2d(-0, 951));
+    v1[0] = new Vector2d(-100, -119);
+    v1[1] = new Vector2d(-100, -60);
+    v1[2] = new Vector2d(-50, -60);
+    v1[3] = new Vector2d(-50, -119);
+    
+    PBody* b1 = new PBody(new Vector2dArray(v1, 4), new Vector2d(0,0), true, false, true);
     
     float dt = 10;
     
     b1->addVector(&v);
     b1->applyForce(dt);
     
-    CHECK(b1->getPosition()->m_x == -300);
-    CHECK(b1->getPosition()->m_y == 9291);
+    CHECK(b1->getVectorArray()->m_vectors[0]->m_x == -300);
+    CHECK(b1->getVectorArray()->m_vectors[0]->m_y == -219);
     
     b1->revertForce(dt);
     b1->removeVector(&v);
-    
-    CHECK(b1->getPosition()->m_x == -100);
-    CHECK(b1->getPosition()->m_y == -119);
-    
-    delete b1;
-    
-    b1 = new PBody(true, false, new Vector2d(-100, -119), new Vector2d(50, 59), new Vector2d(-25, 25));
-    
-    CHECK(b1->getPosition()->m_x == -100);
-    CHECK(b1->getPosition()->m_y == -119);
 
-    b1->applyForce(dt);
-    
-    CHECK(b1->getPosition()->m_x == -350);
-    CHECK(b1->getPosition()->m_y == 131);
-    
-    b1->resetMovementVector();
-    
-    // Since the movement vector has been reset it should not matter how many times we do this.
-    for (int i = 0; i < 1000; i++)
-        b1->applyForce(dt);
-    
-    CHECK(b1->getPosition()->m_x == -350);
-    CHECK(b1->getPosition()->m_y == 131);
-    
+    CHECK(b1->getVectorArray()->m_vectors[0]->m_x == -100);
+    CHECK(b1->getVectorArray()->m_vectors[0]->m_y == -119);
+        
     delete b1;
 }
 
-TEST_CASE("PBody: Collision detection", "Checks so that collision detection works as it should.")
+TEST_CASE("PBody: Collision detection rectangles", "Checks so that collision detection works as it should for rectangles.")
 {
-    PBody* b1 = new PBody(true, false, new Vector2d(0, 0), new Vector2d(32, 32), new Vector2d(0, 0));
-    PBody* b2 = new PBody(true, false, new Vector2d(32, 32), new Vector2d(32, 32), new Vector2d(0, 0));
+    Vector2d** v = new Vector2d*[4];
     
-    CHECK_FALSE(b1->isColliding(b2));
+    v[0] = new Vector2d(0, 0);
+    v[1] = new Vector2d(0, 31);
+    v[2] = new Vector2d(31, 31);
+    v[3] = new Vector2d(31, 0);
+    
+    Vector2d** v2 = new Vector2d*[4];
+    
+    v2[0] = new Vector2d(32, 32);
+    v2[1] = new Vector2d(32, 63);
+    v2[2] = new Vector2d(63, 63);
+    v2[3] = new Vector2d(63, 32);
+    
+    PBody* b1 = new PBody(new Vector2dArray(v, 4), new Vector2d(0,0), true, false, true);
+    
+    PBody* b2 = new PBody(new Vector2dArray(v2, 4), new Vector2d(0,0), true, false, true);
+    
+    CHECK_FALSE(b1->isCollidingWithBody(b2));
     
     Vector2d v1 = Vector2d(5, 5);
     b1->addVector(&v1);
     b1->applyForce(1);
     
-    CHECK(b1->getPosition()->m_x == 5);
-    CHECK(b1->getPosition()->m_y == 5);
+    CHECK(b1->getVectorArray()->m_vectors[0]->m_x == 5);
+    CHECK(b1->getVectorArray()->m_vectors[0]->m_y == 5);
     
-    CHECK(b1->isColliding(b2));
+    CHECK(b1->isCollidingWithBody(b2));
+
+    delete b1;
+    delete b2;
+}
+TEST_CASE("PBody: Collision detection polygons", "Checks so that collision detection works as it should for other polygons.")
+{
+    Vector2d** v1 = new Vector2d*[3];
     
-    Vector2d v2 = Vector2d(5, 5);
-    Vector2d v3 = Vector2d(36, 36);
-    Vector2d v4 = Vector2d(4,4);
-    Vector2d v5 = Vector2d(37,37);
+    v1[0] = new Vector2d(0,3);
+    v1[1] = new Vector2d(3,0);
+    v1[2] = new Vector2d(0,0);
     
-    CHECK(b1->intersectionWithPoint(&v2));
-    CHECK(b1->intersectionWithPoint(&v3));
-    CHECK_FALSE(b1->intersectionWithPoint(&v4));
-    CHECK_FALSE(b1->intersectionWithPoint(&v5));
+    Vector2dArray* vArr1 = new Vector2dArray(v1, 3);
+    PBody* b1 = new PBody(vArr1, true, false, true);
     
-    Vector2d v6 = Vector2d(32,32);
-    Vector2d v7 = Vector2d(63,63);
-    Vector2d v8 = Vector2d(31,31);
-    Vector2d v9 = Vector2d(64,64);
+    Vector2d** v2 = new Vector2d*[3];
     
-    CHECK(b2->intersectionWithPoint(&v6));
-    CHECK(b2->intersectionWithPoint(&v7));
-    CHECK_FALSE(b2->intersectionWithPoint(&v8));
-    CHECK_FALSE(b2->intersectionWithPoint(&v9));
+    v2[0] = new Vector2d(1,3);
+    v2[1] = new Vector2d(3,3);
+    v2[2] = new Vector2d(3,1);
+    
+    Vector2dArray* vArr2 = new Vector2dArray(v2, 3);
+    PBody* b2 = new PBody(vArr2, true, false, true);
+    
+    CHECK_FALSE(b1->isCollidingWithBody(b2));
+    
+    
+    Vector2d** v3 = new Vector2d*[3];
+    
+    v3[0] = new Vector2d(0,6);
+    v3[1] = new Vector2d(6,0);
+    v3[2] = new Vector2d(0,0);
+    
+    Vector2dArray* vArr3 = new Vector2dArray(v3, 3);
+    PBody* b3 = new PBody(vArr3, true, false, true);
+    
+    Vector2d** v4 = new Vector2d*[4];
+    
+    v4[0] = new Vector2d(5,5);
+    v4[1] = new Vector2d(6,5);
+    v4[2] = new Vector2d(6,6);
+    v4[3] = new Vector2d(5,6);
+    
+    Vector2dArray* vArr4 = new Vector2dArray(v4, 4);
+    PBody* b4 = new PBody(vArr4, true, false, true);
+    
+    CHECK_FALSE(b3->isCollidingWithBody(b4));
+    
     
     delete b1;
     delete b2;
+    delete b3;
+    delete b4;
 }
