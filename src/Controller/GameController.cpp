@@ -18,12 +18,17 @@ GameController::GameController(int width, int height, CLTexture* texture)
 {
 	srand ( time(NULL) );
 
+    m_deviceWidth = width;
+    m_deviceHeight = height;
+    
+    m_deviceOrientation = DeviceOrientationLandscapeLeft;
+    
     Log(LOG_INFO, "GameController", generateCString("GameCon: %ix%i", width, height));
     
     InputManager::getSharedManager()->addInputListener(this);
 
     m_renderer = CreateRendererWithOpenGL10();
-    m_renderer->init(width, height, texture);
+    m_renderer->init(m_deviceWidth, m_deviceHeight, texture);
     m_gameModel = new GameModel();
 }
 GameController::~GameController()
@@ -40,11 +45,30 @@ void GameController::update(float dt)
 }
 void GameController::onRotate(DeviceOrientation orientation)
 {
-    m_renderer->onRotate(orientation);
+    m_deviceOrientation = orientation;
+    m_renderer->onRotate(m_deviceOrientation);
 }
-
 void GameController::didRecieveInputEvent(InputType type, int locX, int locY)
 {
+    
+    int conX, conY;
+    
+    switch (this->m_deviceOrientation) {
+        case DeviceOrientationLandscapeLeft:
+            conX = locY;
+            conY = locX;
+            break;
+        case DeviceOrientationLandscapeRight:
+            conX = m_deviceHeight - locY;
+            conY = m_deviceWidth - locX;
+            break;
+    }
+    
+    if (conX < m_deviceHeight * 0.3) {
+        m_gameModel->playerJump();
+    } else {
+        m_gameModel->playerThrowAt(conX, conY);
+    }
+    
 	Log(LOG_EVENT, "GameController",  "DidRecieveInputEvent");
-    m_gameModel->playerJump();
 }
