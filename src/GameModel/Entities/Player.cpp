@@ -11,11 +11,11 @@
 #include "../Physics/Vector2d.hpp"
 #include "../../Helper/Logger.hpp"
 
-Vector2d* JUMP = new Vector2d(0, 450);
+Vector2d* JUMP = new Vector2d(1, 450);
 
 Player::Player()
 {
-    m_body = new PBody(true, false,  new Vector2d(100, 100), new Vector2d(32, 32), new Vector2d(0, 0));
+    m_body = new PBody(new Vector2d(100,100), new Vector2d(32, 32), true, false, true, PB_PLAYER);
     EventBus::getSharedInstance()->publishEvent(PBODY_CREATED, m_body);
 }
 Player::~Player()
