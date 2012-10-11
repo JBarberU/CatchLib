@@ -26,6 +26,10 @@ class GameController : public IInputListener, public IDeviceRotationResponder {
 private:
     IRenderer*  m_renderer;
     GameModel*  m_gameModel;
+    DeviceOrientation m_deviceOrientation;
+    
+    int m_deviceWidth, m_deviceHeight;
+    
 public:
     GameController(int width, int height, CLTexture* texture);
     ~GameController();
