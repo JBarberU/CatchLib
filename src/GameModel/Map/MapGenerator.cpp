@@ -214,12 +214,49 @@ Platform* MapGenerator::generatePlatform(Vector2d* startVector)
 	// 4. select GeneratedBlock
 	// 5. add platformblock to platform
 	// 6. add used GeneratedBlock to buffer
-	return 0;
+
+	Platform* platform = new Platform();
+
+	set<GeneratedBlock> possibleSet = allZeroes;
+	set<GeneratedBlock> allowedSet = getAllowedSet(possibleSet, startVector);
+	modifyChances(allowedSet, startVector);
+	GeneratedBlock selectedBlock = selectBlock(allowedSet);
+
+	PlatformBlock* block = new PlatformBlock(selectedBlock.type, startVector);
+	platform->addPlatformBlock(block);
+
+	startVector = block->getEndVector();
+
+	addToBuffer(selectedBlock);
+
+	int length = 6 + (rand() % 7);
+
+	for (int i = 0; i < length; i++) {
+
+		possibleSet = getPossibleSet(&selectedBlock);
+		allowedSet = getAllowedSet(possibleSet, startVector);
+		modifyChances(allowedSet, startVector);
+		selectedBlock = selectBlock(allowedSet);
+
+		block = new PlatformBlock(selectedBlock.type, startVector);
+		platform->addPlatformBlock(block);
+
+		startVector = block->getEndVector();
+
+		addToBuffer(selectedBlock);
+	}
+	return platform;
 }
 
 Platform* MapGenerator::generateFlatPlatform(Vector2d* startVector, int length)
 {
-	return 0;
+	Platform* platform = new Platform();
+	for (int i = 0; i < length; i++) {
+		PlatformBlock* block = new PlatformBlock(HORIZONTAL, startVector);
+		platform->addPlatformBlock(block);
+		startVector = block->getEndVector();
+	}
+	return platform;
 }
 
 bool MapGenerator::testFunc()

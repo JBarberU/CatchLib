@@ -66,6 +66,9 @@ private:
 	 */
 	void modifyChances(set<GeneratedBlock>& allowedSet, Vector2d* startVector);
 
+	/*
+	 *
+	 */
 	GeneratedBlock selectBlock(set<GeneratedBlock> allowedSet);
 
 	/*
