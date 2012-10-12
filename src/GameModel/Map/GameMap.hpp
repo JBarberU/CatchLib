@@ -25,7 +25,7 @@ public:
 	GameMap();
 
 	/**
-	 * Adds a Platform at the end of the end of the vector of platforms.
+	 * Adds a Platform at the end of the vector of platforms.
 	 * @param platform
 	 * 		The Platform that is to be added.
 	 */

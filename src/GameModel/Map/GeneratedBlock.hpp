@@ -16,12 +16,46 @@
 class GeneratedBlock {
 
 public:
+
+	/*
+	 * The "Jump" made by this platform from the earlier platform.
+	 * This creates a vertical wall.
+	 */
 	int dy;
+
+	/*
+	 * Enum BlockType of the block
+	 * INCLINE, HORIZONTAL, DECLINE
+	 */
 	Blocktype type;
+
+	/*
+	 * Chance value for this block to be randomed in map generation.
+	 */
 	int chance;
 
 	~GeneratedBlock();
+
+	/**
+	 * Creates a GeneratedBlock
+	 * @param dy
+	 * 		How many units of a "jump" this block should make.
+	 * @param type
+	 * 		Type of slope for this block.
+	 * @param baseChance
+	 * 		Base chance to random this block, can be modified later.
+	 */
 	GeneratedBlock(int dy, Blocktype type, int baseChance);
+
+	/**
+	 * Overloads == operator.
+	 * Compares dy and type.
+	 */
 	friend bool operator==(GeneratedBlock const& lhsBlock, GeneratedBlock const& rhsBlock);
+
+	/**
+	 * Overloads < operator for use in set.
+	 * Compares dy and type.
+	 */
 	friend bool operator<(GeneratedBlock const& lhsBlock, GeneratedBlock const& rhsBlock);
 };

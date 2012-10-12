@@ -36,12 +36,13 @@ public:
 	 * @param type
 	 * 		The Blocktype enum of the block, basically the slope of the block.
 	 * @param vector
-	 * 		A pointer to the start position of the block.
+	 * 		The start position of the block.
 	 */
 	PlatformBlock(Blocktype type, Vector2d* vector);
 
 	/**
-	 * Changes the start position of the block, which for our implementation also changes the end position
+	 * Changes the position of the block.
+	 *
 	 * @param vector
 	 * 		The new start position of the block.
 	 */
@@ -58,12 +59,13 @@ public:
 	Vector2d* getStartVector();
 
 	/**
-	 * Returns the end position of the block, based on the start position and the type, in the form of a Vector2d
+	 * Returns the end position of the block, based on the start position and
+	 * the type, in the form of a Vector2d
 	 */
 	Vector2d* getEndVector();
 
 	/**
-	 * Generates and then returns the physical body (that which you can collide with) of the block.
+	 * Generates and then returns the physical body of the block.
 	 */
 	PBody* generatePBody();
 
