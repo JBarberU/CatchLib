@@ -66,6 +66,8 @@ private:
 	 */
 	void modifyChances(set<GeneratedBlock>& allowedSet, Vector2d* startVector);
 
+	GeneratedBlock selectBlock(set<GeneratedBlock> allowedSet);
+
 	/*
 	 * Adds a GeneratedBlock at the end of recentlyUsedBuffer
 	 * vector, and removes the first one. This way the buffer vector
