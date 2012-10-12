@@ -13,6 +13,7 @@
 //
 
 #include "../Physics/PBody.hpp"
+#include "../Physics/EPBodyType.hpp"
 #include "../Physics/Vector2d.hpp"
 
 #ifndef PLATFORMBLOCK_H
@@ -25,7 +26,8 @@ enum Blocktype
 	DECLINE
 };
 
-class PlatformBlock {
+class PlatformBlock
+{
 public:
 	~PlatformBlock();
 
@@ -48,7 +50,11 @@ public:
 	//Returns the end position of the block, based on the start position and the type, in the form of a Vector2d
 	Vector2d* getEndVector();
 
+	//Generates and then returns the physical body (that which you can collide with) of the block.
+	PBody* generatePBody();
+
 private:
+	PBody* body;
 	Blocktype type;
 	Vector2d* startVector;
 };

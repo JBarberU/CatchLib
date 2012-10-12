@@ -14,6 +14,9 @@ PlatformBlock::PlatformBlock(Blocktype type, Vector2d* vector)
 {
 	this->type = type;
 	this->startVector = vector;
+	this->body = generatePBody();
+	//make something listen to this->body for collisions.
+
 }
 
 PlatformBlock::~PlatformBlock()
@@ -50,5 +53,19 @@ Vector2d* PlatformBlock::getEndVector()
 Blocktype PlatformBlock::getType()
 {
 	return type;
+}
+
+PBody* PlatformBlock::generatePBody()
+{
+	Vector2d** pVectors = new Vector2d*[4];
+	pVectors[0] = startVector;
+	pVectors[1] = getEndVector();
+	pVectors[2] = new Vector2d*(startVector->m_x, 0);
+	pVectors[3] = new Vector2d*(getEndVector()->m_x, 0);
+
+	Vector2dArray* pVectorArray = new Vector2dArray(pVectors, 4);
+	PBody* body = new PBody(pVectorArray, true, PB_PLATFORM);
+
+	return body;
 }
 
