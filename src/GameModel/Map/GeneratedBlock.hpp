@@ -18,7 +18,7 @@ class GeneratedBlock {
 public:
 	int dy;
 	Blocktype type;
-	int baseChance;
+	int chance;
 
 	~GeneratedBlock();
 	GeneratedBlock(int dy, Blocktype type, int baseChance);

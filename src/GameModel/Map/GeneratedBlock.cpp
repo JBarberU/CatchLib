@@ -18,7 +18,7 @@ GeneratedBlock::GeneratedBlock(int dy, Blocktype type, int baseChance)
 {
 	this->dy = dy;
 	this->type = type;
-	this->baseChance = baseChance;
+	this->chance = baseChance;
 }
 
 GeneratedBlock::~GeneratedBlock()
