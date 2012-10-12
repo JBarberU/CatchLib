@@ -11,7 +11,7 @@
 //  Description:
 //	Abstract class meant to be extended by obstacles.
 //
-
+/*
 #include "../Physics/PBody.hpp"
 
 class Obstacle : PBody {
@@ -20,3 +20,4 @@ public:
 	virtual void destroy() = 0;
 	virtual bool isDestroyed() = 0;
 };
+*/

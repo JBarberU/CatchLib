@@ -11,7 +11,7 @@
 //  Description:
 //	A class for representing a box obstacle.
 //
-
+/*
 #include "ObstacleBox.hpp"
 
 ObstacleBox::~ObstacleBox()
@@ -36,3 +36,4 @@ bool ObstacleBox::isColliding(PBody* otherBody)
 {
 	return destroyed ? false : PBody::isColliding(otherBody);
 }
+*/

@@ -11,7 +11,7 @@
 //  Description:
 //
 //
-
+/*
 #include "Obstacle.hpp"
 
 class ObstacleBox : Obstacle {
@@ -23,3 +23,4 @@ public:
 	~ObstacleBox();
 	ObstacleBox(Vector2d* position);
 };
+*/

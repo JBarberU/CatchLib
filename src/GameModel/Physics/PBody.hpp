@@ -16,7 +16,7 @@
 //
 #pragma once
 
-#include "../../Math/Vector2d.hpp"
+#include "Vector2d.hpp"
 #include "EPBodyType.hpp"
 
 struct Vector2dArray {
