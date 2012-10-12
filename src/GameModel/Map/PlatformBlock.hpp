@@ -31,26 +31,40 @@ class PlatformBlock
 public:
 	~PlatformBlock();
 
-	/*
+	/**
 	 * PlatformBlock constructor
-	 * Blocktype type -- the Blocktype of the block, basically the slope of the block.
-	 * Vector2d* vector -- a pointer to the start position of the block.
+	 * @param type
+	 * 		The Blocktype enum of the block, basically the slope of the block.
+	 * @param vector
+	 * 		A pointer to the start position of the block.
 	 */
 	PlatformBlock(Blocktype type, Vector2d* vector);
 
-	//Changes the start position of the block, which for our implementation also changes the end position
+	/**
+	 * Changes the start position of the block, which for our implementation also changes the end position
+	 * @param vector
+	 * 		The new start position of the block.
+	 */
 	void setStartPoint(Vector2d* vector);
 
-	//Returns the Blocktype of the block
+	/**
+	 * Returns the Blocktype of the block
+	 */
 	Blocktype getType();
 
-	//Returns the start position of the block in the form of a Vector2d
+	/**
+	 * Returns the start position of the block in the form of a Vector2d
+	 */
 	Vector2d* getStartVector();
 
-	//Returns the end position of the block, based on the start position and the type, in the form of a Vector2d
+	/**
+	 * Returns the end position of the block, based on the start position and the type, in the form of a Vector2d
+	 */
 	Vector2d* getEndVector();
 
-	//Generates and then returns the physical body (that which you can collide with) of the block.
+	/**
+	 * Generates and then returns the physical body (that which you can collide with) of the block.
+	 */
 	PBody* generatePBody();
 
 private:

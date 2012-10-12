@@ -23,10 +23,32 @@ class Platform
 public:
 	~Platform();
 	Platform();
+
+	/**
+	 * Returns a vector of PlatformBlock pointers to the platformblocks of this platform.
+	 */
 	vector<PlatformBlock*> getPlatformBlocks();
+
+	/**
+	 * Adds a PlatformBlock at the end of the vector of PlatformBlocks.
+	 * @param block
+	 * 		The PlatformBlock that is to be added.
+	 */
 	void addPlatformBlock(PlatformBlock* block);
+
+	/**
+	 * Removes all the PlatformBlocks in the vector.
+	 */
 	void clearPlatformBlocks();
+
+	/**
+	 * Returns the end point of the Platform in the form of a Vector2d.
+	 */
 	Vector2d* endPoint();
+
+	/**
+	 * Returns the start point of the Platform in the form of a Vector2d.
+	 */
 	Vector2d* startPoint();
 
 private:
