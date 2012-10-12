@@ -16,6 +16,8 @@
 
 GameController::GameController(int width, int height, CLTexture* texture)
 {
+	srand ( time(NULL) );
+
     Log(LOG_INFO, "GameController", generateCString("GameCon: %ix%i", width, height));
     
     InputManager::getSharedManager()->addInputListener(this);
