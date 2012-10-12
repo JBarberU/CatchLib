@@ -229,7 +229,7 @@ Platform* MapGenerator::generatePlatform(Vector2d* startVector)
 
 	addToBuffer(selectedBlock);
 
-	int length = 6 + (rand() % 7);
+	int length = (PLATFORM_LENGTH_MIN - 1) + (rand() % (2 + PLATFORM_LENGTH_MAX - PLATFORM_LENGTH_MIN));
 
 	for (int i = 0; i < length; i++) {
 
