@@ -11,18 +11,36 @@
 //	This class is for representing a GameMap.
 //
 //
-#include "Platform.hpp"
+#include "MapGenerator.hpp"
 
 class GameMap
 {
 public:
 	~GameMap();
 	GameMap();
-	void generateStartMap();
+
+	/*
+	 * TODO:
+	 */
 	void addPlatform(Platform* platform);
+
+	/*
+	 * TODO:
+	 */
 	void reformGameMap();
-	Platform* generatePlatform(Vector2d* startpoint);
 
 private:
+
+	/*
+	 * TODO:
+	 */
+	Vector2d* nextPlatformStart(Vector2d* lastEnd);
+
+	/*
+	 * TODO:
+	 */
+	void generateStartMap();
+
 	vector<Platform*> platforms;
+	MapGenerator* generator;
 };

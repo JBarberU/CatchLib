@@ -1,19 +1,20 @@
 //
 //  File:		GameMap.cpp
 //  Class:      GameMap
-//  Author:     Sebastian Odbjer
+//  Author:     Sebastian Odbjer, Alexander Hederstaf
 //              All code is my own except where credited to others.
 //
-//	Copyright (c) 2012 by Catch22. All Rights Reserved.
-//  Date: 		07/10-2012
-
+//	Copyright © 2012 by Catch22. All Rights Reserved.
+//  Date: 		Oct 7, 2012
 
 #include "stdlib.h"
 #include "GameMap.hpp"
 
+
 GameMap::GameMap()
 {
-
+	generator = new MapGenerator();
+	generateStartMap();
 }
 
 GameMap::~GameMap()
@@ -21,11 +22,26 @@ GameMap::~GameMap()
 
 }
 
+Vector2d* GameMap::nextPlatformStart(Vector2d* lastEnd)
+{
+	int minAllowed = lastEnd->m_y - 1 >= generator->HEIGHT_MIN ? -1 : 0;
+	int maxAllowed = lastEnd->m_y + 1 <= generator->HEIGHT_MAX ?  1 : 0;
+
+	int range = maxAllowed - minAllowed;
+	int random = rand() % (range + 1) + minAllowed;
+
+	// Note: constant length in between platforms (2)
+	return new Vector2d(2, lastEnd->m_y + random);
+}
+
 void GameMap::generateStartMap()
 {
-	addPlatform(generatePlatform(new Vector2d(0 ,0)));
-	for(int i = 0; i < 6; i++){
-		addPlatform(generatePlatform(platforms.back()->endPoint()));
+	Platform* p = generator->generateFlatPlatform(new Vector2d(0, 4), 8);
+	addPlatform(p);
+
+	for (int i = 0; i < 6; i++) {
+		p = generator->generatePlatform(nextPlatformStart(p->endPoint()));
+		addPlatform(p);
 	}
 }
 
@@ -38,33 +54,6 @@ void GameMap::reformGameMap()
 {
 	platforms.erase(platforms.begin());
 	//Generate new platformBlocks in this platform
-	addPlatform(generatePlatform(platforms.back()->endPoint()));
-}
-
-Platform* GameMap::generatePlatform(Vector2d* startPoint)
-{
-	Platform* platform = new Platform();
-	int numberOfBlocks = rand() % 11 + 5;
-
-	Vector2d* lastPoint = startPoint;
-
-	for(int i = 0; i < numberOfBlocks; i++) {
-		int type = 1;//rand() % 3;
-		PlatformBlock* block;
-		switch(type) {
-		case 0:
-			block = new PlatformBlock(INCLINE, lastPoint);
-			break;
-		case 1:
-			block = new PlatformBlock(HORIZONTAL, lastPoint);
-			break;
-		case 2:
-			block = new PlatformBlock(DECLINE, lastPoint);
-			break;
-		}
-		lastPoint = block->getEndVector();
-		platform->addPlatformBlock(block);
-		// delete block; ??
-	}
-	return platform;
+	Platform* p = platforms.back();
+	addPlatform(generator->generatePlatform(nextPlatformStart(p->endPoint())));
 }
