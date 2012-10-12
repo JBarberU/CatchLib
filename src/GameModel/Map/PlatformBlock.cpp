@@ -60,8 +60,8 @@ PBody* PlatformBlock::generatePBody()
 	Vector2d** pVectors = new Vector2d*[4];
 	pVectors[0] = startVector;
 	pVectors[1] = getEndVector();
-	pVectors[2] = new Vector2d*(startVector->m_x, 0);
-	pVectors[3] = new Vector2d*(getEndVector()->m_x, 0);
+	pVectors[2] = new Vector2d(startVector->m_x, 0);
+	pVectors[3] = new Vector2d(getEndVector()->m_x, 0);
 
 	Vector2dArray* pVectorArray = new Vector2dArray(pVectors, 4);
 	PBody* body = new PBody(pVectorArray, true, PB_PLATFORM);
