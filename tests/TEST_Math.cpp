@@ -39,12 +39,7 @@ TEST_CASE("Math: Unit vector", "Tests that unit vectors are generated correctly.
     for (int i = -4; i < 5; i++) {
     
         for (int k = -4; k < 5; k++) {
-            
-            if (i == 0 && k == 0) {
-                CHECK_THROWS(Math::generateUnitVectorOf(new Vector2d(i, k)));
-                break;
-            }
-            
+        
             Vector2d* v3 = new Vector2d(i, k);
     
             Vector2d* r3 = Math::generateUnitVectorOf(v3);
@@ -53,7 +48,10 @@ TEST_CASE("Math: Unit vector", "Tests that unit vectors are generated correctly.
             
             bool closeEnough = (squareSum < 1.001 && squareSum > 0.999);
             
-            CHECK((squareSum == 1 || closeEnough));
+            if (i == 0 && k == 0)
+                CHECK((r3->m_x == 0 && r3->m_y == 0));
+            else
+                CHECK((squareSum == 1 || closeEnough));
         
             delete r3;
             delete v3;

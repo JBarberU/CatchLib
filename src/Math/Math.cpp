@@ -12,12 +12,10 @@
 #include "Math.hpp"
 #include <math.h>
 
-#include "../Helper/Logger.hpp"
-
-Vector2d* Math::generateUnitVectorOf(Vector2d* vector) throw(std::invalid_argument)
+Vector2d* Math::generateUnitVectorOf(Vector2d* vector)
 {
     if (vector->m_x == 0 && vector->m_y == 0) {
-        throw std::invalid_argument("Passed zero vector, your argument is invalid.");
+        return new Vector2d(0,0);
     }
     
     float scalar = sqrtf((vector->m_x * vector->m_x) + (vector->m_y * vector->m_y));

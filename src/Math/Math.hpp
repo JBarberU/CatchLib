@@ -10,7 +10,6 @@
 //
 
 #include "Vector2d.hpp"
-#include <stdexcept>
 
 #ifndef __CatchiOS__Math__
 #define __CatchiOS__Math__
@@ -19,8 +18,8 @@ class Math {
 public:
     
     //  Takes a vector and generates its corresponding unit vector
-    //  If zero vector is passed it will throw an invalid_argument exception
-    static Vector2d* generateUnitVectorOf(Vector2d* vector) throw(std::invalid_argument);
+    //  If zero vector is passed it will return a zero vector.
+    static Vector2d* generateUnitVectorOf(Vector2d* vector);
 };
 
 #endif /* defined(__CatchiOS__Math__) */
