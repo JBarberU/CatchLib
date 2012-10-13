@@ -69,4 +69,7 @@ public:
     Vector2d* getSize();
     Vector2d* getPosition();
     
+    Vector2d** getAxes();
+    Vector2d** getEdges();
+    Vector2d* projectionOnVector(Vector2d* axis);
 };
