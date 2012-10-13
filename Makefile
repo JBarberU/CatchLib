@@ -1,4 +1,4 @@
-FOLDERS = tests/*.cpp src/GameModel/*.cpp src/GameModel/*/*.cpp  src/EventHandling/*.cpp src/Helper/*.cpp
+FOLDERS = tests/*.cpp src/GameModel/*.cpp src/GameModel/*/*.cpp  src/EventHandling/*.cpp src/Math/*.cpp src/Helper/*.cpp
 OUTPUT = Tests.so
 
 exec:

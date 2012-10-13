@@ -134,7 +134,7 @@ void GLRenderer10::render()
         glVertexPointer(2, GL_FLOAT, sizeof(Vertex), &vertexData[0].Position[0]);
         glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), &m_actors->m_actors[i]->getTextureVertexData()[0].Position[0]);
         
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
         delete [] vertexData;
     }
     glPopMatrix();

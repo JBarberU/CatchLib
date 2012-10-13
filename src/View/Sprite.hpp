@@ -27,6 +27,7 @@ private:
 public:
     Sprite(float spriteLocX, float spriteLocY, float spriteLocWidth, float spriteLocHeight, int textureID);
     Sprite(Sprite* sprite);
+    Sprite(Vertex* vertecies, int num_vertecies, int textureID);
     ~Sprite();
     
     //  Get the geomertic data for the texture.

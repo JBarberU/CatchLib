@@ -143,3 +143,14 @@ TEST_CASE("PBody: Collision detection polygons", "Checks so that collision detec
     delete b3;
     delete b4;
 }
+
+TEST_CASE("PBody: Getters for size and width", "Checks so that the convenience methods works as intended.")
+{
+    PBody* p1 = new PBody(new Vector2d(45,30), new Vector2d(42, 1337), false, true, false, PB_PLATFORM);
+    
+    CHECK(p1->getPosition()->m_x == 45);
+    CHECK(p1->getPosition()->m_y == 30);
+    
+    CHECK(p1->getSize()->m_x == 42);
+    CHECK(p1->getSize()->m_y == 1337);
+}

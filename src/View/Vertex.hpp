@@ -24,6 +24,10 @@ public:
         Position[1] = y;
     }
     Vertex(){}
+    Vertex(Vertex* v) {
+        Position[0] = v->Position[0];
+        Position[1] = v->Position[1];
+    }
 };
 
 #endif
