@@ -7,7 +7,7 @@
 //
 
 #include "catch.hpp"
-#include "../src/GameModel/Physics/Vector2d.hpp"
+#include "../src/Math/Vector2d.hpp"
 
 TEST_CASE("Test Vector2D", "Testing basic vetor operations")
 {

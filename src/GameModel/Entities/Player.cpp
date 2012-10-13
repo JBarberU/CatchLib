@@ -8,10 +8,10 @@
 
 #include "Player.hpp"
 #include "../../EventHandling/EventBus.hpp"
-#include "../Physics/Vector2d.hpp"
+#include "../../Math/Vector2d.hpp"
 #include "../../Helper/Logger.hpp"
 
-Vector2d* JUMP = new Vector2d(1, 450);
+Vector2d* JUMP = new Vector2d(50, 450);
 
 Player::Player()
 {
