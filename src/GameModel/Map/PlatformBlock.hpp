@@ -40,23 +40,25 @@ public:
 	PlatformBlock(Blocktype type, Vector2d* vector);
 
 	/**
-	 * Returns the Blocktype of the block
+	 * Returns the Blocktype of the block.
 	 */
 	Blocktype getType();
 
 	/**
-	 * Returns the start position of the block in the form of a Vector2d
+	 * Returns the start position of the block.
 	 */
 	Vector2d* getStartVector();
 
 	/**
-	 * Returns the end position of the block, based on the start position and
-	 * the type, in the form of a Vector2d
+	 * Returns the end position of the block.
 	 */
 	Vector2d* getEndVector();
 
 	/**
 	 * Generates and then returns the physical body of the block.
+	 *
+	 * @param vector
+	 * 		The Vector2d representing the platforms startpoint.
 	 */
 	PBody* generatePBody(Vector2d* vector);
 
