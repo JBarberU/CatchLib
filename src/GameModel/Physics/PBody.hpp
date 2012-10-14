@@ -57,14 +57,14 @@ public:
     void removeVector(Vector2d* vector);
     void resetMovementVector();
     void maskMovementVector(float x, float y);
-    virtual void rotateAround(Vector2d* pivotPoint, float degrees);
-    virtual void translateBy(Vector2d* vector);
+    void rotateAround(Vector2d* pivotPoint, float degrees);
+    void translateBy(Vector2d* vector);
     
     Vector2dArray* getVectorArray();
     
     bool isAffectedByGravity();
     bool isStationary();
-    virtual bool isCollidingWithBody(PBody* otherBody);
+    virtual Vector2d* isCollidingWithBody(PBody* otherBody);
     PBodyType getTag();
     Vector2d* getSize();
     Vector2d* getPosition();
