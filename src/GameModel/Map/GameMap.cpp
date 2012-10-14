@@ -57,3 +57,11 @@ void GameMap::reformGameMap()
 	Platform* p = platforms.back();
 	addPlatform(generator->generatePlatform(nextPlatformStart(p->endPoint())));
 }
+
+void GameMap::update()
+{
+	Platform* firstPlatform = platforms.front();
+	if (firstPlatform->endPoint()->m_x < 0) {
+		reformGameMap();
+	}
+}

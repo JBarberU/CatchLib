@@ -1,14 +1,15 @@
 //
 //  File:       GameMap.hpp
 //  Class:      GameMap
-//  Author:     Sebastian Odbjer
+//  Author:     Sebastian Odbjer, Alexander Hederstaf
 //              All code is my own except where credited to others.
 //
 //	Copyright © 2012 by Catch22. All Rights Reserved.
 //  Date: 		Sep 29,-2012
 //
 //  Description:
-//	This class is for representing a GameMap.
+//	A GameMap is a collection of Platforms at a distance from each other used
+//	as the world in the Game.
 //
 //
 #include "MapGenerator.hpp"
@@ -36,6 +37,11 @@ public:
 	 * and adding a newly generated one at the end.
 	 */
 	void reformGameMap();
+
+	/**
+	 * Update the GameMap checking for platforms out of bounds and replacing those.
+	 */
+	void update();
 
 private:
 
