@@ -8,6 +8,20 @@
 
 #include "catch.hpp"
 #include "../src/Math/Vector2d.hpp"
+#include "../src/Helper/Logger.hpp"
+
+TEST_CASE("Vector2D: Constructor", "Testing non trivial constructors")
+{
+    Vector2d* v1 = new Vector2d(1.0, 1.0);
+    double mag = 7.071067811865476;
+    
+    Vector2d* v2 = new Vector2d(v1, mag);
+    
+    CHECK((v2->m_x > 4.999 && v2->m_x < 5.001));
+    CHECK((v2->m_y > 4.999 && v2->m_y < 5.001));
+    
+    Log(LOG_INFO, "Test_Vector2d", generateCString("X,Y: %d, %d", v2->m_x, v2->m_y));
+}
 
 TEST_CASE("Test Vector2D", "Testing basic vetor operations")
 {

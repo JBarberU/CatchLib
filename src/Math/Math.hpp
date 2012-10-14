@@ -20,6 +20,8 @@ public:
     //  Takes a vector and generates its corresponding unit vector
     //  If zero vector is passed it will return a zero vector.
     static Vector2d* generateUnitVectorOf(Vector2d* vector);
+    
+    static double abs(double value);
 };
 
 #endif /* defined(__CatchiOS__Math__) */

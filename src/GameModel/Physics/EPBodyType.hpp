@@ -13,6 +13,7 @@ enum PBodyType {
     PB_PLAYER,
     PB_FLOOR,
     PB_PLATFORM,
+    PB_OBSTACLE_BOX,
     };
 
 

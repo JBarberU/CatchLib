@@ -18,6 +18,11 @@
 const GLfloat ANGLE_LEFT = -90;
 const GLfloat ANGLE_RIGHT = 90;
 
+//  These should be when the deveice is in portrait orientation
+const float WIDTH = 8;
+const float HEIGHT = 12;
+
+
 //  Dummy shaped used until game model is in place
 const Vertex shape[] = {
     Vertex(0,0),
@@ -75,7 +80,7 @@ void GLRenderer10::init(int width, int height, CLTexture* texture)
     glMatrixMode(GL_PROJECTION);
     
     // Initialize the projection matrix.
-    glOrthof(0, width, 0, height, -1, 1);
+    glOrthof(0, WIDTH, 0, HEIGHT, -1, 1);
     
     glMatrixMode(GL_MODELVIEW);
     
@@ -120,9 +125,9 @@ void GLRenderer10::render()
     
     glPushMatrix();
     if (m_desiredAngle == 90)
-        glTranslatef(m_deviceWidth, 0, 0);
+        glTranslatef(WIDTH, 0, 0);
     else
-        glTranslatef(0, m_deviceHeight, 0);
+        glTranslatef(0, HEIGHT, 0);
     glRotatef(m_currentAngle, 0, 0, 1);
 
 
@@ -209,6 +214,9 @@ void GLRenderer10::onEvent (EEvent event, void* source)
                 break;
             case PB_PLATFORM:
                 newActor = ActorsLoader::newPlatformActor();
+                break;
+            case PB_OBSTACLE_BOX:
+                newActor = ActorsLoader::newObstacleBoxActor();
                 break;
             default:
                 return;

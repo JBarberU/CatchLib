@@ -11,15 +11,18 @@
 
 #include "../Physics/PBody.hpp"
 
-class Player {
+class Player : public PBody {
 private:
-    PBody* m_body;
     
 public:
     Player();
     ~Player();
     
+    Vector2d* isCollidingWithBody(PBody* otherBody);
+    
     void jump();
+    
+    
 };
 
 #endif /* defined(__CatchiOS__Player__) */

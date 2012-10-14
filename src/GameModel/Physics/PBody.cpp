@@ -20,29 +20,29 @@ PBody::PBody(Vector2dArray* vectorArray, Vector2d* centerOfMassOffset, bool affe
     m_stationaryObject = stationaryObject;
     m_rotatableObject = rotatableObject;
     
-    m_movementVector = new Vector2d(0,0);
+    m_movementVector = new Vector2d(0.0,0.0);
     m_tag = tag;
 }
 PBody::PBody(Vector2dArray* vectorArray, bool affectedByGravity, bool stationaryObject, bool rotatableObject, PBodyType tag)
 {
     m_vectorArray = vectorArray;
-    m_centerOfMassOffset = new Vector2d(0,0);
+    m_centerOfMassOffset = new Vector2d(0.0,0.0);
     m_affectedByGravity = affectedByGravity;
     m_stationaryObject = stationaryObject;
     m_rotatableObject = rotatableObject;
     
-    m_movementVector = new Vector2d(0,0);
+    m_movementVector = new Vector2d(0.0,0.0);
     m_tag = tag;
 }
 PBody::PBody(Vector2dArray* vectorArray, bool stationaryObject, PBodyType tag)
 {
     m_vectorArray = vectorArray;
-    m_centerOfMassOffset = new Vector2d(0,0);
+    m_centerOfMassOffset = new Vector2d(0.0,0.0);
     m_affectedByGravity = !stationaryObject;
     m_stationaryObject = stationaryObject;
     m_rotatableObject = !stationaryObject;
     
-    m_movementVector = new Vector2d(0,0);
+    m_movementVector = new Vector2d(0.0,0.0);
     m_tag = tag;
 }
 PBody::PBody(Vector2d* position, Vector2d* size, bool affectedByGravity, bool stationaryObject, bool rotatableObject, PBodyType tag)
@@ -54,12 +54,12 @@ PBody::PBody(Vector2d* position, Vector2d* size, bool affectedByGravity, bool st
     vArr[3] = new Vector2d(position->m_x + size->m_x, position->m_y);
     
     m_vectorArray = new Vector2dArray(vArr, 4);
-    m_centerOfMassOffset = new Vector2d(0,0);
+    m_centerOfMassOffset = new Vector2d(0.0,0.0);
     m_affectedByGravity = affectedByGravity;
     m_stationaryObject = stationaryObject;
     m_rotatableObject = rotatableObject;
     
-    m_movementVector = new Vector2d(0,0);
+    m_movementVector = new Vector2d(0.0,0.0);
     m_tag = tag;
 }
 
@@ -77,6 +77,8 @@ void PBody::applyForce(float dt)
         m_vectorArray->m_vectors[i]->m_x += (m_movementVector->m_x * dt);
         m_vectorArray->m_vectors[i]->m_y += (m_movementVector->m_y * dt);
     }
+    
+    Log(LOG_INFO, "PBody", generateCString("Applying force: %d,%d", this->m_movementVector->m_x, this->m_movementVector->m_y));
 }
 void PBody::revertForce(float dt)
 {
@@ -109,7 +111,7 @@ void PBody::removeVector(Vector2d* vector)
 }
 void PBody::resetMovementVector()
 {
-    m_movementVector = new Vector2d(0,0);
+    m_movementVector = new Vector2d(0.0,0.0);
 }
 void PBody::maskMovementVector(float x, float y)
 {
@@ -122,15 +124,14 @@ void PBody::rotateAround(Vector2d* pivotPoint, float degrees)
 }
 void PBody::translateBy(Vector2d* vector)
 {
-    // Implement me plxzz
+    for (int i = 0; i < this->m_vectorArray->m_size; i++) {
+        *this->m_vectorArray->m_vectors[i] += *vector;
+    }
 }
-
-
 Vector2dArray* PBody::getVectorArray()
 {
     return m_vectorArray;
 }
-
 bool PBody::isAffectedByGravity()
 {
     return m_affectedByGravity;
@@ -139,39 +140,129 @@ bool PBody::isStationary()
 {
     return m_stationaryObject;
 }
-bool PBody::isCollidingWithBody(PBody* otherBody)
+Vector2d* PBody::isCollidingWithBody(PBody* otherBody)
 {
     
     Vector2d** axes1 = this->getAxes();
     Vector2d** axes2 = otherBody->getAxes();
     
+    double overlap = -1;
+    Vector2d* smallestAxis = 0;
+    
+    Vector2d* axis;
+    Vector2d* proj1;
+    Vector2d* proj2;
+    
+    double tmpOver;
     for (int a = 0; a < this->m_vectorArray->m_size; a++) {
-        Vector2d* axis = axes1[a];
+        axis = axes1[a];
         
         
-        Vector2d* proj1 = this->projectionOnVector(axis);
-        Vector2d* proj2 = otherBody->projectionOnVector(axis);
+        proj1 = this->projectionOnVector(axis);
+        proj2 = otherBody->projectionOnVector(axis);
         
-        if (proj1->m_x < proj2->m_x && proj1->m_y < proj2->m_x)
-            return false;
-        if (proj2->m_x < proj1->m_x && proj2->m_y < proj1->m_x)
-            return false;
+        if ((proj1->m_x < proj2->m_x && proj1->m_y < proj2->m_x) || (
+            proj2->m_x < proj1->m_x && proj2->m_y < proj1->m_x)) {
+
+            delete proj1;
+            delete proj2;
+            
+            for (int i = 0; i < this->m_vectorArray->m_size; i++)
+                delete [] axes1[i];
+            
+            delete [] axes1;
+            
+            for (int i = 0; i < otherBody->m_vectorArray->m_size; i++)
+                delete [] axes2[i];
+            
+            delete [] axes2;
+            
+            return 0;
+        } else {
+            if (proj1->m_y > proj2->m_x && proj2->m_y > proj1->m_y) {
+                tmpOver = proj1->m_y - proj2->m_x;
+            }
+            else if (proj2->m_y > proj1->m_x && proj1->m_y > proj2->m_y) {
+                tmpOver = proj2->m_y - proj1->m_x;
+            }
+            else if (proj1->m_x > proj2->m_x && proj1->m_y < proj2->m_y) {
+                tmpOver = proj1->m_y-proj1->m_x;
+            }
+            else if (proj2->m_x > proj1->m_x && proj2->m_y < proj1->m_y) {
+                tmpOver = proj2->m_y-proj2->m_x;
+            }
+            
+            if (overlap == -1 || tmpOver < overlap) {
+                overlap = tmpOver;
+                smallestAxis = axis;
+            }
+        }
+        
+        delete proj1;
+        delete proj2;
+        
     }
     
     for (int a = 0; a < otherBody->m_vectorArray->m_size; a++) {
-        Vector2d* axis = axes2[a];
+        axis = axes2[a];
         
+        proj1 = this->projectionOnVector(axis);
+        proj2 = otherBody->projectionOnVector(axis);
         
-        Vector2d* proj1 = this->projectionOnVector(axis);
-        Vector2d* proj2 = otherBody->projectionOnVector(axis);
+        if ((proj1->m_x < proj2->m_x && proj1->m_y < proj2->m_x) ||
+            (proj2->m_x < proj1->m_x && proj2->m_y < proj1->m_x)) {
+            delete proj1;
+            delete proj2;
+            
+            for (int i = 0; i < this->m_vectorArray->m_size; i++)
+                delete [] axes1[i];
+            
+            delete [] axes1;
+            
+            for (int i = 0; i < otherBody->m_vectorArray->m_size; i++)
+                delete [] axes2[i];
+            
+            delete [] axes2;
+            
+            return 0;
+        } else {
+            if (proj1->m_y > proj2->m_x && proj2->m_y > proj1->m_y) {
+                tmpOver = proj1->m_y - proj2->m_x;
+            }
+            else if (proj2->m_y > proj1->m_x && proj1->m_y > proj2->m_y) {
+                tmpOver = proj2->m_y - proj1->m_x;
+            }
+            else if (proj1->m_x > proj2->m_x && proj1->m_y < proj2->m_y) {
+                tmpOver = proj1->m_y-proj1->m_x;
+            }
+            else if (proj2->m_x > proj1->m_x && proj2->m_y < proj1->m_y) {
+                tmpOver = proj2->m_y-proj2->m_x;
+            }
+            
+            if (overlap == -1 || tmpOver < overlap) {
+                overlap = tmpOver;
+                smallestAxis = axis;
+            }
+        }
         
-        if (proj1->m_x < proj2->m_x && proj1->m_y < proj2->m_x)
-            return false;
-        if (proj2->m_x < proj1->m_x && proj2->m_y < proj1->m_x)
-            return false;
+        delete proj1;
+        delete proj2;
     }
-
-    return true;
+    
+    Vector2d* returnVector = new Vector2d(smallestAxis, overlap);
+    
+    
+    for (int i = 0; i < this->m_vectorArray->m_size; i++)
+        delete [] axes1[i];
+    
+    delete [] axes1;
+    
+    for (int i = 0; i < otherBody->m_vectorArray->m_size; i++)
+        delete [] axes2[i];
+    
+    delete [] axes2;
+    
+    return returnVector;
 }
 PBodyType PBody::getTag()
 {
@@ -213,7 +304,10 @@ Vector2d** PBody::getAxes()
     Vector2d** axes = new Vector2d*[this->m_vectorArray->m_size];
     
     for (int i = 0; i < this->m_vectorArray->m_size; i++) {
-        axes[i] = new Vector2d(edges[i]->m_y, -edges[i]->m_x);
+        Vector2d* v = new Vector2d(edges[i]->m_y, -edges[i]->m_x);
+        axes[i] = Math::generateUnitVectorOf(v);
+        delete v;
+        delete [] edges[i];
     }
     
     delete [] edges;

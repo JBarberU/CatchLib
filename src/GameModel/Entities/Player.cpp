@@ -11,12 +11,12 @@
 #include "../../Math/Vector2d.hpp"
 #include "../../Helper/Logger.hpp"
 
-Vector2d* JUMP = new Vector2d(50, 450);
+Vector2d* JUMP = new Vector2d(3.0, 15.0);
 
-Player::Player()
+Player::Player() :
+PBody(new Vector2d(4,9), new Vector2d(0.8, 0.8), true, false, true, PB_PLAYER)
 {
-    m_body = new PBody(new Vector2d(100,100), new Vector2d(32, 32), true, false, true, PB_PLAYER);
-    EventBus::getSharedInstance()->publishEvent(PBODY_CREATED, m_body);
+    EventBus::getSharedInstance()->publishEvent(PBODY_CREATED, this);
 }
 Player::~Player()
 {
@@ -24,5 +24,12 @@ Player::~Player()
 }
 void Player::jump()
 {
-    m_body->addVector(JUMP);
+    this->maskMovementVector(0, 1);
+    this->addVector(JUMP);
+}
+Vector2d* Player::isCollidingWithBody(PBody* otherBody)
+{
+    Log(LOG_INFO, "Player", "Check collision");
+    
+    return PBody::isCollidingWithBody(otherBody);
 }

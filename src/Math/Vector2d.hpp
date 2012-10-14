@@ -12,9 +12,12 @@
 struct Vector2d {
     Vector2d(double x, double y);
     Vector2d(Vector2d* vec);
+    Vector2d(Vector2d* vec, double magnitude);
     double m_x, m_y;
     double lengthSquared();
     void zap();
+    
+    double overlaps(Vector2d* otherVector);
     
     //  Operators
     Vector2d operator=(Vector2d vector);
