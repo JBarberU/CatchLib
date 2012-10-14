@@ -14,8 +14,8 @@
 Vector2d* JUMP = new Vector2d(3.0, 15.0);
 
 Player::Player() :
-PBody(new Vector2d(4,9), new Vector2d(0.8, 0.8), true, false, true, PB_PLAYER)
-{
+PBody(new Vector2d(0.0,6), new Vector2d(1.5, 1.5), true, false, true, PB_PLAYER)
+{    
     EventBus::getSharedInstance()->publishEvent(PBODY_CREATED, this);
 }
 Player::~Player()
