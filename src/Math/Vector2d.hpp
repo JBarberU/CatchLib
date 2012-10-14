@@ -17,6 +17,8 @@ struct Vector2d {
     double lengthSquared();
     void zap();
     
+    double overlaps(Vector2d* otherVector);
+    
     //  Operators
     Vector2d operator=(Vector2d vector);
     bool operator==(Vector2d vector);

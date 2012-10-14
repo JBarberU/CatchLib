@@ -36,6 +36,23 @@ void Vector2d::zap()
     this->m_y = 0;
 }
 
+double Vector2d::overlaps(Vector2d* otherVector)
+{
+    double tmpOver = 0;
+    
+    if (this->m_x < otherVector->m_x && this->m_y < otherVector->m_y) {
+        tmpOver = this->m_y - otherVector->m_x;
+    } else if (otherVector->m_x < this->m_x && otherVector->m_y < this->m_y) {
+        tmpOver = otherVector->m_y - this->m_x;
+    } else if (this->m_x > otherVector->m_x && this->m_y < otherVector->m_y) {
+        tmpOver = this->m_y - this->m_x;
+    } else if (otherVector->m_x > this->m_x && otherVector->m_y < this->m_y) {
+        tmpOver = otherVector->m_y - this->m_x;
+    }
+    
+    return tmpOver;
+}
+
 Vector2d Vector2d::operator=(Vector2d vector)
 {
     this->m_x = vector.m_x;
