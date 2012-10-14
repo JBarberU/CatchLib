@@ -17,23 +17,46 @@ const Actor* MAIN_CHARACTER = 0;
 const Actor* PLATFORM_1 = 0;
 const Actor* OBSTACLE_BOX = 0;
 
+const double IMAGE_WIDTH = 2048;
+const double IMAGE_HEIGHT = 2048;
+
 void ActorsLoader::initMainCharacter(int textureID)
 {
-    // Player character
-    Sprite* s0 = new Sprite(0           ,0          , 32.0/128  , 32.0/128 , textureID);
-    Sprite* s1 = new Sprite(32.0/128.0  ,0          , 32.0/128  , 32.0/128 , textureID);
-    Sprite* s2 = new Sprite(64.0/128.0  ,0          , 32.0/128  , 32.0/128, textureID);
-    Sprite* s3 = new Sprite(32.0/128.0  ,0          , 32.0/128  , 32.0/128 , textureID);
     
-    Sprite** sp = new Sprite*[4];
+    double sW = 172;
+    double sH = 160;
+    
+    // Player character
+    Sprite* s0 = new Sprite(0*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
+                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID);
+    
+    Sprite* s1 = new Sprite(1*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
+                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID);
+    
+    Sprite* s2 = new Sprite(2*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
+                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT, textureID);
+    
+    Sprite* s3 = new Sprite(3*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
+                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID);
+    
+    Sprite* s4 = new Sprite(4*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
+                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID);
+    
+    Sprite* s5 = new Sprite(5*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
+                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID);
+    
+    
+    Sprite** sp = new Sprite*[6];
     sp[0] = s0;
     sp[1] = s1;
     sp[2] = s2;
     sp[3] = s3;
+    sp[4] = s4;
+    sp[5] = s5;
     
-    SpriteArray* arr = new SpriteArray(sp, 4);
+    SpriteArray* arr = new SpriteArray(sp, 6);
     
-    Animation* a = new Animation(arr, s1, 300, true);
+    Animation* a = new Animation(arr, s1, 150, true);
     Animation** aArr = new Animation*[1];
     aArr[0] = a;
     AnimationArray* aAnimArr = new AnimationArray(aArr, 1);
@@ -43,7 +66,7 @@ void ActorsLoader::initMainCharacter(int textureID)
 void ActorsLoader::initPlatform(int textureID)
 {
     // Platform
-    Sprite* s1 = new Sprite(16.0/128.0           ,16.0/128.0          , 2.0/128.0  , 2.0/128.0 , textureID);
+    Sprite* s1 = new Sprite(19.0/128.0           ,19.0/128.0          , 2.0/128.0  , 2.0/128.0 , textureID);
     
     Sprite** sp = new Sprite*[1];
     sp[0] = s1;
