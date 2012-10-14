@@ -27,7 +27,7 @@ PhysicsManager::~PhysicsManager()
 }
 
 void PhysicsManager::update(float dt)
-{    
+{
     if (m_pBodyArray == 0) {
         Log(LOG_ERROR, "PhysicsManager", "PBodiesArray is null!");
         return;
@@ -36,6 +36,11 @@ void PhysicsManager::update(float dt)
     for (int i = 0; i < m_pBodyArray->m_index; i++) {
         if (m_pBodyArray->m_bodies[i]->isAffectedByGravity()) {
             m_pBodyArray->m_bodies[i]->addVector(GRAVITY_VECTOR);
+        }
+        if (m_pBodyArray->m_bodies[i]->getTag() == PB_PLAYER) {
+            Vector2d* v = new Vector2d(0.01, 0.0);
+            m_pBodyArray->m_bodies[i]->addVector(v);
+            delete v;
         }
         m_pBodyArray->m_bodies[i]->applyForce(dt);
     }
@@ -55,7 +60,7 @@ void PhysicsManager::update(float dt)
                     m_pBodyArray->m_bodies[i]->maskMovementVector(FRICTION, 0);
                 }
                 m_pBodyArray->m_bodies[i]->translateBy(collision);
-                Vector2d* applicationVector = new Vector2d(collision, 1.0);
+                Vector2d* applicationVector = new Vector2d(collision, 0.5);
                 m_pBodyArray->m_bodies[i]->addVector(applicationVector);
                 m_pBodyArray->m_bodies[i]->applyForce(dt);
                 delete applicationVector;
