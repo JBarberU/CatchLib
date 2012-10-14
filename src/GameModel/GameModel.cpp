@@ -32,6 +32,7 @@ GameModel::~GameModel()
 void GameModel::update(float dt)
 {
     m_physicsManager->update(dt);
+    m_gameMap->update();
 }
 
 void GameModel::playerJump()
