@@ -12,6 +12,7 @@
 struct Vector2d {
     Vector2d(double x, double y);
     Vector2d(Vector2d* vec);
+    Vector2d(Vector2d* vec, double magnitude);
     double m_x, m_y;
     double lengthSquared();
     void zap();

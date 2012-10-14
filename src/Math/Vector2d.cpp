@@ -7,6 +7,8 @@
 //
 
 #include "Vector2d.hpp"
+#include "Math.hpp"
+#include <math.h>
 
 Vector2d::Vector2d(double x, double y)
 {
@@ -18,6 +20,16 @@ Vector2d::Vector2d(Vector2d* vec)
     this->m_x = vec->m_x;
     this->m_y = vec->m_y;
 }
+Vector2d::Vector2d(Vector2d* vec, double magnitude)
+{
+    Vector2d* unitVector = Math::generateUnitVectorOf(vec);
+        
+    this->m_x = unitVector->m_x * magnitude;
+    this->m_y = unitVector->m_y * magnitude;
+    
+    delete unitVector;
+}
+
 void Vector2d::zap()
 {
     this->m_x = 0;
