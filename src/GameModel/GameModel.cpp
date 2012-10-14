@@ -13,7 +13,7 @@
 GameModel::GameModel()
 {
     m_physicsManager = new PhysicsManager();
-//    m_gameMap = new GameMap();
+	m_gameMap = new GameMap();
     
     PBody* body = new PBody(new Vector2d(0, 0), new Vector2d(480, 50), false, true, false, PB_PLATFORM);
     PBody* body2 = new PBody(new Vector2d(240, 51), new Vector2d(20, 50), false, true, false, PB_PLATFORM);
