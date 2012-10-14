@@ -210,6 +210,9 @@ void GLRenderer10::onEvent (EEvent event, void* source)
             case PB_PLATFORM:
                 newActor = ActorsLoader::newPlatformActor();
                 break;
+            case PB_OBSTACLE_BOX:
+                newActor = ActorsLoader::newObstacleBoxActor();
+                break;
             default:
                 return;
         }
