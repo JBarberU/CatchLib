@@ -26,8 +26,7 @@ enum Blocktype
 	DECLINE
 };
 
-class PlatformBlock
-{
+class PlatformBlock {
 public:
 	~PlatformBlock();
 
@@ -39,14 +38,6 @@ public:
 	 * 		The start position of the block.
 	 */
 	PlatformBlock(Blocktype type, Vector2d* vector);
-
-	/**
-	 * Changes the position of the block.
-	 *
-	 * @param vector
-	 * 		The new start position of the block.
-	 */
-	void setStartPoint(Vector2d* vector);
 
 	/**
 	 * Returns the Blocktype of the block
@@ -67,12 +58,11 @@ public:
 	/**
 	 * Generates and then returns the physical body of the block.
 	 */
-	PBody* generatePBody();
+	PBody* generatePBody(Vector2d* vector);
 
 private:
 	PBody* body;
 	Blocktype type;
-	Vector2d* startVector;
 };
 
 #endif

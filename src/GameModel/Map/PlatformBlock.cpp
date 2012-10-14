@@ -8,13 +8,13 @@
 //  Date: 		05/10-2012
 
 #include "PlatformBlock.hpp"
-
+#include "../../EventHandling/EventBus.hpp"
 
 PlatformBlock::PlatformBlock(Blocktype type, Vector2d* vector)
 {
 	this->type = type;
-	this->startVector = vector;
-	this->body = generatePBody();
+	this->body = generatePBody(vector);
+	EventBus::getSharedInstance()->publishEvent(PBODY_CREATED, (PBody *)body);
 	//make something listen to this->body for collisions.
 
 }
@@ -24,30 +24,14 @@ PlatformBlock::~PlatformBlock()
 
 }
 
-void PlatformBlock::setStartPoint(Vector2d* vector)
-{
-	startVector = vector;
-}
-
 Vector2d* PlatformBlock::getStartVector()
 {
-	return startVector;
+	return this->body->getVectorArray()->m_vectors[1];
 }
 
 Vector2d* PlatformBlock::getEndVector()
 {
-	Vector2d* eVect = new Vector2d(startVector->m_x, startVector->m_y);
-	if(type == INCLINE) {
-		//Set the end points at a set distance in x and y to create a 30 degree incline
-		eVect=+(new Vector2d(2, 1));
-	} else if (type == DECLINE) {
-		//Set the end points at a set distance in x and y to create a 30 degree decline
-		eVect=+(new Vector2d(2, -1));
-	} else if (type == HORIZONTAL) {
-		//Set the end points at a set distance in x and y to create a horizontal line
-		eVect=+(new Vector2d(2, 0));
-	}
-	return eVect;
+	return this->body->getVectorArray()->m_vectors[2];
 }
 
 Blocktype PlatformBlock::getType()
@@ -55,13 +39,25 @@ Blocktype PlatformBlock::getType()
 	return type;
 }
 
-PBody* PlatformBlock::generatePBody()
+PBody* PlatformBlock::generatePBody(Vector2d* vector)
 {
+	Vector2d* endVector = new Vector2d(getStartVector());
+	if(type == INCLINE) {
+		//Set the end points at a set distance in x and y to create a 30 degree incline
+		endVector=+(new Vector2d(2, 1));
+	} else if (type == DECLINE) {
+		//Set the end points at a set distance in x and y to create a 30 degree decline
+		endVector=+(new Vector2d(2, -1));
+	} else if (type == HORIZONTAL) {
+		//Set the end points at a set distance in x and y to create a horizontal line
+		endVector=+(new Vector2d(2, 0));
+	}
+
 	Vector2d** pVectors = new Vector2d*[4];
-	pVectors[0] = startVector;
-	pVectors[1] = getEndVector();
-	pVectors[2] = new Vector2d(startVector->m_x, 0);
-	pVectors[3] = new Vector2d(getEndVector()->m_x, 0);
+	pVectors[0] = new Vector2d(vector->m_x, 0);
+	pVectors[1] = vector;
+	pVectors[2] = endVector;
+	pVectors[3] = new Vector2d(endVector->m_x, 0);
 
 	Vector2dArray* pVectorArray = new Vector2dArray(pVectors, 4);
 	PBody* body = new PBody(pVectorArray, true, PB_PLATFORM);
