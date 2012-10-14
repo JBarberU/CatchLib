@@ -20,13 +20,19 @@
 #include "Actor.hpp"
 
 class ActorsLoader {
+private:
+    static void initMainCharacter(int textureID);
+    static void initPlatform(int textureID);
+    static void initObstacle(int textureID);
     
 public:
     //  Initialise the ActorLoader
     static void init(int textureID);
+    
     //  Create a new MainCharacter Actor
     static Actor* newMainCharacterActor();
     static Actor* newPlatformActor();
+    static Actor* newObstacleBoxActor();
 };
 
 #endif /* defined(__CatchiOS__ActorsLoader__) */
