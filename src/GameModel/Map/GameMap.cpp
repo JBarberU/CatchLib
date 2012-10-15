@@ -31,7 +31,7 @@ Vector2d* GameMap::nextPlatformStart(Vector2d* lastEnd)
 	int random = rand() % (range + 1) + minAllowed;
 
 	// Note: constant length in between platforms (2)
-	return new Vector2d(2, lastEnd->m_y + random);
+	return new Vector2d(lastEnd->m_x + 2, lastEnd->m_y + random);
 }
 
 void GameMap::generateStartMap()
