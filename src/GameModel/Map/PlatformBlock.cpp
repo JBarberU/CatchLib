@@ -44,13 +44,13 @@ PBody* PlatformBlock::generatePBody(Vector2d* vector)
 	Vector2d* endVector = new Vector2d(getStartVector());
 	if(type == INCLINE) {
 		//Set the end points at a set distance in x and y to create a 30 degree incline
-		endVector=+(new Vector2d(2, 1));
+		*endVector+=(new Vector2d(2, 1));
 	} else if (type == DECLINE) {
 		//Set the end points at a set distance in x and y to create a 30 degree decline
-		endVector=+(new Vector2d(2, -1));
+		*endVector+=(new Vector2d(2, -1));
 	} else if (type == HORIZONTAL) {
 		//Set the end points at a set distance in x and y to create a horizontal line
-		endVector=+(new Vector2d(2, 0));
+		*endVector+=(new Vector2d(2, 0));
 	}
 
 	Vector2d** pVectors = new Vector2d*[4];
