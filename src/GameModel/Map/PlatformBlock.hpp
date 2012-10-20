@@ -7,6 +7,9 @@
 //	Copyright (c) 2012 by Catch22. All Rights Reserved.
 //  Date: 		29/09-2012
 //
+//	License: The following code is licensed under the Catch22-License
+//
+//
 //  Description:
 //	A class for representing a block in a Platform.
 //
