@@ -7,6 +7,8 @@
 //	Copyright (c) 2012 by Catch22. All Rights Reserved.
 //  Date: 		02/10-2012
 //
+//	License: The following code is licensed under the Catch22-License
+//
 //  Description:
 //	Enumiration of different types of events.
 //
