@@ -142,6 +142,9 @@ bool PBody::isStationary()
 }
 Vector2d* PBody::isCollidingWithBody(PBody* otherBody)
 {
+//    for (int a = 0; a < this->m_vectorArray->m_size; a++) {
+//        Vector2d* v = new Vector2d();
+//    }
     
     Vector2d** axes1 = this->getAxes();
     Vector2d** axes2 = otherBody->getAxes();

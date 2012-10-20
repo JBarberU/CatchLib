@@ -16,6 +16,8 @@
 
 GameController::GameController(int width, int height, CLTexture* texture)
 {
+	srand ( time(NULL) );
+
     m_deviceWidth = width;
     m_deviceHeight = height;
     

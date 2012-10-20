@@ -12,10 +12,11 @@
 //#include "Map/GameMap.hpp"
 #include "Physics/PhysicsManager.hpp"
 #include "Entities/Player.hpp"
+#include "Map/GameMap.hpp"
 
 class GameModel {
 private:
-//    GameMap*    m_gameMap;
+	GameMap* m_gameMap;
     PhysicsManager* m_physicsManager;
     Player* m_player;
     

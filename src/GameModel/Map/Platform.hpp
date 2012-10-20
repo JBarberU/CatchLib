@@ -1,11 +1,11 @@
 //
 //  File:       Platform.hpp
 //  Class:      Platform
-//  Author:     Jesper Persson
+//  Author:     Sebastian Odbjer
 //              All code is my own except where credited to others.
 //
-//	Copyright (c) 2012 by Catch22. All Rights Reserved.
-//  Date: 		29/09-2012
+//	Copyright © 2012 by Catch22. All Rights Reserved.
+//  Date: 		Sep 29, 2012
 //
 //  Description:
 //	This class is for representing a Platform in a GameMap.
@@ -23,9 +23,35 @@ class Platform
 public:
 	~Platform();
 	Platform();
+
+	/**
+	 * Returns a vector of PlatformBlock pointers to the platformblocks of this platform.
+	 */
 	vector<PlatformBlock*> getPlatformBlocks();
+
+	/**
+	 * Adds a PlatformBlock at the end of the vector of PlatformBlocks.
+	 * @param block
+	 * 		The PlatformBlock that is to be added.
+	 */
 	void addPlatformBlock(PlatformBlock* block);
+
+	/**
+	 * Removes all the PlatformBlocks in the vector.
+	 */
 	void clearPlatformBlocks();
+
+	/**
+	 * Returns the end point of the Platform in the form of a Vector2d.
+	 */
+	Vector2d* endPoint();
+
+	/**
+	 * Returns the start point of the Platform in the form of a Vector2d.
+	 */
+	Vector2d* startPoint();
+
+private:
 	vector<PlatformBlock*> platformblocks;
 
 };

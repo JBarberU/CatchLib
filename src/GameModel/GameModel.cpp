@@ -13,28 +13,15 @@
 GameModel::GameModel()
 {
     m_physicsManager = new PhysicsManager();
-//    m_gameMap = new GameMap();
+	m_gameMap = new GameMap();
     
+    PBody* body = new PBody(new Vector2d(0.f, 0.f), new Vector2d(480, 50), false, true, false, PB_PLATFORM);
+    PBody* body2 = new PBody(new Vector2d(240, 51), new Vector2d(20, 50), false, true, false, PB_PLATFORM);
     
-    Vector2d** v2Arr = new Vector2d*[4];
-    
-    v2Arr[0] = new Vector2d(-20.0,-6.0);
-    v2Arr[1] = new Vector2d(-20.0,-6.0);
-    v2Arr[2] = new Vector2d(20,6.0);
-    v2Arr[3] = new Vector2d(20,0.0);
-    
-    Vector2dArray* vArr = new Vector2dArray(v2Arr, 4);
-    
-    PBody* tri = new PBody(vArr, true, PB_PLATFORM);
-    
-    PBody* body2 = new PBody(new Vector2d(6.0, 2.0), new Vector2d(0.5, 1), false, true, false, PB_OBSTACLE_BOX);
-    
-    EventBus::getSharedInstance()->publishEvent(PBODY_CREATED, (PBody *)tri);
+    EventBus::getSharedInstance()->publishEvent(PBODY_CREATED, (PBody *)body);
     EventBus::getSharedInstance()->publishEvent(PBODY_CREATED, (PBody *)body2);
     
     m_player = new Player();
-    EventBus::getSharedInstance()->publishEvent(PBODY_CREATED, (PBody *)m_player);
-    
     Log(LOG_INFO, "GameModel", "GameModel has been constructed.");
 }
 GameModel::~GameModel()
@@ -45,6 +32,7 @@ GameModel::~GameModel()
 void GameModel::update(float dt)
 {
     m_physicsManager->update(dt);
+    m_gameMap->update();
 }
 
 void GameModel::playerJump()
