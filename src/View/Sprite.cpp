@@ -12,14 +12,23 @@
 #include "Sprite.hpp"
 #include "../Helper/Logger.hpp"
 
-Sprite::Sprite(float x, float y, float w, float h, int textureID)
+Sprite::Sprite(float x, float y, float w, float h, int textureID, bool mirror)
 {
-    m_vertex = new const Vertex[4] {
-        Vertex(x        , y + h),
-        Vertex(x        , y),
-        Vertex(x + w    , y),
-        Vertex(x + w    , y + h),
-    };
+    if (mirror) {
+        m_vertex = new const Vertex[4] {
+            Vertex(x + w    , y),
+            Vertex(x        , y),
+            Vertex(x        , y + h),
+            Vertex(x + w    , y + h),
+        };
+    } else {
+        m_vertex = new const Vertex[4] {
+            Vertex(x        , y),
+            Vertex(x + w    , y),
+            Vertex(x + w    , y + h),
+            Vertex(x        , y + h),
+        };
+    }
     
     m_textureID = textureID;
 }
