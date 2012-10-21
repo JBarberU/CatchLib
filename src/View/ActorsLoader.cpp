@@ -13,9 +13,11 @@
 #include "ActorsLoader.hpp"
 #include "../Helper/Logger.hpp"
 
-const Actor* MAIN_CHARACTER = 0;
-const Actor* PLATFORM_1 = 0;
-const Actor* OBSTACLE_BOX = 0;
+Actor* MAIN_CHARACTER = 0;
+Actor* PLATFORM_1 = 0;
+Actor* PLATFORM_2 = 0;
+Actor* PLATFORM_3 = 0;
+Actor* OBSTACLE_BOX = 0;
 
 const double IMAGE_WIDTH = 2048;
 const double IMAGE_HEIGHT = 2048;
@@ -23,27 +25,27 @@ const double IMAGE_HEIGHT = 2048;
 void ActorsLoader::initMainCharacter(int textureID)
 {
     
-    double sW = 172;
-    double sH = 160;
+    double sW = 111;
+    double sH = 133;
     
     // Player character
     Sprite* s0 = new Sprite(0*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
-                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID);
+                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID, true);
     
     Sprite* s1 = new Sprite(1*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
-                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID);
+                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID, false);
     
     Sprite* s2 = new Sprite(2*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
-                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT, textureID);
+                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT, textureID, true);
     
     Sprite* s3 = new Sprite(3*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
-                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID);
+                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID, false);
     
     Sprite* s4 = new Sprite(4*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
-                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID);
+                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID, true);
     
     Sprite* s5 = new Sprite(5*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
-                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID);
+                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID, false);
     
     
     Sprite** sp = new Sprite*[6];
@@ -56,35 +58,85 @@ void ActorsLoader::initMainCharacter(int textureID)
     
     SpriteArray* arr = new SpriteArray(sp, 6);
     
-    Animation* a = new Animation(arr, s1, 150, true);
+    Animation* a = new Animation(arr, s1, 100, true);
     Animation** aArr = new Animation*[1];
     aArr[0] = a;
     AnimationArray* aAnimArr = new AnimationArray(aArr, 1);
     
-    MAIN_CHARACTER = new Actor(aAnimArr, a);
+    MAIN_CHARACTER = new Actor(aAnimArr, a, new Vector2d(1.f, 1.f),
+                               new OffsetMatrix(
+                                                new Vector2d(.75f, 0.2f),
+                                                new Vector2d(.75f, 0.2f),
+                                                new Vector2d(.75f, .4f),
+                                                new Vector2d(.75f, .4f)));
 }
-void ActorsLoader::initPlatform(int textureID)
+void ActorsLoader::initPlatforms(int textureID)
 {
-    // Platform
-    Sprite* s1 = new Sprite(19.0/128.0           ,19.0/128.0          , 2.0/128.0  , 2.0/128.0 , textureID);
+    // Platform 1
+    Sprite* s1 = new Sprite(24/IMAGE_WIDTH           ,265/IMAGE_HEIGHT          , 208/IMAGE_WIDTH  , 516/IMAGE_HEIGHT , textureID, false);
     
-    Sprite** sp = new Sprite*[1];
-    sp[0] = s1;
+    Sprite** sp1 = new Sprite*[1];
+    sp1[0] = s1;
     
     
-    SpriteArray* arr1 = new SpriteArray(sp, 1);
+    SpriteArray* arr1 = new SpriteArray(sp1, 1);
     
-    Animation* a = new Animation(arr1, s1, 300, true);
-    Animation** aArr = new Animation*[1];
-    aArr[0] = a;
-    AnimationArray* aAnimArr = new AnimationArray(aArr, 1);
+    Animation* a1 = new Animation(arr1, s1, 300, true);
+    Animation** aArr1 = new Animation*[1];
+    aArr1[0] = a1;
+    AnimationArray* aAnimArr1 = new AnimationArray(aArr1, 1);
     
-    PLATFORM_1 = new Actor(aAnimArr, a);
+    PLATFORM_1 = new Actor(aAnimArr1, a1, new Vector2d(1.f, 6.f),
+                           new OffsetMatrix(
+                                            new Vector2d(0.f,6.f), new Vector2d(0.f,6.f),
+                                            new Vector2d(0.f, -8.f), new Vector2d(0.f,-8.f)));
+    
+    // Platform 3
+    Sprite* s3 = new Sprite(24/IMAGE_WIDTH           ,265/IMAGE_HEIGHT          , 208/IMAGE_WIDTH  , 516/IMAGE_HEIGHT , textureID, true);
+    
+    Sprite** sp3 = new Sprite*[1];
+    sp3[0] = s3;
+    
+    
+    SpriteArray* arr3 = new SpriteArray(sp3, 1);
+    
+    Animation* a3 = new Animation(arr3, s3, 300, true);
+    Animation** aArr3 = new Animation*[1];
+    aArr3[0] = a3;
+    AnimationArray* aAnimArr3 = new AnimationArray(aArr3, 1);
+    
+    PLATFORM_3 = new Actor(aAnimArr3, a3, new Vector2d(1.f, 6.f),
+                           new OffsetMatrix(
+                                            new Vector2d(0.f,6.f), new Vector2d(0.f,6.f),
+                                            new Vector2d(0.f, -8.f), new Vector2d(0.f,-8.f)));
+    
+    // Platform 2
+    Sprite* s2 = new Sprite(279/IMAGE_WIDTH           ,264/IMAGE_HEIGHT          , 224/IMAGE_WIDTH  , 517/IMAGE_HEIGHT , textureID, false);
+    
+    Sprite** sp2 = new Sprite*[1];
+    sp2[0] = s2;
+    
+    
+    SpriteArray* arr2 = new SpriteArray(sp2, 1);
+    
+    Animation* a2 = new Animation(arr2, s2, 300, true);
+    Animation** aArr2 = new Animation*[1];
+    aArr2[0] = a2;
+    AnimationArray* aAnimArr2 = new AnimationArray(aArr2, 1);
+    
+    PLATFORM_2 = new Actor(aAnimArr2, a2, new Vector2d(1.f, 6.f),
+                           new OffsetMatrix(
+                                            new Vector2d(0.f,6.f), new Vector2d(0.f,6.f),
+                                            new Vector2d(0.f, -8.f), new Vector2d(0.f,-8.f)));
+    
+//    Sprite* s3 = new Sprite();
+    
+    
 }
 void ActorsLoader::initObstacle(int textureID)
 {
     //  Obstacle Box
-    Sprite* s1 = new Sprite(19.0/128.0           ,19.0/128.0          , 2.0/128.0  , 2.0/128.0 , textureID);
+    Sprite* s1 = new Sprite(19.0/128.0           ,19.0/128.0          , 2.0/128.0  , 2.0/128.0 , textureID, true);
     
     Sprite** sp = new Sprite*[1];
     sp[0] = s1;
@@ -92,19 +144,19 @@ void ActorsLoader::initObstacle(int textureID)
     
     SpriteArray* arr1 = new SpriteArray(sp, 1);
     
-    Animation* a = new Animation(arr1, s1, 300, true);
+    Animation* a = new Animation(arr1, s1, 1, true);
     Animation** aArr = new Animation*[1];
     aArr[0] = a;
     AnimationArray* aAnimArr = new AnimationArray(aArr, 1);
     
-    OBSTACLE_BOX = new Actor(aAnimArr, a);
+    OBSTACLE_BOX = new Actor(aAnimArr, a, new Vector2d(1.2, 1.2));
 }
 
 void ActorsLoader::init(int textureID)
 {
     ActorsLoader::initMainCharacter(textureID);
-    ActorsLoader::initPlatform(textureID);
-    ActorsLoader::initObstacle(textureID);    
+    ActorsLoader::initPlatforms(textureID);
+    ActorsLoader::initObstacle(textureID);
 }
 Actor* ActorsLoader::newMainCharacterActor()
 {
@@ -113,16 +165,38 @@ Actor* ActorsLoader::newMainCharacterActor()
         return 0;
     }
     
-    return new Actor(*MAIN_CHARACTER);
+    return new Actor(MAIN_CHARACTER);
 }
-Actor* ActorsLoader::newPlatformActor() {
+Actor* ActorsLoader::newPlatformActor_1()
+{
     if (PLATFORM_1 == 0) {
         Log(LOG_ERROR, "ActorsLoader", "PLATFORM_1 is null, probably because init was never called.");
         return 0;
     }
     
-    return new Actor(*PLATFORM_1);
+    return new Actor(PLATFORM_1);
 }
+Actor* ActorsLoader::newPlatformActor_2()
+{
+    if (PLATFORM_2 == 0) {
+        Log(LOG_ERROR, "ActorsLoader", "PLATFORM_1 is null, probably because init was never called.");
+        return 0;
+    }
+    
+    return new Actor(PLATFORM_2);
+}
+
+
+Actor* ActorsLoader::newPlatformActor_3()
+{
+    if (PLATFORM_3 == 0) {
+        Log(LOG_ERROR, "ActorsLoader", "PLATFORM_1 is null, probably because init was never called.");
+        return 0;
+    }
+    
+    return new Actor(PLATFORM_3);
+}
+
 Actor* ActorsLoader::newObstacleBoxActor()
 {
     if (OBSTACLE_BOX == 0) {
@@ -130,5 +204,5 @@ Actor* ActorsLoader::newObstacleBoxActor()
         return 0;
     }
     
-    return new Actor(*OBSTACLE_BOX);
+    return new Actor(OBSTACLE_BOX);
 }

@@ -215,16 +215,21 @@ void GLRenderer10::centerCameraOn(Vector2d point)
 }
 void GLRenderer10::onEvent (EEvent event, void* source)
 {
-    if (event == PBODY_CREATED) {
-        Log(LOG_INFO, "Player", generateCString("player pbody: %d", ((PBody*)source)->getVectorArray()->m_vectors[0]->m_y));
-        
+    if (event == PBODY_CREATED_ACTORS) {
+
         Actor* newActor;
         switch (((PBody *) source)->getTag()) {
             case PB_PLAYER:
                 newActor = ActorsLoader::newMainCharacterActor();
                 break;
-            case PB_PLATFORM:
-                newActor = ActorsLoader::newPlatformActor();
+            case PB_PLATFORM_1:
+                newActor = ActorsLoader::newPlatformActor_1();
+                break;
+            case PB_PLATFORM_2:
+                newActor = ActorsLoader::newPlatformActor_2();
+                break;
+            case PB_PLATFORM_3:
+                newActor = ActorsLoader::newPlatformActor_3();
                 break;
             case PB_OBSTACLE_BOX:
                 newActor = ActorsLoader::newObstacleBoxActor();

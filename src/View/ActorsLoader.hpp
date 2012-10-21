@@ -1,7 +1,7 @@
 //
 //  File:	ActorsLoader.hpp
 //  Class:  ActorsLoader
-//  Author: John Barbero Unenge 
+//  Author: John Barbero Unenge
 //          All code is my own except where credited to others.
 //
 //  Copyright (c) 2012 Catch22. All Rights Reserved.
@@ -22,7 +22,7 @@
 class ActorsLoader {
 private:
     static void initMainCharacter(int textureID);
-    static void initPlatform(int textureID);
+    static void initPlatforms(int textureID);
     static void initObstacle(int textureID);
     
 public:
@@ -31,7 +31,9 @@ public:
     
     //  Create a new MainCharacter Actor
     static Actor* newMainCharacterActor();
-    static Actor* newPlatformActor();
+    static Actor* newPlatformActor_1();
+    static Actor* newPlatformActor_2();
+    static Actor* newPlatformActor_3();
     static Actor* newObstacleBoxActor();
 };
 
