@@ -17,12 +17,8 @@ private:
 public:
     Player();
     ~Player();
-    
-    Vector2d* isCollidingWithBody(PBody* otherBody);
-    
+        
     void jump();
-    
-    
 };
 
 #endif /* defined(__CatchiOS__Player__) */
