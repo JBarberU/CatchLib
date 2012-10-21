@@ -19,6 +19,7 @@
 #include "IRenderable.hpp"
 #include "Animation.hpp"
 #include "../GameModel/Physics/PBody.hpp"
+#include "OffsetMatrix.hpp"
 
 //  A structure used keep track of animations and
 //  the current number of animations.
@@ -52,9 +53,15 @@ private:
     AnimationArray* m_animations;
     Animation*  	m_currentAnimation;
     PBody*          m_pBody;
+    Vector2d*       m_halfSize;
+    OffsetMatrix*   m_offset;
+    
+    void CreateActor(AnimationArray* animations, Animation* currentAnimation, Vector2d* halfSize, OffsetMatrix* offsetMatrix);
+    
     
 public:
-    Actor(AnimationArray* animations, Animation* currentAnimation);
+    Actor(AnimationArray* animations, Animation* currentAnimation, Vector2d* halfSize);
+    Actor(AnimationArray* animations, Animation* currentAnimation, Vector2d* halfSize, OffsetMatrix* offsetMatrix);
     Actor(Actor* actor);
     ~Actor();
     
@@ -65,7 +72,9 @@ public:
     virtual const Vertex* getTextureVertexData();
     virtual int getTextureID();
     virtual void update(float dt);
-
+    virtual float getAngle();
+    
+    
 };
 
 #endif /* defined(__CatchiOS__Actor__) */
