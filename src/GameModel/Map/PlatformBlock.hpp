@@ -63,8 +63,8 @@ public:
 	PBody* generatePBody(Vector2d* vector);
 
 private:
-	PBody* body;
-	Blocktype type;
+	PBody*      m_body;
+	Blocktype   m_type;
 };
 
 #endif
