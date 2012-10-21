@@ -30,6 +30,21 @@ struct AnimationArray {
         m_animationArray = animations;
         m_size = size;
     }
+    AnimationArray(AnimationArray* anim) {
+        this->m_size = anim->m_size;
+        this->m_animationArray = new Animation*[this->m_size];
+        
+        for (int i = 0; i < this->m_size; i++) {
+            this->m_animationArray[i] = new Animation(anim->m_animationArray[i]);
+        }
+    }
+    ~AnimationArray() {
+        for (int i = 0; i < m_size; i++) {
+            delete m_animationArray[i];
+        }
+        delete m_animationArray;
+        m_animationArray = 0;
+    }
 };
 
 class Actor : public IRenderable {
