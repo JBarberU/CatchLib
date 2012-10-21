@@ -26,6 +26,8 @@ public:
     
     void update(float dt);
     
+    Vector2d* getCenterPoint();
+    
     void playerJump();
     void playerThrowAt(int x, int y);
 };
