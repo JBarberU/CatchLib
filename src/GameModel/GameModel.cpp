@@ -9,33 +9,15 @@
 #include "GameModel.hpp"
 #include "../EventHandling/EventBus.hpp"
 #include "../Helper/Logger.hpp"
+#include "Physics/PBody.hpp"
 
 GameModel::GameModel()
 {
     m_physicsManager = new PhysicsManager();
-//    m_gameMap = new GameMap();
-    
-    
-    Vector2d** v2Arr = new Vector2d*[4];
-    
-    v2Arr[0] = new Vector2d(-20.0,-6.0);
-    v2Arr[1] = new Vector2d(-20.0,-6.0);
-    v2Arr[2] = new Vector2d(20,6.0);
-    v2Arr[3] = new Vector2d(20,0.0);
-    
-    Vector2dArray* vArr = new Vector2dArray(v2Arr, 4);
-    
-    PBody* tri = new PBody(vArr, true, PB_PLATFORM);
-    
-    PBody* body2 = new PBody(new Vector2d(6.0, 2.0), new Vector2d(0.5, 1), false, true, false, PB_OBSTACLE_BOX);
-    
-    EventBus::getSharedInstance()->publishEvent(PBODY_CREATED, (PBody *)tri);
-    EventBus::getSharedInstance()->publishEvent(PBODY_CREATED, (PBody *)body2);
+//	m_gameMap = new GameMap();
     
     m_player = new Player();
-    EventBus::getSharedInstance()->publishEvent(PBODY_CREATED, (PBody *)m_player);
-    
-    Log(LOG_INFO, "GameModel", "GameModel has been constructed.");
+    m_player = new Player();
 }
 GameModel::~GameModel()
 {
@@ -45,6 +27,11 @@ GameModel::~GameModel()
 void GameModel::update(float dt)
 {
     m_physicsManager->update(dt);
+//    m_gameMap->update();
+}
+Vector2d* GameModel::getCenterPoint()
+{
+    return new Vector2d(m_player->getPosition().x, m_player->getPosition().y);
 }
 
 void GameModel::playerJump()

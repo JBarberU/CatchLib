@@ -25,7 +25,7 @@ private:
     const Vertex*   m_vertex;
     
 public:
-    Sprite(float spriteLocX, float spriteLocY, float spriteLocWidth, float spriteLocHeight, int textureID);
+    Sprite(float spriteLocX, float spriteLocY, float spriteLocWidth, float spriteLocHeight, int textureID, bool mirror);
     Sprite(Sprite* sprite);
     Sprite(Vertex* vertecies, int num_vertecies, int textureID);
     ~Sprite();

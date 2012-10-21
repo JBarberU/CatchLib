@@ -12,51 +12,54 @@
 
 #include "Actor.hpp"
 #include "../Helper/Logger.hpp"
+#include "../Helper/Constants.hpp"
 
-//  Used until proper model object is used to track rendering location
-const Vertex txPos[] = {
-    Vertex(100.0f ,100.0f),
-    Vertex(132.0f ,100.0f),
-    Vertex(100.0f ,132.0f),
-    Vertex(132.0f ,132.0f),
-};
-
-Actor::Actor(AnimationArray* animations, Animation* currentAnimation)
+Actor::Actor(AnimationArray* animations, Animation* currentAnimation, Vector2d* halfSize, OffsetMatrix* offsetMatrix)
+{
+    CreateActor(animations, currentAnimation, halfSize, offsetMatrix);
+}
+Actor::Actor(AnimationArray* animations, Animation* currentAnimation, Vector2d* halfSize)
+{
+    CreateActor(animations, currentAnimation, halfSize, new OffsetMatrix(new Vector2d(0.f, 0.f), new Vector2d(0.f, 0.f), new Vector2d(0.f, 0.f), new Vector2d(0.f, 0.f)));
+}
+Actor::Actor(Actor* actor)
+{
+    CreateActor(new AnimationArray(actor->m_animations), new Animation(actor->m_currentAnimation), new Vector2d(actor->m_halfSize), new OffsetMatrix(actor->m_offset));
+}
+void Actor::CreateActor(AnimationArray* animations, Animation* currentAnimation, Vector2d* halfSize, OffsetMatrix* offsetMatrix)
 {
     m_pBody = 0;
     
     m_animations = animations;
     m_currentAnimation = currentAnimation;
+    m_halfSize = halfSize;
+    m_offset = offsetMatrix;
 }
-Actor::Actor(Actor* actor)
-{
-    m_pBody = 0;
-    
-    Animation** newAnimations = new Animation*[actor->m_animations->m_size];
-    for (int i = 0; i < actor->m_animations->m_size; i++) {
-        newAnimations[i] = new Animation(actor->m_animations->m_animationArray[i]);
-    }
-    
-    m_animations = new AnimationArray(newAnimations, actor->m_animations->m_size);
-    m_currentAnimation = m_animations->m_animationArray[0];
-}
+
 void Actor::setPBody(PBody* pBody)
 {
     m_pBody = pBody;
 }
 const Vertex* Actor::getVertexData()
-{
+{    
     if (m_pBody != 0) {
-        Vertex* v = new Vertex[m_pBody->getVectorArray()->m_size];
         
-        for (int i = 0; i < m_pBody->getVectorArray()->m_size; i++) {
-            v[i] = Vertex(m_pBody->getVectorArray()->m_vectors[i]->m_x, m_pBody->getVectorArray()->m_vectors[i]->m_y);
-        }
+        const Vertex* v = new const Vertex[4]
+        {
+            Vertex(m_pBody->getBody()->GetPosition().x - m_offset->m_topLeft->m_x,
+                   m_pBody->getBody()->GetPosition().y + m_halfSize->m_y * 2 + m_offset->m_topLeft->m_y),
+            Vertex(m_pBody->getBody()->GetPosition().x + m_halfSize->m_x * 2 + m_offset->m_topRight->m_x,
+                   m_pBody->getBody()->GetPosition().y + m_halfSize->m_y * 2 + m_offset->m_topRight->m_y),
+            Vertex(m_pBody->getBody()->GetPosition().x + m_halfSize->m_x * 2 + m_offset->m_bottomRight->m_x,
+                   m_pBody->getBody()->GetPosition().y - m_offset->m_bottomRight->m_y),
+            Vertex(m_pBody->getBody()->GetPosition().x - m_offset->m_bottomLeft->m_x,
+                   m_pBody->getBody()->GetPosition().y - m_offset->m_bottomLeft->m_y),
+        };
         
         return v;
     }
     
-    return txPos;
+    return 0;
 }
 const Vertex* Actor::getTextureVertexData()
 {
@@ -73,4 +76,8 @@ int Actor::getTextureID()
 }
 void Actor::update(float dt){
     m_currentAnimation->update(dt);
+}
+float Actor::getAngle()
+{
+    return this->m_pBody->getBody()->GetAngle();
 }

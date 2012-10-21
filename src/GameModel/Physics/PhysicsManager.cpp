@@ -9,16 +9,20 @@
 #include "PhysicsManager.hpp"
 #include "../../EventHandling/EventBus.hpp"
 #include "../../Helper/Logger.hpp"
+#include "../../Helper/Constants.hpp"
 
-Vector2d* GRAVITY_VECTOR = new Vector2d(0.0, -0.5);
-Vector2d* VECTOR_X_ONLY = new Vector2d(1,0);
-Vector2d* VECTOR_Y_ONLY = new Vector2d(0.0,1);
+#include "../../../Box2D/Dynamics/b2Fixture.h"
 
-const double FRICTION = 0.90;
+#include <iterator>
+const b2Vec2 GRAVITY_VECTOR = b2Vec2(2.f, -10.f);
 
 PhysicsManager::PhysicsManager()
 {
-    m_pBodyArray = 0;
+    this->m_world = new b2World(b2Vec2(GRAVITY_VECTOR));
+    this->m_world->SetAllowSleeping(true);
+    this->CreateWorld();
+    
+    
     EventBus::getSharedInstance()->addEventListener(this);
 }
 PhysicsManager::~PhysicsManager()
@@ -26,82 +30,64 @@ PhysicsManager::~PhysicsManager()
     
 }
 
+void PhysicsManager::CreateWorld()
+{
+    b2BodyDef   bodyDef;
+    bodyDef.type = b2_staticBody;
+    bodyDef.position = b2Vec2(0.f, 0.f);
+    
+    b2FixtureDef fixDef;
+    b2PolygonShape shape;
+    
+    b2Body* body = m_world->CreateBody(&bodyDef);
+    
+    shape.SetAsBox(Constants::getGameWidth(), 0, b2Vec2(Constants::getGameWidth()/2, 0.f), 0);
+    body->SetUserData((void*)PB_DEADLY_SURFACE);
+    fixDef.shape = &shape;
+    body->CreateFixture(&fixDef);
+    
+    shape.SetAsBox(0.f, Constants::getGameHeight(), b2Vec2(0.f, Constants::getGameHeight()/2.f), 0.f);
+    fixDef.shape = &shape;
+    body->CreateFixture(&fixDef);
+    
+    shape.SetAsBox(0.f, Constants::getGameHeight(), b2Vec2(Constants::getGameWidth(), Constants::getGameHeight()/2.f), 0.f);
+    fixDef.shape = &shape;
+    body->CreateFixture(&fixDef);
+    
+}
+
 void PhysicsManager::update(float dt)
 {
-    if (m_pBodyArray == 0) {
-        Log(LOG_ERROR, "PhysicsManager", "PBodiesArray is null!");
-        return;
-    }
-    
-    for (int i = 0; i < m_pBodyArray->m_index; i++) {
-        if (m_pBodyArray->m_bodies[i]->isAffectedByGravity()) {
-            m_pBodyArray->m_bodies[i]->addVector(GRAVITY_VECTOR);
-        }
-        if (m_pBodyArray->m_bodies[i]->getTag() == PB_PLAYER) {
-            Vector2d* v = new Vector2d(0.01, 0.0);
-            m_pBodyArray->m_bodies[i]->addVector(v);
-            delete v;
-        }
-        m_pBodyArray->m_bodies[i]->applyForce(dt);
-    }
-    
-    for (int i = 0; i < m_pBodyArray->m_index; i++) {
-        if (m_pBodyArray->m_bodies[i]->isStationary())
-            continue;
-        
-        for (int j = 0; j < m_pBodyArray->m_index; j++) {
-            if (m_pBodyArray->m_bodies[i] == m_pBodyArray->m_bodies[j])
-                continue;
-            
-            Vector2d* collision = m_pBodyArray->m_bodies[i]->isCollidingWithBody(m_pBodyArray->m_bodies[j]);
-            
-            if (collision != 0) {
-                if (collision->m_y != 0) {
-                    m_pBodyArray->m_bodies[i]->maskMovementVector(FRICTION, 0);
-                }
-                m_pBodyArray->m_bodies[i]->translateBy(collision);
-                Vector2d* applicationVector = new Vector2d(collision, 0.5);
-                m_pBodyArray->m_bodies[i]->addVector(applicationVector);
-                m_pBodyArray->m_bodies[i]->applyForce(dt);
-                delete applicationVector;
-            }
-            
-            delete collision;
-        }
-        
-    }
+    m_world->Step(dt, 1, 1);
 }
 
 
 
 void PhysicsManager::addPBody(PBody* pBody)
 {
-    if (m_pBodyArray == 0)
-        m_pBodyArray = new PBodyArray();
+    this->m_pBodyArray.push_back(pBody);
     
-    if (m_pBodyArray->m_index == m_pBodyArray->m_size) {
-        m_pBodyArray->m_size += 20;
-        PBody** newPBody = new PBody*[m_pBodyArray->m_size];
-        for (int i = 0; i < m_pBodyArray->m_index; i++) {
-            newPBody[i] = m_pBodyArray->m_bodies[i];
-        }
-        m_pBodyArray->m_bodies = newPBody;
+    if (pBody->getBody() == 0) {
+        pBody->setBody(m_world->CreateBody(pBody->getBodyDefinition()));
     }
     
-    m_pBodyArray->m_bodies[m_pBodyArray->m_index++] = pBody;
+    Log(LOG_INFO, "PhysicsManager", "Added PBody");
 }
 
 void PhysicsManager::removePBody(PBody* pBody)
 {
-    for (int i = 0; i < m_pBodyArray->m_index; i++) {
-        if (m_pBodyArray->m_bodies[i] == pBody) {
-            m_pBodyArray->m_bodies[i] = m_pBodyArray->m_bodies[--m_pBodyArray->m_index];
+    std::vector<PBody*>::iterator it;
+    for (it = m_pBodyArray.begin(); it != m_pBodyArray.end(); ++it) {
+        if (pBody == *it) {
+            m_pBodyArray.erase(it);
         }
     }
 }
 
 void PhysicsManager::onEvent (EEvent event, void* source)
 {
-    if (event == PBODY_CREATED)
+    if (event == PBODY_CREATED_PHYSICS) {
         this->addPBody((PBody *)source);
+        EventBus::getSharedInstance()->publishEvent(PBODY_CREATED_ACTORS, source);
+    }
 }

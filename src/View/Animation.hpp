@@ -30,12 +30,14 @@ struct SpriteArray{
 
 class Animation {
 private:
-    float m_timeElapsed;
-    float m_timePerFrame;
-    bool m_looping;
+    float           m_timeElapsed;
+    float           m_timePerFrame;
+    bool            m_looping;
     
-    SpriteArray* m_sprites;
-    Sprite* m_currentSprite;
+    SpriteArray*    m_sprites;
+    Sprite*         m_currentSprite;
+    
+    void CreateAnimation(SpriteArray* sprites, Sprite* currentSprite, float timePerFrameMillis, bool looping);
     
 public:
     //  Creates an animation with the given sprites, current sprite, number of milliseconds per frame

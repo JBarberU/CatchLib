@@ -19,6 +19,7 @@
 #include "IRenderable.hpp"
 #include "Animation.hpp"
 #include "../GameModel/Physics/PBody.hpp"
+#include "OffsetMatrix.hpp"
 
 //  A structure used keep track of animations and
 //  the current number of animations.
@@ -30,6 +31,21 @@ struct AnimationArray {
         m_animationArray = animations;
         m_size = size;
     }
+    AnimationArray(AnimationArray* anim) {
+        this->m_size = anim->m_size;
+        this->m_animationArray = new Animation*[this->m_size];
+        
+        for (int i = 0; i < this->m_size; i++) {
+            this->m_animationArray[i] = new Animation(anim->m_animationArray[i]);
+        }
+    }
+    ~AnimationArray() {
+        for (int i = 0; i < m_size; i++) {
+            delete m_animationArray[i];
+        }
+        delete m_animationArray;
+        m_animationArray = 0;
+    }
 };
 
 class Actor : public IRenderable {
@@ -37,9 +53,15 @@ private:
     AnimationArray* m_animations;
     Animation*  	m_currentAnimation;
     PBody*          m_pBody;
+    Vector2d*       m_halfSize;
+    OffsetMatrix*   m_offset;
+    
+    void CreateActor(AnimationArray* animations, Animation* currentAnimation, Vector2d* halfSize, OffsetMatrix* offsetMatrix);
+    
     
 public:
-    Actor(AnimationArray* animations, Animation* currentAnimation);
+    Actor(AnimationArray* animations, Animation* currentAnimation, Vector2d* halfSize);
+    Actor(AnimationArray* animations, Animation* currentAnimation, Vector2d* halfSize, OffsetMatrix* offsetMatrix);
     Actor(Actor* actor);
     ~Actor();
     
@@ -50,7 +72,9 @@ public:
     virtual const Vertex* getTextureVertexData();
     virtual int getTextureID();
     virtual void update(float dt);
-
+    virtual float getAngle();
+    
+    
 };
 
 #endif /* defined(__CatchiOS__Actor__) */

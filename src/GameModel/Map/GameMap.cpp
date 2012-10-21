@@ -1,15 +1,20 @@
 //
-//  GameMap.hpp
-//  CatchLib
+//  File:		GameMap.cpp
+//  Class:      GameMap
+//  Author:     Sebastian Odbjer, Alexander Hederstaf
+//              All code is my own except where credited to others.
 //
-//  Created by Sebastian Odbjer on 9/29/12.
-//  Copyright (c) 2012 Catch22. All rights reserved.
+//	Copyright © 2012 by Catch22. All Rights Reserved.
+//  Date: 		Oct 7, 2012
 
+#include "stdlib.h"
 #include "GameMap.hpp"
 
-/*GameMap::GameMap()
-{
 
+GameMap::GameMap()
+{
+	generator = new MapGenerator();
+	generateStartMap();
 }
 
 GameMap::~GameMap()
@@ -17,18 +22,46 @@ GameMap::~GameMap()
 
 }
 
+Vector2d* GameMap::nextPlatformStart(Vector2d* lastEnd)
+{
+	int minAllowed = lastEnd->m_y - 1 >= generator->HEIGHT_MIN ? -1 : 0;
+	int maxAllowed = lastEnd->m_y + 1 <= generator->HEIGHT_MAX ?  1 : 0;
+
+	int range = maxAllowed - minAllowed;
+	int random = rand() % (range + 1) + minAllowed;
+
+	// Note: constant length in between platforms (2)
+	return new Vector2d(lastEnd->m_x + 2, lastEnd->m_y + random);
+}
+
+void GameMap::generateStartMap()
+{
+	Platform* p = generator->generateFlatPlatform(new Vector2d(0.f, 4), 8);
+	addPlatform(p);
+
+	for (int i = 0; i < 6; i++) {
+		p = generator->generatePlatform(nextPlatformStart(p->endPoint()));
+		addPlatform(p);
+	}
+}
+
 void GameMap::addPlatform(Platform* platform)
 {
 	platforms.push_back(platform);
 }
 
-void GameMap::reformFirstPlatform()
+void GameMap::reformGameMap()
 {
-	platforms.erase(platforms.first());
+	platforms.erase(platforms.begin());
 	//Generate new platformBlocks in this platform
-	// addPlatform(mapGenerator.generatePlatform());
-
+	Platform* p = platforms.back();
+	addPlatform(generator->generatePlatform(nextPlatformStart(p->endPoint())));
 }
 
-
-*/
+void GameMap::update()
+{
+	Platform* firstPlatform = platforms.front();
+	if (firstPlatform->endPoint()->m_x < 0) {
+		reformGameMap();
+	}
+}

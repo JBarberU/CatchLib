@@ -13,15 +13,19 @@
 
 Animation::Animation(SpriteArray* sprites, Sprite* currentSprite, float timePerFrameMillis, bool looping)
 {
+    CreateAnimation(sprites, currentSprite, timePerFrameMillis, looping);
+}
+Animation::Animation(Animation* animation)
+{
+    CreateAnimation(animation->m_sprites, animation->m_currentSprite, animation->m_timePerFrame * 1000, animation->m_looping);
+}
+void Animation::CreateAnimation(SpriteArray* sprites, Sprite* currentSprite, float timePerFrameMillis, bool looping)
+{
     m_sprites = sprites;
     m_currentSprite = currentSprite;
     m_looping = looping;
     m_timePerFrame = timePerFrameMillis / 1000;
     m_timeElapsed = 0;
-}
-Animation::Animation(Animation* animation)
-{
-    Animation(animation->m_sprites, animation->m_currentSprite, animation->m_timePerFrame, animation->m_looping);
 }
 Animation::~Animation()
 {}

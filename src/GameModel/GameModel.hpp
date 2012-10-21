@@ -13,10 +13,11 @@
 //#include "Map/GameMap.hpp"
 #include "Physics/PhysicsManager.hpp"
 #include "Entities/Player.hpp"
+#include "Map/GameMap.hpp"
 
 class GameModel {
 private:
-//    GameMap*    m_gameMap;
+	GameMap* m_gameMap;
     PhysicsManager* m_physicsManager;
     Player* m_player;
     
@@ -25,6 +26,8 @@ public:
 	GameModel();
     
     void update(float dt);
+    
+    Vector2d* getCenterPoint();
     
     void playerJump();
     void playerThrowAt(int x, int y);

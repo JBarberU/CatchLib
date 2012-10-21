@@ -16,27 +16,24 @@
 #ifndef __CatchiOS__PhysicsManager__
 #define __CatchiOS__PhysicsManager__
 
+//  Catch22
 #include "PBody.hpp"
 #include "../../EventHandling/IEventListener.hpp"
 
-struct PBodyArray {
-    PBody** m_bodies;
-    int m_index;
-    int m_size;
-    PBodyArray() {
-        m_index = 0;
-        m_size = 20;
-        m_bodies = new PBody*[m_size];
-    }
-    ~PBodyArray() {
-        delete [] m_bodies;
-    }
-};
+//  Box2D
+#include "../../../Box2D/Dynamics/b2Body.h"
+#include "../../../Box2D/Dynamics/b2World.h"
+
+//  Other
+#include <vector>
 
 class PhysicsManager : public IEventListener {
 private:
-    PBodyArray* m_pBodyArray;
-        
+    std::vector<PBody*>     m_pBodyArray;
+    b2World*                m_world;
+    
+    void CreateWorld();
+    
 public:
     PhysicsManager();
     ~PhysicsManager();
@@ -47,6 +44,8 @@ public:
     void removePBody(PBody* pBody);
     
     void onEvent (EEvent event, void* source);
+    
+    void centerBodyAt(PBody body, Vector2d point);
 };
 
 #include <iostream>

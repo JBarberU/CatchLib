@@ -37,6 +37,7 @@ public:
     void onRotate(DeviceOrientation orientation);
     virtual void addActor(Actor* actor);
     virtual void removeActor(Actor* actor);
+    virtual void centerCameraOn(Vector2d point);
     
 private:
     //  Build a shader.
