@@ -31,12 +31,11 @@ PBody::PBody(b2Vec2 size, b2Vec2 position, bool stationary, bool rotatable, PBod
     this->m_body = 0;
     
     int32 num = 4;
-    const b2Vec2* vertecies = new b2Vec2[num]{
-        b2Vec2(0.f, 0.f),
-        b2Vec2(size.x, 0.f),
-        b2Vec2(size.x, size.y),
-        b2Vec2(0.f, size.y),
-    };
+    b2Vec2* vertecies = new b2Vec2[num];
+    vertecies[0] = b2Vec2(0.f, 0.f);
+    vertecies[1] = b2Vec2(size.x, 0.f);
+    vertecies[2] = b2Vec2(size.x, size.y);
+    vertecies[3] = b2Vec2(0.f, size.y);
     
     this->m_shape.Set(vertecies, num);
     
