@@ -189,7 +189,7 @@ void MapGenerator::modifyChances(set<GeneratedBlock>& allowedSet, Vector2d* star
 GeneratedBlock MapGenerator::selectBlock(set<GeneratedBlock> allowedSet)
 {
 	set<GeneratedBlock>::iterator it;
-	int totalChance = 0;
+	int totalChance = 1;
 	for (it = allowedSet.begin(); it != allowedSet.end(); ++it) {
 		totalChance += (*it).chance;
 	}
