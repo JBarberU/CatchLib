@@ -30,6 +30,9 @@ public:
     
     //  Respond to update
     virtual void update(float dt) = 0;
+
+    //  Get the rotation angle of the renderable
+    virtual float getAngle() = 0;
 };
 
 #endif
