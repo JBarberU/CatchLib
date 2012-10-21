@@ -12,19 +12,19 @@
 #include "GameController.hpp"
 #include "../Helper/Logger.hpp"
 #include "../Helper/InputManager.hpp"
+#include "../Helper/Constants.hpp"
 
 
 GameController::GameController(int width, int height, CLTexture* texture)
 {
 	srand ( time(NULL) );
 
+    Constants::init(width, height);
+    
     m_deviceWidth = width;
     m_deviceHeight = height;
     
     m_deviceOrientation = DeviceOrientationLandscapeLeft;
-    
-    Log(LOG_INFO, "GameController", generateCString("GameCon: %ix%i", width, height));
-    
     InputManager::getSharedManager()->addInputListener(this);
 
     m_renderer = CreateRendererWithOpenGL10();
