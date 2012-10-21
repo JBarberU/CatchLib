@@ -40,6 +40,7 @@ void GameController::update(float dt)
 {
     m_renderer->update(dt);
     m_gameModel->update(dt);
+    m_renderer->centerCameraOn(*m_gameModel->getCenterPoint());
     
     m_renderer->render();
 }
