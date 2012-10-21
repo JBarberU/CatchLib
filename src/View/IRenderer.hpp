@@ -43,8 +43,11 @@ public:
     //  Add an actor, which is used to ecapsulate amimations.
     virtual void addActor(Actor* actor) = 0;
     
-    // Remove the given actor.
+    //  Remove the given actor.
     virtual void removeActor(Actor* actor) = 0;
+    
+    virtual void centerCameraOn(Vector2d point) = 0;
+    
 };
 
 //  Create an instance of IRenderer through GLRenderer10

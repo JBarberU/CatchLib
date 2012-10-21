@@ -152,7 +152,10 @@ void GLRenderer20::removeActor(Actor* actor)
 {
     // Intentionally left empty
 }
-
+void GLRenderer20::centerCameraOn(Vector2d point)
+{
+    // Intentionally left empty
+}
 
 GLuint GLRenderer20::BuildProgram(const char* vertexShaderSource, const char* fragmentShaderSource) const
 {

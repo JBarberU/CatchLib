@@ -12,7 +12,6 @@
 //  A class used for rendering with OpenGL ES 1.0. It implements
 //  the functions in IRenderer.
 //
-
 #ifdef __IPHONE_NA
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
@@ -38,6 +37,7 @@ public:
     void onRotate(DeviceOrientation orientation);
     void addActor(Actor* actor);
     void removeActor(Actor* actor);
+    void centerCameraOn(Vector2d point);
     
     //  Inherited from IEventListener
     void onEvent (EEvent event, void* source);
@@ -54,6 +54,8 @@ private:
     
     float m_deviceWidth;
     float m_deviceHeight;
+    
+    Vector2d m_cameraPos;
     
     GLuint loadTexture(CLTexture *texture);
 };

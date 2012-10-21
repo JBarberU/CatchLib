@@ -15,6 +15,8 @@
 #include "ActorsLoader.hpp"
 #include "../EventHandling/EventBus.hpp"
 
+#include "../Helper/Constants.hpp"
+
 const GLfloat ANGLE_LEFT = -90;
 const GLfloat ANGLE_RIGHT = 90;
 
@@ -43,8 +45,9 @@ IRenderer* CreateRendererWithOpenGL10()
     return new GLRenderer10();
 }
 
-GLRenderer10::GLRenderer10()
+GLRenderer10::GLRenderer10() : m_cameraPos(0.f, 0.f)
 {
+
     Log(LOG_INFO, "GLRenderer10", "Constructed a GLRenderer!");
     
 //    OpenGL ES 1.0 implementation in Android doesn't support creating
@@ -72,16 +75,13 @@ void GLRenderer10::init(int width, int height, CLTexture* texture)
 #ifdef __APPLE__
     glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, m_renderbuffer);
 #endif
-    
-	Log(LOG_INFO, "GLRenderer10", generateCString("Init WH: %ix%i", width, height));
- 
+     
     glViewport(0, 0, width, height);
     
-    glMatrixMode(GL_PROJECTION);
-    
     // Initialize the projection matrix.
-    glOrthof(0, WIDTH, 0, HEIGHT, -1, 1);
-    
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrthof(0, Constants::getGameHeight(), m_cameraPos.m_x - Constants::getGameWidth() / 2, Constants::getGameWidth() / 2, -1, 1);
     glMatrixMode(GL_MODELVIEW);
     
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
@@ -123,14 +123,18 @@ void GLRenderer10::render()
     glClearColor(10, 0.5f, 0.5f, 1);
     glClear(GL_COLOR_BUFFER_BIT);
     
+    
+    
     glPushMatrix();
+    glLoadIdentity();
     if (m_desiredAngle == 90)
-        glTranslatef(WIDTH, 0, 0);
+        glTranslatef(Constants::getGameHeight(), 0, 0);
     else
-        glTranslatef(0, HEIGHT, 0);
+        glTranslatef(0, Constants::getGameWidth(), 0);
     glRotatef(m_currentAngle, 0, 0, 1);
-
-
+    
+    glTranslatef(-(m_cameraPos.m_x - Constants::getGameWidth() / 2), 0.f, 0.f);
+    
     glBindTexture(GL_TEXTURE_2D, m_texture);
     
     
@@ -141,6 +145,7 @@ void GLRenderer10::render()
         
         glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
         delete [] vertexData;
+    
     }
     glPopMatrix();
 }
@@ -201,7 +206,13 @@ void GLRenderer10::removeActor(Actor* actor)
         }
     }
 }
-
+void GLRenderer10::centerCameraOn(Vector2d point)
+{
+    
+    Log(LOG_INFO, "GLREnderer", generateCString("point: %d, %d", point.m_x, point.m_y));
+    m_cameraPos = Vector2d(point);
+    
+}
 void GLRenderer10::onEvent (EEvent event, void* source)
 {
     if (event == PBODY_CREATED) {
