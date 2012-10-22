@@ -101,7 +101,7 @@ private:
 	 * @return
 	 * 		The selected GeneratedBlock.
 	 */
-	GeneratedBlock selectBlock(set<GeneratedBlock> allowedSet);
+	GeneratedBlock* selectBlock(set<GeneratedBlock> allowedSet);
 
 	/**
 	 * Adds a GeneratedBlock at the end of recentlyUsedBuffer
