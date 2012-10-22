@@ -21,14 +21,16 @@
 #include "../Physics/PBody.hpp"
 
 class Chainsaw : public PBody
-{
+{    
 public:
-    Chainsaw();
+    Chainsaw(b2Vec2 size, b2Vec2 position, b2Vec2 target, bool stationary, bool rotatable, PBodyType tag);
     ~Chainsaw();
-    bool isReturning();
+    // Returns true if chainsaw has passed it's target.
+    bool targetReached();
     void update();
+    void setTarget(b2Vec2);
     
 private:
-    bool isReturning;
-    
-}
+    bool m_targetReached;
+    b2Vec2 m_target;
+};
