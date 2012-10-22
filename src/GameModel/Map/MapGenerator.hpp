@@ -121,11 +121,6 @@ public:
 	const static int PLATFORM_LENGTH_MAX = 12;
 	const static int BUFFER_SIZE = 20;
 
-	/**
-	 * Internal testing of private functions
-	 */
-	bool testFunc();
-
 	~MapGenerator();
 	MapGenerator();
 
