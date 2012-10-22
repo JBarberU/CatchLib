@@ -58,3 +58,4 @@ TEST_CASE("Math: Unit vector", "Tests that unit vectors are generated correctly.
         }
     }
 }
+

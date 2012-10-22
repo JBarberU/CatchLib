@@ -67,3 +67,4 @@ TEST_CASE("Test Vector2D", "Testing basic vetor operations")
     REQUIRE(v2.m_y == -180);
     
 }
+

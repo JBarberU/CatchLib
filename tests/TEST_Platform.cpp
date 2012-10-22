@@ -11,10 +11,14 @@
 //
 
 #include "../src/GameModel/Map/Platform.hpp"
+#include "../src/GameModel/Physics/PhysicsManager.hpp"
 #include "catch.hpp"
 
 TEST_CASE("Platform", "Tests the Platform: creates a new platform and then checks it's values")
 {
+	//Create a physicsmanager in order to make the getters work.
+	PhysicsManager manager = PhysicsManager();
+
 	PlatformBlock* platformblock1 = new PlatformBlock(INCLINE, new Vector2d(0.0, 0.0));
 	PlatformBlock* platformblock2 = new PlatformBlock(HORIZONTAL, new Vector2d(2.0, 1.0));
 	PlatformBlock* platformblock3 = new PlatformBlock(DECLINE, new Vector2d(4.0, 1.0));
@@ -28,6 +32,5 @@ TEST_CASE("Platform", "Tests the Platform: creates a new platform and then check
 	CHECK(platform.startPoint()->m_y == 0.0);
 	CHECK(platform.endPoint()->m_x == 6.0);
 	CHECK(platform.endPoint()->m_y == 0.0);
-
 
 }
