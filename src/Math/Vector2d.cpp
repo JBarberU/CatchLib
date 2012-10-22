@@ -10,6 +10,11 @@
 #include "Math.hpp"
 #include <math.h>
 
+Vector2d::Vector2d()
+{
+    this->m_x = 0;
+    this->m_y = 0;
+}
 Vector2d::Vector2d(double x, double y)
 {
     this->m_x = x;
