@@ -48,6 +48,10 @@ TEST_CASE("EventBus", "Tests the EventBus-system. Adds listener, publishes event
     bus->publishEvent(GAME_PAUSED, eventTest);
     REQUIRE(eventTest->eventType == GAME_STARTED);
     
+    
+    for (int i = 0; i < 1000; i++){
+        bus->removeEventListener(&listenerArray[i]);
+    }
 }
 
 void TEST_Events::onEvent (EEvent event, void* source)
