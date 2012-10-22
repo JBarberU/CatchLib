@@ -7,6 +7,8 @@
 //	Copyright (c) 2012 by Catch22. All Rights Reserved.
 //  Date: 		09/10-2012
 //
+//	License: The following code is licensed under the Catch22-License
+//
 
 #include "../src/GameModel/Map/PlatformBlock.hpp"
 #include "catch.hpp"
