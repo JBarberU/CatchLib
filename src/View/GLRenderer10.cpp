@@ -78,7 +78,6 @@ void GLRenderer10::init(int width, int height, CLTexture* texture)
     m_actors = new ActorArray();
     
     ActorsLoader::init(m_texture);
-//    this->addActor(ActorsLoader::newMainCharacterActor());
     
     m_texture = this->loadTexture(texture);
 }
