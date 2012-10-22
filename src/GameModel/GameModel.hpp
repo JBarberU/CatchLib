@@ -15,8 +15,9 @@
 #include "Entities/Player.hpp"
 #include "Map/GameMap.hpp"
 #include "Entities/Chainsaw.hpp"
+#include "../EventHandling/IEventListener.hpp"
 
-class GameModel {
+class GameModel : public IEventListener{
 private:
 	GameMap* m_gameMap;
     PhysicsManager* m_physicsManager;
@@ -33,4 +34,6 @@ public:
     
     void playerJump();
     void playerThrowAt(int x, int y);
+    
+    void onEvent (EEvent event, void* source);
 };
