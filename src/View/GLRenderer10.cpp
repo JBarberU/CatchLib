@@ -20,26 +20,6 @@
 const GLfloat ANGLE_LEFT = -90;
 const GLfloat ANGLE_RIGHT = 90;
 
-//  These should be when the deveice is in portrait orientation
-const float WIDTH = 8;
-const float HEIGHT = 12;
-
-
-//  Dummy shaped used until game model is in place
-const Vertex shape[] = {
-    Vertex(0,0),
-    Vertex(1,0),
-    Vertex(0,1),
-    Vertex(1,1),
-};
-const Vertex txPos[] = {
-    Vertex(0,0),
-    Vertex(1,0),
-    Vertex(0,1),
-    Vertex(1,1),
-    
-};
-
 IRenderer* CreateRendererWithOpenGL10()
 {
     return new GLRenderer10();
@@ -167,7 +147,6 @@ void GLRenderer10::addActor(Actor* actor)
         m_actors = new ActorArray();
     
     if (m_actors->m_index == m_actors->m_size) {
-        Log(LOG_INFO, "GLRenderer10", "Needed to expand actor array");
         m_actors->m_size += 20;
         Actor** newActors = new Actor*[m_actors->m_size];
         
@@ -178,7 +157,6 @@ void GLRenderer10::addActor(Actor* actor)
         m_actors->m_actors = newActors;
     }
     
-    Log(LOG_INFO, "GLRenderer10", "Added an actor");
     m_actors->m_actors[m_actors->m_index++] = actor;
 }
 void GLRenderer10::onRotate(DeviceOrientation orientation)
@@ -209,7 +187,6 @@ void GLRenderer10::removeActor(Actor* actor)
 void GLRenderer10::centerCameraOn(Vector2d point)
 {
     
-    Log(LOG_INFO, "GLREnderer", generateCString("point: %d, %d", point.m_x, point.m_y));
     m_cameraPos = Vector2d(point);
     
 }
@@ -240,7 +217,6 @@ void GLRenderer10::onEvent (EEvent event, void* source)
         
         newActor->setPBody((PBody *) source);
         this->addActor(newActor);
-        Log(LOG_INFO, "GLRenderer10", generateCString("Added an actor: %i", m_actors->m_index));
     }
     
 }
