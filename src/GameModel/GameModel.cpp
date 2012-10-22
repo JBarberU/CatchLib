@@ -18,6 +18,8 @@ GameModel::GameModel()
     
     m_player = new Player();
     m_player = new Player();
+    m_chainsaw = 0;
+    
 }
 GameModel::~GameModel()
 {
@@ -26,6 +28,9 @@ GameModel::~GameModel()
 
 void GameModel::update(float dt)
 {
+    if (m_chainsaw != 0){
+        m_chainsaw->update();
+    }
     m_physicsManager->update(dt);
 //    m_gameMap->update();
 }
@@ -40,5 +45,7 @@ void GameModel::playerJump()
 }
 void GameModel::playerThrowAt(int x, int y)
 {
+    b2Vec2 target = b2Vec2(x,y);
+    m_chainsaw = new Chainsaw(b2Vec2(0.3, 0.3 ), m_player->getPosition(), target, false, true, PB_PLATFORM_1);
     Log(LOG_INFO, "GameModel", generateCString("Player threw his chainsaw at: %i,%i", x, y));
 }

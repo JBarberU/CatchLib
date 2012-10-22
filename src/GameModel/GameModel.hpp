@@ -14,12 +14,14 @@
 #include "Physics/PhysicsManager.hpp"
 #include "Entities/Player.hpp"
 #include "Map/GameMap.hpp"
+#include "Entities/Chainsaw.hpp"
 
 class GameModel {
 private:
 	GameMap* m_gameMap;
     PhysicsManager* m_physicsManager;
     Player* m_player;
+    Chainsaw* m_chainsaw;
     
 public:
 	~GameModel();
