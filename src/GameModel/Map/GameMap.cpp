@@ -31,16 +31,16 @@ Vector2d* GameMap::nextPlatformStart(Vector2d* lastEnd)
 	int random = rand() % (range + 1) + minAllowed;
 
 	// Note: constant length in between platforms (2)
-	return new Vector2d(lastEnd->m_x + 2, lastEnd->m_y + random);
+	return new Vector2d(lastEnd->m_x + 4, lastEnd->m_y + random);
 }
 
 void GameMap::generateStartMap()
 {
-	Platform* p = generator->generateFlatPlatform(new Vector2d(0.f, 4), 8);
+	Platform* p = generator->generateFlatPlatform(new Vector2d(0.f, 7.f), 8);
 	addPlatform(p);
 
-	for (int i = 0; i < 6; i++) {
-		p = generator->generatePlatform(nextPlatformStart(p->endPoint()));
+	for (int i = 0; i < 15; i++) {
+		p = generator->generateFlatPlatform(nextPlatformStart(p->endPoint()), 8);
 		addPlatform(p);
 	}
 }
