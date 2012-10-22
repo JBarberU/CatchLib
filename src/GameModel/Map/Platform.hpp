@@ -12,9 +12,7 @@
 //  Description:
 //	This class is for representing a Platform in a GameMap.
 //	Each Platform is made up by several PlatformBlocks.
-//
-//	License: The following code is licensed under the Catch22-License
-//
+
 
 #include "PlatformBlock.hpp"
 #include <vector>

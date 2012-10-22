@@ -9,7 +9,6 @@
 //
 //	License: The following code is licensed under the Catch22-License
 //
-//
 //  Description:
 //	A class for representing a Physical Body.
 //	All Physical Bodies will be solid (collidable) and affected by

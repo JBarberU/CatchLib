@@ -25,7 +25,14 @@ private:
 public:
 	~ObstacleBox();
 	ObstacleBox(Vector2d* position, float height);
+
+	/**
+	 * Publishes an "destroyed Pbody event" on the eventbus to let the handlers know
+	 * it has been destroyed.
+	 */
 	void destroy();
+
+	// See Obstacle.hpp
 	void generatePbody(Vector2d position);
 };
 

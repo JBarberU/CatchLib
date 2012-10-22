@@ -23,7 +23,13 @@
 class Obstacle {
 
 public:
+	/**
+	 * Removes the Obstacle in a suitable way to this specific obstacle.
+	 */
 	virtual void destroy() = 0;
+	/**
+	 * Generates the physical body of the obstacle.
+	 */
 	virtual void generatePbody(Vector2d position) = 0;
 	PBody* m_body;
 };
