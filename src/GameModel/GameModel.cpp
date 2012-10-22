@@ -32,7 +32,7 @@ void GameModel::update(float dt)
         if (m_chainsaw->targetReached()){
             m_chainsaw->setTarget(m_player->getPosition());
         }
-        m_chainsaw->update();
+        m_chainsaw->update(dt);
     }
     m_physicsManager->update(dt);
     m_player->update();
