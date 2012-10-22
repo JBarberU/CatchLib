@@ -20,8 +20,11 @@ private:
     static double gameHeight;
     
 public:
+    //  Sets the game width and height from pixel sizes
     static void init(double screenWidth, double screenHeight);
+    //  Get the game width in game coordinates
     static double getGameWidth();
+    //  Get the game height in game coordinates
     static double getGameHeight();
 };
 
