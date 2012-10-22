@@ -17,6 +17,7 @@ enum PBodyType {
     PB_PLATFORM_3,
     PB_OBSTACLE_BOX,
     PB_DEADLY_SURFACE,
+    PB_CHAINSAW,
     };
 
 
