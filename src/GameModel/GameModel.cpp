@@ -18,7 +18,6 @@ GameModel::GameModel()
 	m_gameMap = new GameMap();
     
     m_player = new Player();
-    m_player = new Player();
     m_chainsaw = 0;
     
 }
