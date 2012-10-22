@@ -8,6 +8,8 @@
 //
 //  Date:   1/10/12
 //
+//	License: The following code is licensed under the Catch22-License
+//
 //  Description:
 //  This class is used to store width, height and pixel data
 //  of an OpenGL texture.

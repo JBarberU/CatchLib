@@ -8,11 +8,11 @@
 //
 //  Date: Oct 8, 2012
 //
-//  Description:
-//	A class for representing a box obstacle.
-//
 //	License: The following code is licensed under the Catch22-License
 //
+//  Description:
+//	A class for representing a box obstacle.
+
 
 #include "ObstacleBox.hpp"
 

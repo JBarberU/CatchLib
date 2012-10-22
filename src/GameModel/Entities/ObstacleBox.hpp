@@ -8,10 +8,11 @@
 //
 //  Date: Oct 8, 2012
 //
-//  Description:
-//
 //	License: The following code is licensed under the Catch22-License
 //
+//  Description: A class for representing a obstacle formed like a box.
+
+
 
 #include "Obstacle.hpp"
 

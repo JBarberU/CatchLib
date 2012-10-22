@@ -5,6 +5,7 @@
 //  Created by Jesper Persson on 2012-10-05.
 //  Copyright (c) Catch22. All rights reserved.
 //
+//	License: The following code is licensed under the Catch22-License
 
 #include "catch.hpp"
 #include "../src/Math/Vector2d.hpp"

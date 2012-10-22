@@ -8,6 +8,8 @@
 //
 //	Date:  	5/10/12.
 //
+//	License: The following code is licensed under the Catch22-License
+//
 //  Description:
 //  This class is used to hold Actor data. This is used since
 //  data loading in Android is quite tedious.

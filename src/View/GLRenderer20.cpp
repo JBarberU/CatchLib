@@ -8,7 +8,8 @@
 //
 //  Date:   17/9/2012.
 //
-
+//	License: The following code is licensed under the Catch22-License
+//
 //  Important note!
 //  This class contains a lot of rendering code from
 //  git@github.com:JBarberU/OpenGL-ES-Exercises.git which in

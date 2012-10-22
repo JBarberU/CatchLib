@@ -7,6 +7,8 @@
 //	Copyright (c) 2012 by Catch22. All Rights Reserved.
 //  Date: 		29/09-2012
 //
+//	License: The following code is licensed under the Catch22-License
+//
 
 #include "PBody.hpp"
 #include "../../Helper/Logger.hpp"

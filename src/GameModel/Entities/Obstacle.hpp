@@ -8,11 +8,12 @@
 //
 //  Date: Oct 8, 2012
 //
-//  Description:
-//	Abstract class meant to be extended by obstacles.
-//
 //	License: The following code is licensed under the Catch22-License
 //
+//  Description:
+//	Abstract class meant to be extended by obstacles.
+//	Obstacles are objects that can be destroyed by the chainsaw.
+
 
 #include "../Physics/PBody.hpp"
 #include "../../EventHandling/EventBus.hpp"

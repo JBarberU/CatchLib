@@ -8,10 +8,12 @@
 //
 //  Date:   24/9/12
 //
+//	License: The following code is licensed under the Catch22-License
+//
 //  Description:
 //  The controller for the game. It keeps track of game rules
 //  and keep all parts together.
-//
+
 #ifndef CatchiOS_GameController_hpp
 #define CatchiOS_GameController_hpp
 

@@ -8,6 +8,8 @@
 //
 //  Date: 17/9-2012
 //
+//	License: The following code is licensed under the Catch22-License
+//
 
 #include "InputManager.hpp"
 #include "Logger.hpp"

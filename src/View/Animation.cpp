@@ -8,6 +8,9 @@
 //
 //  Date:   2/10/2012
 //
+//	License: The following code is licensed under the Catch22-License
+//
+
 #include "Animation.hpp"
 #include "../Helper/Logger.hpp"
 

@@ -7,6 +7,8 @@
 //  Copyright (c) 2012 Catch22. All Rights Reserved.
 //
 //  Date: 17/9-2012
+//
+//	License: The following code is licensed under the Catch22-License
 //  
 //  Description:
 //  This class is used to handle and process user input.

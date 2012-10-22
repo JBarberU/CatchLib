@@ -8,6 +8,8 @@
 //
 //  Date:   2/10-2012
 //
+//	License: The following code is licensed under the Catch22-License
+//
 //  Description:
 //  This is an interface used for objects that can be rendered.
 //

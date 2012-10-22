@@ -58,10 +58,3 @@ void GameModel::playerThrowAt(int x, int y)
     m_chainsaw = new Chainsaw(b2Vec2(1.0, 1.0 ),spawn , target, false, true, PB_PLAYER);
     Log(LOG_INFO, "GameModel", generateCString("Player threw his chainsaw at: %i,%i", x, y));
 }
-
-void GameModel::onEvent(EEvent event, void* source)
-{
-    if(event == COLLIDED_WITH_PLAYER && ((PBody *)source)->getTag() == PB_CHAINSAW){
-        delete m_chainsaw;  
-    }
-}

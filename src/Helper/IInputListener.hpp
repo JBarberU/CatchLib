@@ -8,6 +8,8 @@
 //
 //  Date: 24/9-2012
 //
+//	License: The following code is licensed under the Catch22-License
+//
 //  Description:
 //      An interface for all classes interrested in knowing
 //      when input has taken place.

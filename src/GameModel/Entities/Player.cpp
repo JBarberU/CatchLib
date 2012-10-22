@@ -1,9 +1,14 @@
 //
-//  Player.cpp
-//  CatchiOS
+//  File:	Player.cpp
+//  Class	Player
+//  Author	John Barbero Unenge
+//			All code is my own except where credited to others.
 //
-//  Created by John Barbero Unenge on 10/7/12.
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Copyright © 2012 Catch22. All Rights Reserved.
+//
+//  Date: Oct 7, 2012
+//
+//	License: The following code is licensed under the Catch22-License
 //
 
 #include "Player.hpp"

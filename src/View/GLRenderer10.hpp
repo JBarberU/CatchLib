@@ -8,6 +8,8 @@
 //
 //  Date:   17/9/12
 //
+//	License: The following code is licensed under the Catch22-License
+//
 //  Description:
 //  A class used for rendering with OpenGL ES 1.0. It implements
 //  the functions in IRenderer.

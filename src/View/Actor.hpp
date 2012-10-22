@@ -8,6 +8,8 @@
 //
 //  Date:   2/10/12
 //
+//	License: The following code is licensed under the Catch22-License
+//
 //  Description:
 //  This class is used to graphically represent some part of
 //  the game model. It has a set of animations which it can

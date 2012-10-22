@@ -8,10 +8,10 @@
 //
 //  Date: Oct 10, 2012
 //
-//  Description:
-//
 //	License: The following code is licensed under the Catch22-License
 //
+//  Description:
+
 #include "PlatformBlock.hpp"
 
 class GeneratedBlock {

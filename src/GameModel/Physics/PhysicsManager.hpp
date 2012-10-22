@@ -8,6 +8,8 @@
 //
 //  Date:   7/10-2012
 //
+//	License: The following code is licensed under the Catch22-License
+//
 //  Description:
 //  This is a class used for managing physics such as
 //  collision and applying gravity.

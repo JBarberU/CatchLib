@@ -8,6 +8,8 @@
 //
 //  Date:   2/10-2012
 //
+//	License: The following code is licensed under the Catch22-License
+//
 //  Description:
 //  A class used to hold sprite data. That is what texture
 //  it's supposed to use and and what part of it to use. This

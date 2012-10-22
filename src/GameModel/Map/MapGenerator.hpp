@@ -9,11 +9,11 @@
 //
 //  Date: Oct 9, 2012
 //
-//  Description:
-//  A class for randomly generating platforms used by the GameMap.
-//
 //	License: The following code is licensed under the Catch22-License
 //
+//  Description:
+//  A class for randomly generating platforms used by the GameMap.
+
 
 #include "Platform.hpp"
 #include "GeneratedBlock.hpp"

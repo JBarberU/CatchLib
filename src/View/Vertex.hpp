@@ -8,6 +8,8 @@
 //
 //  Date:   2/10-2012
 //
+//	License: The following code is licensed under the Catch22-License
+//
 //  Description:
 //  A simple data holder class for a vertex, holding position and color.
 //

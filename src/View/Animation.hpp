@@ -8,6 +8,8 @@
 //
 //  Date:   2/10/2012
 //
+//	License: The following code is licensed under the Catch22-License
+//
 //  Description:
 //  A class used to represent an animation. It has its sprites
 //  which are included in said animation and some properties such

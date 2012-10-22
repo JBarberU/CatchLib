@@ -7,10 +7,12 @@
 //
 //	Date:  	10/7/12.
 //
+//	License: The following code is licensed under the Catch22-License
+//
 //  Description:
 //  An interface used for notifying when the device orientation
 //  changes.
-//
+
 #ifndef CatchiOS_IDeviceRotationResponder_hpp
 #define CatchiOS_IDeviceRotationResponder_hpp
 

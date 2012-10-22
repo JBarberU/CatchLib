@@ -8,6 +8,8 @@
 //
 //  Date:   9/24/2012
 //
+//	License: The following code is licensed under the Catch22-License
+//
 
 #ifndef CatchiOS_EInputType_hpp
 #define CatchiOS_EInputType_hpp

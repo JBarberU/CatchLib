@@ -5,6 +5,7 @@
 //  Created by John Barbero Unenge on 10/8/12.
 //  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
 //
+//	License: The following code is licensed under the Catch22-License
 /*
 #include "catch.hpp"
 #include "../src/GameModel/Physics/PBody.hpp"

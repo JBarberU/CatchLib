@@ -8,6 +8,8 @@
 //
 //  Date:   1/10/12
 //
+//	License: The following code is licensed under the Catch22-License
+//
 
 #ifndef __CatchiOS__CStringer__
 #define __CatchiOS__CStringer__

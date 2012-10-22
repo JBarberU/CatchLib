@@ -5,6 +5,7 @@
 //  Created by John Barbero Unenge on 10/15/12.
 //  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
 //
+//	License: The following code is licensed under the Catch22-License
 
 #ifndef CatchiOS_OffsetMatrix_hpp
 #define CatchiOS_OffsetMatrix_hpp

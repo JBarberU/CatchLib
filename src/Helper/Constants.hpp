@@ -7,6 +7,8 @@
 //
 //	All code is my own except where credited to others.
 //
+//	License: The following code is licensed under the Catch22-License
+//
 
 
 #ifndef __CatchiOS__Constants__

@@ -8,6 +8,8 @@
 //
 //  Date: 17/9-2012
 //
+//	License: The following code is licensed under the Catch22-License
+//
 //  Description:
 //  The purpose of FileManager is to provide a system specific 
 //  filemanager. The C++ core declare the format in which it 

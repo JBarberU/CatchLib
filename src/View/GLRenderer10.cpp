@@ -8,6 +8,8 @@
 //
 //  Date:   17/9/12
 //
+//	License: The following code is licensed under the Catch22-License
+//
 #include "../Helper/Logger.hpp"
 #include "GLRenderer10.hpp"
 #include "Vertex.hpp"
