@@ -10,6 +10,7 @@
 #include "../EventHandling/EventBus.hpp"
 #include "../Helper/Logger.hpp"
 #include "Physics/PBody.hpp"
+#include "../Helper/Constants.hpp"
 
 GameModel::GameModel()
 {
@@ -30,6 +31,7 @@ void GameModel::update(float dt)
     if (m_chainsaw != 0){
         if (m_chainsaw->targetReached()){
             m_chainsaw->setTarget(m_player->getPosition());
+            Log(LOG_INFO, "Chainsaw", "The Chainsaw has reached its target!!  ****");
         }
         m_chainsaw->update(dt);
     }
@@ -48,7 +50,11 @@ void GameModel::playerJump()
 }
 void GameModel::playerThrowAt(int x, int y)
 {
-    b2Vec2 target = b2Vec2(x,y);
-    m_chainsaw = new Chainsaw(b2Vec2(0.3, 0.3 ), m_player->getPosition(), target, false, true, PB_PLATFORM_1);
+    double convertedX = x * Constants::getGameWidth();
+    double convertedY = y * Constants::getGameHeight();
+                        
+    b2Vec2 target = b2Vec2( convertedX + m_player->getPosition().x, convertedY + m_player->getPosition().y);
+    b2Vec2 spawn = b2Vec2(m_player->getPosition().x + 3, m_player->getPosition().y + 3);
+    m_chainsaw = new Chainsaw(b2Vec2(1.0, 1.0 ),spawn , target, false, true, PB_PLAYER);
     Log(LOG_INFO, "GameModel", generateCString("Player threw his chainsaw at: %i,%i", x, y));
 }
