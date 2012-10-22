@@ -65,9 +65,3 @@ void GameModel::onEvent(EEvent event, void* source)
         m_chainsaw = 0;
     }
 }
-void GameModel::onEvent(EEvent event, void* source)
-{
-	if(event == COLLIDED_WITH_PLAYER && ((PBody *)source)->getTag() == PB_CHAINSAW){
-		delete m_chainsaw;
-	}
-}
