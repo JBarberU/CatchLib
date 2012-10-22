@@ -13,7 +13,9 @@
 #include "../Helper/Logger.hpp"
 #include "../Helper/InputManager.hpp"
 #include "../Helper/Constants.hpp"
+#include "../Helper/CoordinatesManager.hpp"
 
+#include "../Helper/CoordinatesManager.hpp"
 
 GameController::GameController(int width, int height, CLTexture* texture)
 {
@@ -40,7 +42,8 @@ void GameController::update(float dt)
 {
     m_renderer->update(dt);
     m_gameModel->update(dt);
-    m_renderer->centerCameraOn(*m_gameModel->getCenterPoint());
+
+    CoordinatesManager::getSharedInstance()->updateWorldCoordinate(Vector2d(m_gameModel->getCenterPoint()->m_x, 0.f));
     
     m_renderer->render();
 }
@@ -68,7 +71,11 @@ void GameController::didRecieveInputEvent(InputType type, int locX, int locY)
     if (conX < m_deviceHeight * 0.3) {
         m_gameModel->playerJump();
     } else {
-        m_gameModel->playerThrowAt(conX / m_deviceHeight, conY / m_deviceWidth);
+        Vector2d worldCoords;
+        CoordinatesManager::getSharedInstance()->getWorldCoordinates(Vector2d((float)locY / (float)m_deviceHeight  * Constants::getGameWidth(), (float)locX / (float)m_deviceWidth * Constants::getGameHeight()), worldCoords);
+        Log(LOG_INFO, "GameController", generateCString("ScreenCoords: %d, %d",((float)locX / (float)m_deviceWidth * Constants::getGameWidth()), ((float)locY / (float)m_deviceHeight * Constants::getGameHeight())));
+        Log(LOG_INFO, "GameController", generateCString("WorldCoords: %d, %d",worldCoords.m_x, worldCoords.m_y));
+        m_gameModel->playerThrowAt(worldCoords.m_x, worldCoords.m_y);
     }
     
 	Log(LOG_EVENT, "GameController",  "DidRecieveInputEvent");

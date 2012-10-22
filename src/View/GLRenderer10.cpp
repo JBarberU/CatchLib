@@ -16,6 +16,7 @@
 #include "../EventHandling/EventBus.hpp"
 
 #include "../Helper/Constants.hpp"
+#include "../Helper/CoordinatesManager.hpp"
 
 const GLfloat ANGLE_LEFT = -90;
 const GLfloat ANGLE_RIGHT = 90;
@@ -113,7 +114,10 @@ void GLRenderer10::render()
         glTranslatef(0, Constants::getGameWidth(), 0);
     glRotatef(m_currentAngle, 0, 0, 1);
     
-    glTranslatef(-(m_cameraPos.m_x - Constants::getGameWidth() / 2), 0.f, 0.f);
+    Vector2d camera;
+    CoordinatesManager::getSharedInstance()->getWorldCoordinates(Vector2d(0.f, 0.f), camera);
+    
+    glTranslatef(-(camera.m_x - Constants::getGameWidth() / 2), 0.f, 0.f);
     
     glBindTexture(GL_TEXTURE_2D, m_texture);
     
