@@ -15,23 +15,23 @@
 #include <math.h>
 #include <time.h>
 #include <stdio.h>
+#include "../../Helper/Logger.hpp"
 
 // All possible GeneratedBlocks
-const GeneratedBlock Ip2 = GeneratedBlock(2, INCLINE, 8);
-const GeneratedBlock Hp2 = GeneratedBlock(2, HORIZONTAL, 8);
-const GeneratedBlock Dp2 = GeneratedBlock(2, DECLINE, 8);
+const GeneratedBlock Ip2 = GeneratedBlock(2, INCLINE, 4);
+const GeneratedBlock Hp2 = GeneratedBlock(2, HORIZONTAL, 4);
 
-const GeneratedBlock Ip1 = GeneratedBlock(1, INCLINE, 12);
-const GeneratedBlock Hp1 = GeneratedBlock(1, HORIZONTAL, 12);
+const GeneratedBlock Ip1 = GeneratedBlock(1, INCLINE, 4);
+const GeneratedBlock Hp1 = GeneratedBlock(1, HORIZONTAL, 4);
 
 const GeneratedBlock I0 = GeneratedBlock(0, INCLINE, 64);
-const GeneratedBlock H0 = GeneratedBlock(0, HORIZONTAL, 184);
+const GeneratedBlock H0 = GeneratedBlock(0, HORIZONTAL, 244);
 const GeneratedBlock D0 = GeneratedBlock(0, DECLINE, 64);
 
-const GeneratedBlock Hn1 = GeneratedBlock(-1, HORIZONTAL, 16);
-const GeneratedBlock Dn1 = GeneratedBlock(-1, DECLINE, 16);
+const GeneratedBlock Hn1 = GeneratedBlock(-1, HORIZONTAL, 4);
+const GeneratedBlock Dn1 = GeneratedBlock(-1, DECLINE, 4);
 
-const GeneratedBlock Hn2 = GeneratedBlock(-2, HORIZONTAL, 8);
+const GeneratedBlock Hn2 = GeneratedBlock(-2, HORIZONTAL, 4);
 // End of GeneratedBlocks
 
 MapGenerator::~MapGenerator()
@@ -47,7 +47,6 @@ MapGenerator::MapGenerator()
 
 	all.insert(Ip2);
 	all.insert(Hp2);
-	all.insert(Dp2);
 	all.insert(Ip1);
 	all.insert(Hp1);
 	all.insert(I0);
@@ -63,7 +62,6 @@ MapGenerator::MapGenerator()
 
 	plusTwo.insert(Ip2);
 	plusTwo.insert(Hp2);
-	plusTwo.insert(Dp2);
 
 	plusOne.insert(Ip1);
 	plusOne.insert(Hp1);
@@ -74,7 +72,6 @@ MapGenerator::MapGenerator()
 
 	allDeltaY.insert(Ip2);
 	allDeltaY.insert(Hp2);
-	allDeltaY.insert(Dp2);
 	allDeltaY.insert(Ip1);
 	allDeltaY.insert(Hp1);
 	allDeltaY.insert(Hn1);
