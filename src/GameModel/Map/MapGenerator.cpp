@@ -130,20 +130,17 @@ set<GeneratedBlock> MapGenerator::getPossibleSet(GeneratedBlock* previousBlock)
 
 set<GeneratedBlock> MapGenerator::getAllowedSet(set<GeneratedBlock> possibleSet, Vector2d* startVector)
 {
-	set<GeneratedBlock> tmp = possibleSet;
 	set<GeneratedBlock> allowedSet;
-	int nbr = tmp.size();
-	for (int i = 0; i < nbr; i++) {
-		set<GeneratedBlock>::iterator it = tmp.begin();
-		int dy = (&*it)->dy;
-		int t = (&*it)->type;
+	set<GeneratedBlock>::iterator it;
+	for (it = possibleSet.begin(); it != possibleSet.end(); it++) {
+		int dy = (*it).dy;
+		int t = (*it).type;
 		t = dy + (-1) * (t - 1); // t is now an int representing deltaY added by slope type.
 		if (((startVector->m_y + t) <= HEIGHT_MAX && (startVector->m_y + t) >= HEIGHT_MIN)
 				&& (startVector->m_y <= HEIGHT_MAX && startVector->m_y >= HEIGHT_MIN)) {
 			// Only keep GeneratedBlocks that stay within the allowed height margin
 			allowedSet.insert(*it);
 		}
-		tmp.erase(it);
 	}
 	return allowedSet;
 }
