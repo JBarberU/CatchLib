@@ -180,13 +180,19 @@ void MapGenerator::modifyChances(set<GeneratedBlock>& allowedSet, Vector2d* star
 	}
 }
 
-GeneratedBlock MapGenerator::selectBlock(set<GeneratedBlock> allowedSet)
+GeneratedBlock* MapGenerator::selectBlock(set<GeneratedBlock> allowedSet)
 {
 	set<GeneratedBlock>::iterator it;
-	int totalChance = 1;
+	int totalChance = 0;
 	for (it = allowedSet.begin(); it != allowedSet.end(); ++it) {
 		totalChance += (*it).chance;
 	}
+
+	if (totalChance == 0) {
+		// set is empty or sum of chance in all blocks are zero
+		return 0;
+	}
+
 	int roll = (rand() % totalChance) + 1;
 	for (it = allowedSet.begin(); it != allowedSet.end(); ++it) {
 		if (roll <= (*it).chance) {
