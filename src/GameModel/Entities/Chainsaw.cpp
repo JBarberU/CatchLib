@@ -33,6 +33,10 @@ bool Chainsaw::targetReached()
     return m_targetReached;
 }
 
+void Chainsaw::update(float dt)
+{
+}
+
 void Chainsaw::setTarget(b2Vec2 target)
 {
     m_target = target;
