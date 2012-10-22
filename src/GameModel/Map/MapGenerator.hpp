@@ -12,6 +12,8 @@
 //  Description:
 //  A class for randomly generating platforms used by the GameMap.
 //
+//	License: The following code is licensed under the Catch22-License
+//
 
 #include "Platform.hpp"
 #include "GeneratedBlock.hpp"

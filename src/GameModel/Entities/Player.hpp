@@ -5,6 +5,8 @@
 //  Created by John Barbero Unenge on 10/7/12.
 //  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
 //
+//	License: The following code is licensed under the Catch22-License
+//
 
 #ifndef __CatchiOS__Player__
 #define __CatchiOS__Player__

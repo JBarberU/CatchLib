@@ -6,6 +6,9 @@
 //
 //	Copyright © 2012 by Catch22. All Rights Reserved.
 //  Date: 		Oct 7, 2012
+//
+//	License: The following code is licensed under the Catch22-License
+//
 
 #include "stdlib.h"
 #include "GameMap.hpp"

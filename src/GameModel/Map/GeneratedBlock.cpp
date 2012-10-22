@@ -8,9 +8,9 @@
 //
 //  Date: Oct 10, 2012
 //
-//  Description:
+//	License: The following code is licensed under the Catch22-License
 //
-//
+
 #include "GeneratedBlock.hpp"
 #include <stdio.h>
 

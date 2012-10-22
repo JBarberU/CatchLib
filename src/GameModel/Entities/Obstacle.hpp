@@ -11,6 +11,8 @@
 //  Description:
 //	Abstract class meant to be extended by obstacles.
 //
+//	License: The following code is licensed under the Catch22-License
+//
 /*
 #include "../Physics/PBody.hpp"
 

@@ -6,6 +6,9 @@
 //
 //	Copyright (c) 2012 by Catch22. All Rights Reserved.
 //  Date: 		05/10-2012
+//
+//	License: The following code is licensed under the Catch22-License
+//
 
 #include "PlatformBlock.hpp"
 #include "../../EventHandling/EventBus.hpp"

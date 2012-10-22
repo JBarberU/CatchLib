@@ -10,6 +10,7 @@
 //
 //  Description:
 //
+//	License: The following code is licensed under the Catch22-License
 //
 #include "PlatformBlock.hpp"
 
