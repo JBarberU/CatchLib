@@ -28,12 +28,17 @@ public:
 	~GameModel();
 	GameModel();
     
+    //  Updates the game model
     void update(float dt);
     
+    //  Gets which point to center the game on
     Vector2d* getCenterPoint();
     
+    //  Causes the player to jump
     void playerJump();
+    //  Makes the player thow his chainsaw
     void playerThrowAt(int x, int y);
     
+    //  Inherited from IEventListener
     void onEvent (EEvent event, void* source);
 };
