@@ -49,6 +49,9 @@ private:
     GLuint m_texture;
     GLuint m_renderbuffer;
     
+    Sprite* m_background;
+    const Vertex* m_screenVertecies;
+    
     ActorArray* m_actors;
     
     GLfloat m_currentAngle;
@@ -60,4 +63,5 @@ private:
     Vector2d m_cameraPos;
     
     GLuint loadTexture(CLTexture *texture);
+    void DrawBackground();
 };

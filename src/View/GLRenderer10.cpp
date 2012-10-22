@@ -82,6 +82,14 @@ void GLRenderer10::init(int width, int height, CLTexture* texture)
     
     ActorsLoader::init(m_texture);
     
+    m_background = new Sprite(0.f, 1.f/2.f, 1.f, 1.f/2.f, m_texture, false);
+    m_screenVertecies = new Vertex[4]{
+        Vertex(Constants::getGameHeight()   , Constants::getGameWidth()),
+        Vertex(Constants::getGameHeight()   , -Constants::getGameWidth()),
+        Vertex(0  , -Constants::getGameWidth()),
+        Vertex(0  , Constants::getGameWidth()),
+    };
+    
     m_texture = this->loadTexture(texture);
 }
 
@@ -99,13 +107,22 @@ GLuint GLRenderer10::loadTexture(CLTexture* texture)
     
     return tID;
 }
-
+void GLRenderer10::DrawBackground()
+{
+    glPushMatrix();
+    glLoadIdentity();
+    glVertexPointer(2, GL_FLOAT, sizeof(Vertex), &m_screenVertecies[0].Position[0]);
+    glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), &m_background->getTextureVertexData()[0].Position[0]);
+    
+    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+    glPopMatrix();
+}
 void GLRenderer10::render()
 {    
     glClearColor(10, 0.5f, 0.5f, 1);
     glClear(GL_COLOR_BUFFER_BIT);
     
-    
+    this->DrawBackground();
     
     glPushMatrix();
     glLoadIdentity();
@@ -121,7 +138,6 @@ void GLRenderer10::render()
     glTranslatef(-(camera.m_x - Constants::getGameWidth() / 2), 0.f, 0.f);
     
     glBindTexture(GL_TEXTURE_2D, m_texture);
-    
     
     for (int i = 0; i < m_actors->m_index; i++) {
         const Vertex* vertexData = m_actors->m_actors[i]->getVertexData();
