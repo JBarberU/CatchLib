@@ -16,8 +16,8 @@
 //  is analog to a frame of a movie animation.
 //
 
-#ifndef __CatchiOS__Sprite__
-#define __CatchiOS__Sprite__
+#ifndef __Sprite__
+#define __Sprite__
 
 #include "Vertex.hpp"
 
@@ -27,17 +27,42 @@ private:
     const Vertex*   m_vertex;
     
 public:
+    /**
+     * Constructor for Sprite
+     *
+     */
     Sprite(float spriteLocX, float spriteLocY, float spriteLocWidth, float spriteLocHeight, int textureID, bool mirror);
+
+    /**
+     * Constructor for Sprite
+     *
+     *
+     */
     Sprite(Sprite* sprite);
+
+    /**
+     * Constructor for Sprite
+     *
+     */
     Sprite(Vertex* vertecies, int num_vertecies, int textureID);
+
+    /**
+     * Deconstructor
+     *
+     */
     ~Sprite();
     
-    //  Get the geomertic data for the texture.
+    /**
+     * Get the geomertic data for the texture.
+     *
+     */
     const Vertex* getTextureVertexData();
     
-    //  Get the texture to use.
+    /**
+     * Get the texture to use.
+     *
+     */
     int getTextureID();
 };
 
-#endif /* defined(__CatchiOS__Sprite__) */
-
+#endif /* defined(__Sprite__) */

@@ -16,8 +16,8 @@
 //
 
 
-#ifndef __CatchiOS__ActorsLoader__
-#define __CatchiOS__ActorsLoader__
+#ifndef __ActorsLoader__
+#define __ActorsLoader__
 
 #include "Actor.hpp"
 
@@ -31,12 +31,33 @@ public:
     //  Initialise the ActorLoader
     static void init(int textureID);
     
-    //  Create a new MainCharacter Actor
+    /**
+     * Creates a MainCharacter Actor.
+     */
     static Actor* newMainCharacterActor();
+
+    /**
+     * Creates a Platform Actor of type 1.
+     * This is a INCLINE platform.
+     */
     static Actor* newPlatformActor_1();
+
+    /**
+     * Creates a Platform Actor of type 2.
+     * This is a HORIZONTAL platform.
+     */
     static Actor* newPlatformActor_2();
+
+    /**
+     * Creates a Platform Actor of type 3.
+     * This is a DECLINE platform.
+     */
     static Actor* newPlatformActor_3();
+
+    /**
+     * Creates an Obstacle Actor.
+     */
     static Actor* newObstacleBoxActor();
 };
 
-#endif /* defined(__CatchiOS__ActorsLoader__) */
+#endif /* defined(__ActorsLoader__) */

@@ -15,8 +15,8 @@
 //  which are included in said animation and some properties such
 //  as time per frame and whether to loop or not.
 //
-#ifndef __CatchiOS__Animation__
-#define __CatchiOS__Animation__
+#ifndef __Animation__
+#define __Animation__
 
 #include "Vertex.hpp"
 #include "Sprite.hpp"
@@ -54,4 +54,4 @@ public:
     void update(float dt);
 };
 
-#endif /* defined(__CatchiOS__Animation__) */
+#endif /* defined(__Animation__) */

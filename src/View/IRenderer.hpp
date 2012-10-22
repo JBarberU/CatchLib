@@ -13,8 +13,8 @@
 //  Description:
 //  An interface used to provide basic rendering functionality.
 //
-#ifndef __CatchiOS__IRenderer__
-#define __CatchiOS__IRenderer__
+#ifndef __IRenderer__
+#define __IRenderer__
 
 #include "Actor.hpp"
 #include "CLTexture.hpp"
@@ -57,4 +57,4 @@ IRenderer* CreateRendererWithOpenGL10();
 //  Create an instance of IRenderer through GLRenderer20
 IRenderer* CreateRendererWithOpenGL20();
 
-#endif /* defined(__CatchiOS__IRenderer__) */
+#endif /* defined(__IRenderer__) */

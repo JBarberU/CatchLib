@@ -14,8 +14,8 @@
 //  A simple data holder class for a vertex, holding position and color.
 //
 
-#ifndef CatchiOS_Vertex_h
-#define CatchiOS_Vertex_h
+#ifndef __Vertex__
+#define __Vertex__
 
 struct Vertex {
 public:
@@ -32,4 +32,4 @@ public:
     }
 };
 
-#endif
+#endif /* defined(__Vertex__) */
