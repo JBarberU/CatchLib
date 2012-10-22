@@ -3,7 +3,7 @@
 //  Author: John Barbero Unenge 
 //	Date:  	10/20/12.
 //
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Copyright (c) 2012 Catch22. All rights reserved.
 //
 //	All code is my own except where credited to others.
 //

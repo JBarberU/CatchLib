@@ -3,7 +3,7 @@
 //  Class:  IDeviceRotationResponder
 //  Author: John Barbero Unenge
 //          All code is my own except where credited to others.
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Copyright (c) 2012 Catch22. All rights reserved.
 //
 //	Date:  	10/7/12.
 //
@@ -13,8 +13,8 @@
 //  An interface used for notifying when the device orientation
 //  changes.
 
-#ifndef CatchiOS_IDeviceRotationResponder_hpp
-#define CatchiOS_IDeviceRotationResponder_hpp
+#ifndef __IDeviceRotationResponder__
+#define __IDeviceRotationResponder__
 
 enum DeviceOrientation {
     DeviceOrientationLandscapeLeft,
