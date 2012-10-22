@@ -14,7 +14,7 @@
 GameModel::GameModel()
 {
     m_physicsManager = new PhysicsManager();
-//	m_gameMap = new GameMap();
+	m_gameMap = new GameMap();
     
     m_player = new Player();
     m_player = new Player();
@@ -35,6 +35,7 @@ void GameModel::update(float dt)
         m_chainsaw->update();
     }
     m_physicsManager->update(dt);
+    m_player->update();
 //    m_gameMap->update();
 }
 Vector2d* GameModel::getCenterPoint()

@@ -28,43 +28,41 @@ PlatformBlock::~PlatformBlock()
 
 Vector2d* PlatformBlock::getStartVector()
 {
-    double x = this->m_body->getShape()->GetVertex(0).x;
-    double y = this->m_body->getShape()->GetVertex(0).y;
+    double x = this->m_body->getShape()->GetVertex(0).x + this->m_body->getPosition().x;
+    double y = this->m_body->getShape()->GetVertex(0).y + this->m_body->getPosition().y;
     
     for (int i = 0; i < this->m_body->getShape()->GetVertexCount(); i++) {
         b2Vec2 v = this->m_body->getShape()->GetVertex(i);
+        double vx = v.x + this->m_body->getPosition().x;
+        double vy = v.y + this->m_body->getPosition().y;
         
-        if (x < v.x)
-            continue;
-        
-        if (y > v.y)
-            continue;
-        
-        x = v.x;
-        y = v.y;
+        if (x > vx) {
+            x = vx;
+            y = vy;
+        } else if (x == vx && y < vy) {
+            y = vy;
+        }
     }
-    
 	return new Vector2d(x,y);
 }
 
 Vector2d* PlatformBlock::getEndVector()
 {
-    double x = this->m_body->getShape()->GetVertex(0).x;
-    double y = this->m_body->getShape()->GetVertex(0).y;
+    double x = this->m_body->getShape()->GetVertex(0).x + this->m_body->getPosition().x;
+    double y = this->m_body->getShape()->GetVertex(0).y + this->m_body->getPosition().y;
     
     for (int i = 0; i < this->m_body->getShape()->GetVertexCount(); i++) {
         b2Vec2 v = this->m_body->getShape()->GetVertex(i);
-
-        if (x > v.x)
-            continue;
+        double vx = v.x + this->m_body->getPosition().x;
+        double vy = v.y + this->m_body->getPosition().y;
         
-        if (y > v.y)
-            continue;
-        
-        x = v.x;
-        y = v.y;
+        if (x < vx) {
+            x = vx;
+            y = vy;
+        } else if (x == vx && y < vy) {
+            y = vy;
+        }
     }
-    
 	return new Vector2d(x,y);
 }
 
@@ -77,6 +75,7 @@ PBody* PlatformBlock::generatePBody(Vector2d* vector)
 {
 	Vector2d* endVector = new Vector2d(vector);
     PBodyType type;
+    
 	if(m_type == INCLINE) {
 		//Set the end points at a set distance in x and y to create a 30 degree incline
 		*endVector+=Vector2d(2, 1);
@@ -94,22 +93,17 @@ PBody* PlatformBlock::generatePBody(Vector2d* vector)
     int32 num = 4;
     b2Vec2* vertecies = new b2Vec2[num];
     
-    vertecies[0] = b2Vec2(endVector->m_x, 0.f);
-    vertecies[1] = b2Vec2(endVector->m_x, endVector->m_y);
-    vertecies[2] = b2Vec2(vector->m_x, vector->m_y);
-    vertecies[3] = b2Vec2(vector->m_x, 0.f);
-    
-    
-    b2Vec2 position;
-    
-    // Set position to origin
-    position.Set((vector->m_x + endVector->m_x) / 2, (vector->m_y + endVector->m_y) / 2);
+    vertecies[0] = b2Vec2(2.f, 0.f);
+    vertecies[1] = b2Vec2(2.f, 7.f);
+    vertecies[2] = b2Vec2(0.f, 7.f);
+    vertecies[3] = b2Vec2(0.f, 0.f);
+    b2Vec2 position = b2Vec2(vector->m_x, vector->m_y - 7.f);
     
     b2PolygonShape shape;
     shape.Set(vertecies, num);
 	
     PBody* body = new PBody(shape, position, true, false, type);
-    
+        
 	return body;
 }
 

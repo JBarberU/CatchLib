@@ -17,8 +17,12 @@ private:
 public:
     Player();
     ~Player();
+    
+    virtual void setBody(b2Body* body);
         
     void jump();
+    
+    void update();
 };
 
 #endif /* defined(__CatchiOS__Player__) */

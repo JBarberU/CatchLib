@@ -41,7 +41,7 @@ public:
     b2Body* getBody();
     const b2Vec2 getPosition();
     b2BodyDef* getBodyDefinition();
-    void setBody(b2Body* body);
+    virtual void setBody(b2Body* body);
     
     PBodyType getTag();
 };
