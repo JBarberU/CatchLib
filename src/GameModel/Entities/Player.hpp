@@ -24,10 +24,14 @@ public:
     Player();
     ~Player();
     
+    //  Set the box2d body of the player
     virtual void setBody(b2Body* body);
-        
+    
+    
+    //  Make the player jump
     void jump();
     
+    //  Update the player
     void update();
 };
 
