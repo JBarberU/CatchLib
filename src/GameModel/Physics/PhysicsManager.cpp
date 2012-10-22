@@ -14,13 +14,13 @@
 #include "../../../Box2D/Dynamics/b2Fixture.h"
 
 #include <iterator>
-const b2Vec2 GRAVITY_VECTOR = b2Vec2(2.f, -10.f);
+const b2Vec2 GRAVITY_VECTOR = b2Vec2(0.f, -10.f);
 
 PhysicsManager::PhysicsManager()
 {
     this->m_world = new b2World(b2Vec2(GRAVITY_VECTOR));
     this->m_world->SetAllowSleeping(true);
-    this->CreateWorld();
+//    this->CreateWorld();
     
     
     EventBus::getSharedInstance()->addEventListener(this);
