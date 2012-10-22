@@ -103,7 +103,7 @@ private:
 	 * @return
 	 * 		The selected GeneratedBlock.
 	 */
-	GeneratedBlock selectBlock(set<GeneratedBlock> allowedSet);
+	GeneratedBlock* selectBlock(set<GeneratedBlock> allowedSet);
 
 	/**
 	 * Adds a GeneratedBlock at the end of recentlyUsedBuffer
@@ -122,11 +122,6 @@ public:
 	const static int PLATFORM_LENGTH_MIN = 7;
 	const static int PLATFORM_LENGTH_MAX = 12;
 	const static int BUFFER_SIZE = 20;
-
-	/**
-	 * Internal testing of private functions
-	 */
-	bool testFunc();
 
 	~MapGenerator();
 	MapGenerator();

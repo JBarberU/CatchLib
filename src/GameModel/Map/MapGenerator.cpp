@@ -16,23 +16,23 @@
 #include <math.h>
 #include <time.h>
 #include <stdio.h>
+#include "../../Helper/Logger.hpp"
 
 // All possible GeneratedBlocks
-const GeneratedBlock Ip2 = GeneratedBlock(2, INCLINE, 8);
-const GeneratedBlock Hp2 = GeneratedBlock(2, HORIZONTAL, 8);
-const GeneratedBlock Dp2 = GeneratedBlock(2, DECLINE, 8);
+const GeneratedBlock Ip2 = GeneratedBlock(2, INCLINE, 4);
+const GeneratedBlock Hp2 = GeneratedBlock(2, HORIZONTAL, 4);
 
-const GeneratedBlock Ip1 = GeneratedBlock(1, INCLINE, 12);
-const GeneratedBlock Hp1 = GeneratedBlock(1, HORIZONTAL, 12);
+const GeneratedBlock Ip1 = GeneratedBlock(1, INCLINE, 4);
+const GeneratedBlock Hp1 = GeneratedBlock(1, HORIZONTAL, 4);
 
 const GeneratedBlock I0 = GeneratedBlock(0, INCLINE, 64);
-const GeneratedBlock H0 = GeneratedBlock(0, HORIZONTAL, 184);
+const GeneratedBlock H0 = GeneratedBlock(0, HORIZONTAL, 244);
 const GeneratedBlock D0 = GeneratedBlock(0, DECLINE, 64);
 
-const GeneratedBlock Hn1 = GeneratedBlock(-1, HORIZONTAL, 16);
-const GeneratedBlock Dn1 = GeneratedBlock(-1, DECLINE, 16);
+const GeneratedBlock Hn1 = GeneratedBlock(-1, HORIZONTAL, 4);
+const GeneratedBlock Dn1 = GeneratedBlock(-1, DECLINE, 4);
 
-const GeneratedBlock Hn2 = GeneratedBlock(-2, HORIZONTAL, 8);
+const GeneratedBlock Hn2 = GeneratedBlock(-2, HORIZONTAL, 4);
 // End of GeneratedBlocks
 
 MapGenerator::~MapGenerator()
@@ -48,7 +48,6 @@ MapGenerator::MapGenerator()
 
 	all.insert(Ip2);
 	all.insert(Hp2);
-	all.insert(Dp2);
 	all.insert(Ip1);
 	all.insert(Hp1);
 	all.insert(I0);
@@ -64,7 +63,6 @@ MapGenerator::MapGenerator()
 
 	plusTwo.insert(Ip2);
 	plusTwo.insert(Hp2);
-	plusTwo.insert(Dp2);
 
 	plusOne.insert(Ip1);
 	plusOne.insert(Hp1);
@@ -75,7 +73,6 @@ MapGenerator::MapGenerator()
 
 	allDeltaY.insert(Ip2);
 	allDeltaY.insert(Hp2);
-	allDeltaY.insert(Dp2);
 	allDeltaY.insert(Ip1);
 	allDeltaY.insert(Hp1);
 	allDeltaY.insert(Hn1);
@@ -134,20 +131,17 @@ set<GeneratedBlock> MapGenerator::getPossibleSet(GeneratedBlock* previousBlock)
 
 set<GeneratedBlock> MapGenerator::getAllowedSet(set<GeneratedBlock> possibleSet, Vector2d* startVector)
 {
-	set<GeneratedBlock> tmp = possibleSet;
 	set<GeneratedBlock> allowedSet;
-	int nbr = tmp.size();
-	for (int i = 0; i < nbr; i++) {
-		set<GeneratedBlock>::iterator it = tmp.begin();
-		int dy = (&*it)->dy;
-		int t = (&*it)->type;
+	set<GeneratedBlock>::iterator it;
+	for (it = possibleSet.begin(); it != possibleSet.end(); it++) {
+		int dy = (*it).dy;
+		int t = (*it).type;
 		t = dy + (-1) * (t - 1); // t is now an int representing deltaY added by slope type.
 		if (((startVector->m_y + t) <= HEIGHT_MAX && (startVector->m_y + t) >= HEIGHT_MIN)
 				&& (startVector->m_y <= HEIGHT_MAX && startVector->m_y >= HEIGHT_MIN)) {
 			// Only keep GeneratedBlocks that stay within the allowed height margin
 			allowedSet.insert(*it);
 		}
-		tmp.erase(it);
 	}
 	return allowedSet;
 }
@@ -187,13 +181,19 @@ void MapGenerator::modifyChances(set<GeneratedBlock>& allowedSet, Vector2d* star
 	}
 }
 
-GeneratedBlock MapGenerator::selectBlock(set<GeneratedBlock> allowedSet)
+GeneratedBlock* MapGenerator::selectBlock(set<GeneratedBlock> allowedSet)
 {
 	set<GeneratedBlock>::iterator it;
-	int totalChance = 1;
+	int totalChance = 0;
 	for (it = allowedSet.begin(); it != allowedSet.end(); ++it) {
 		totalChance += (*it).chance;
 	}
+
+	if (totalChance == 0) {
+		// set is empty or sum of chance in all blocks are zero
+		return 0;
+	}
+
 	int roll = (rand() % totalChance) + 1;
 	for (it = allowedSet.begin(); it != allowedSet.end(); ++it) {
 		if (roll <= (*it).chance) {
@@ -221,33 +221,34 @@ Platform* MapGenerator::generatePlatform(Vector2d* startVector)
 	set<GeneratedBlock> possibleSet = allZeroes;
 	set<GeneratedBlock> allowedSet = getAllowedSet(possibleSet, startVector);
 	modifyChances(allowedSet, startVector);
-	GeneratedBlock selectedBlock = selectBlock(allowedSet);
+	GeneratedBlock* selectedBlock = selectBlock(allowedSet);
 
-	PlatformBlock* block = new PlatformBlock(selectedBlock.type, startVector);
+	PlatformBlock* block = new PlatformBlock(selectedBlock->type, startVector);
 	platform->addPlatformBlock(block);
 
 	Vector2d* newStartVector = block->getEndVector();
 
-	addToBuffer(selectedBlock);
+	addToBuffer(*selectedBlock);
 
 	int length = (PLATFORM_LENGTH_MIN - 1) + (rand() % (2 + PLATFORM_LENGTH_MAX - PLATFORM_LENGTH_MIN));
 
 	for (int i = 0; i < length; i++) {
 
-		possibleSet = getPossibleSet(&selectedBlock);
+		possibleSet = getPossibleSet(selectedBlock);
 		allowedSet = getAllowedSet(possibleSet, newStartVector);
 		modifyChances(allowedSet, newStartVector);
 		selectedBlock = selectBlock(allowedSet);
 
-		*newStartVector+=Vector2d(0.f, selectedBlock.dy);
+		*newStartVector+=Vector2d(0.f, selectedBlock->dy);
 
-		block = new PlatformBlock(selectedBlock.type, newStartVector);
+		block = new PlatformBlock(selectedBlock->type, newStartVector);
 		platform->addPlatformBlock(block);
 
 		newStartVector = block->getEndVector();
 
-		addToBuffer(selectedBlock);
+		addToBuffer(*selectedBlock);
 	}
+
 	return platform;
 }
 
@@ -260,72 +261,4 @@ Platform* MapGenerator::generateFlatPlatform(Vector2d* startVector, int length)
 		startVector = block->getEndVector();
 	}
 	return platform;
-}
-
-bool MapGenerator::testFunc()
-{/*
-	printf("Size all = %i\n", (int)all.size());
-
-	set<GeneratedBlock> testSet = getPossibleSet(0);
-	printf("Size (input: 0) = %i\n", (int)testSet.size());
-
-	GeneratedBlock lastBlock = H0;
-
-	testSet = getPossibleSet(&lastBlock);
-	printf("Size (input: 0,H) = %i\n", (int)testSet.size());
-
-	testSet = getAllowedSet(testSet, new Vector2d(0, 5));
-
-	printf("Size (input: 0,H) V(0, 3) = %i\n", (int)testSet.size());
-
-	int nbr = testSet.size();
-	set<GeneratedBlock> printSet = testSet;
-	printf("allowedSet --------\n");
-	for (int i = 0; i < nbr; i++) {
-		set<GeneratedBlock>::iterator it = printSet.begin();
-		int y = (&*it)->dy;
-		int t = (&*it)->type;
-		int c = (&*it)->chance;
-		printf("Element #%i: dy: %i, type %i, chance %i\n", i, y, t, c);
-		printSet.erase(it);
-	}
-
-	modifyChances(testSet, new Vector2d(0, 5));
-
-	printf("After modifyChances()--------\n");
-	printSet = testSet;
-	for (int i = 0; i < nbr; i++) {
-		set<GeneratedBlock>::iterator it = printSet.begin();
-		int y = (&*it)->dy;
-		int t = (&*it)->type;
-		int c = (&*it)->chance;
-		printf("Element #%i: dy: %i, type %i, chance %i\n", i, y, t, c);
-		printSet.erase(it);
-	}
-*/
-	GeneratedBlock lastBlock = H0;
-	Vector2d* startVector = new Vector2d(2,6);
-	int qwe = 6 + (rand() % 7);
-	for (int v = 0; v < qwe; v++) {
-		set<GeneratedBlock> possibleSet = getPossibleSet(&lastBlock);
-		set<GeneratedBlock> allowedSet = getAllowedSet(possibleSet, startVector);
-		modifyChances(allowedSet, startVector);
-		GeneratedBlock selBlock = selectBlock(allowedSet);
-		Vector2d* endVector = new Vector2d(2 + startVector->m_x, selBlock.dy + ((-1) * (selBlock.type - 1)) + startVector->m_y);
-		printf("----------------\n");
-		printf("GenBlock dY   = %i", selBlock.dy);
-		printf("GenBlock type = %i", selBlock.type);
-		printf("StartVector = (%i, %i)\n", (int)startVector->m_x, (int)startVector->m_y);
-		printf("EndVector   = (%i, %i)\n", (int)endVector->m_x, (int)endVector->m_y);
-		lastBlock = selBlock;
-		startVector = endVector;
-	}
-/*
-	GeneratedBlock selBlock = selectBlock(testSet);
-	printf("Selected Block:\n");
-	printf("dY = %i\n", selBlock.dy);
-	printf("Type = %i\n", selBlock.type);
-	printf("Chance = %i\n", selBlock.chance);
-*/
-	return true;
 }

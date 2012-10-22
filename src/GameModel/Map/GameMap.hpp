@@ -44,7 +44,7 @@ public:
 	/**
 	 * Update the GameMap checking for platforms out of bounds and replacing those.
 	 */
-	void update();
+	void update(float playerX);
 
 private:
 

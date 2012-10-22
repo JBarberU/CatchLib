@@ -42,8 +42,8 @@ void GameMap::generateStartMap()
 	Platform* p = generator->generateFlatPlatform(new Vector2d(0.f, 7.f), 8);
 	addPlatform(p);
 
-	for (int i = 0; i < 15; i++) {
-		p = generator->generateFlatPlatform(nextPlatformStart(p->endPoint()), 8);
+	for (int i = 0; i < 2; i++) {
+		p = generator->generatePlatform(nextPlatformStart(p->endPoint()));
 		addPlatform(p);
 	}
 }
@@ -61,10 +61,10 @@ void GameMap::reformGameMap()
 	addPlatform(generator->generatePlatform(nextPlatformStart(p->endPoint())));
 }
 
-void GameMap::update()
+void GameMap::update(float playerX)
 {
 	Platform* firstPlatform = platforms.front();
-	if (firstPlatform->endPoint()->m_x < 0) {
+	if (firstPlatform->endPoint()->m_x + 10 < playerX) {
 		reformGameMap();
 	}
 }
