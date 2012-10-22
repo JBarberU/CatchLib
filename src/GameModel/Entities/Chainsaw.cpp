@@ -62,6 +62,8 @@ void Chainsaw::onCollide(PBody* other)
         other->getTag() == PB_PLATFORM_2 ||
         other->getTag() == PB_PLATFORM_3) {
         m_targetReached = true;
+    }else if (other->getTag() == PB_PLAYER){
+        EventBus::getSharedInstance()->publishEvent(COLLIDED_WITH_PLAYER , this);
     }
 }
 
