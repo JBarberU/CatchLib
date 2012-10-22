@@ -22,6 +22,12 @@ Chainsaw::Chainsaw (b2Vec2 size, b2Vec2 position,b2Vec2 target,  bool stationary
     EventBus::getSharedInstance()->publishEvent(PBODY_CREATED_PHYSICS, this);
 }
 
+void Chainsaw::setBody(b2Body* body)
+{
+    this->getBodyDefinition()->gravityScale = 0;
+    PBody::setBody(body);
+}
+
 bool Chainsaw::targetReached()
 {
     return m_targetReached;

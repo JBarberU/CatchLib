@@ -29,6 +29,7 @@ public:
     bool targetReached();
     void update();
     void setTarget(b2Vec2);
+    void setBody(b2Body* body);
     
 private:
     bool m_targetReached;
