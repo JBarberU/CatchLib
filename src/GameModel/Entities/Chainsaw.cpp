@@ -14,6 +14,7 @@
 #include "../../EventHandling/EventBus.hpp"
 #include "../../EventHandling/EEvent.hpp"
 #include "../../Helper/Logger.hpp"
+#include "../Physics/EPBodyType.hpp"
 
 double Chainsaw::CHAINSAW_MOVEMENT_SPEED = 10.0;
 
@@ -53,6 +54,15 @@ void Chainsaw::setBody(b2Body* body)
 {
     PBody::setBody(body);
     this->getBody()->SetGravityScale(0);
+}
+
+void Chainsaw::onCollide(PBody* other)
+{
+    if (other->getTag() == PB_PLATFORM_1 ||
+        other->getTag() == PB_PLATFORM_2 ||
+        other->getTag() == PB_PLATFORM_3) {
+        m_targetReached = true;
+    }
 }
 
 

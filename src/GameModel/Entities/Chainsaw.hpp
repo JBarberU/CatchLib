@@ -31,6 +31,7 @@ public:
     void setTarget(b2Vec2);
 
     virtual void setBody(b2Body* body);
+    void onCollide(PBody* other);
     
 private:
     bool m_targetReached;
