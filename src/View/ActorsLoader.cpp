@@ -30,23 +30,22 @@ void ActorsLoader::initMainCharacter(int textureID)
     
     // Player character
     Sprite* s0 = new Sprite(0*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
-                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID, true);
+                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID, false);
     
     Sprite* s1 = new Sprite(1*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
                             , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID, false);
     
     Sprite* s2 = new Sprite(2*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
-                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT, textureID, true);
+                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT, textureID, false);
     
     Sprite* s3 = new Sprite(3*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
                             , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID, false);
     
     Sprite* s4 = new Sprite(4*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
-                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID, true);
+                            , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID, false);
     
     Sprite* s5 = new Sprite(5*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
                             , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID, false);
-    
     
     Sprite** sp = new Sprite*[6];
     sp[0] = s0;
@@ -64,11 +63,11 @@ void ActorsLoader::initMainCharacter(int textureID)
     AnimationArray* aAnimArr = new AnimationArray(aArr, 1);
     
     MAIN_CHARACTER = new Actor(aAnimArr, a, new Vector2d(1.f, 1.f),
-                               new OffsetMatrix(
-                                                new Vector2d(.75f, 0.2f),
-                                                new Vector2d(.75f, 0.2f),
-                                                new Vector2d(.75f, .4f),
-                                                new Vector2d(.75f, .4f)));
+                           new OffsetMatrix(new Vector2d(0.f,0.f), new Vector2d(0.f,0.f), new Vector2d(0.f,0.f), new Vector2d(0.f,0.f)));
+//                                                new Vector2d(.75f, 0.2f),
+//                                                new Vector2d(.75f, 0.2f),
+//                                                new Vector2d(.75f, .4f),
+//                                                new Vector2d(.75f, .4f)));
 }
 void ActorsLoader::initPlatforms(int textureID)
 {
@@ -87,9 +86,9 @@ void ActorsLoader::initPlatforms(int textureID)
     AnimationArray* aAnimArr1 = new AnimationArray(aArr1, 1);
     
     PLATFORM_1 = new Actor(aAnimArr1, a1, new Vector2d(1.f, 6.f),
-                           new OffsetMatrix(
-                                            new Vector2d(0.f,6.f), new Vector2d(0.f,6.f),
-                                            new Vector2d(0.f, -8.f), new Vector2d(0.f,-8.f)));
+                           new OffsetMatrix(new Vector2d(0.f,0.f), new Vector2d(0.f,0.f), new Vector2d(0.f,0.f), new Vector2d(0.f,0.f)));
+//                                            new Vector2d(0.f,6.f), new Vector2d(0.f,6.f),
+//                                            new Vector2d(0.f, -8.f), new Vector2d(0.f,-8.f)));
     
     // Platform 3
     Sprite* s3 = new Sprite(24/IMAGE_WIDTH           ,265/IMAGE_HEIGHT          , 208/IMAGE_WIDTH  , 516/IMAGE_HEIGHT , textureID, true);
@@ -106,9 +105,9 @@ void ActorsLoader::initPlatforms(int textureID)
     AnimationArray* aAnimArr3 = new AnimationArray(aArr3, 1);
     
     PLATFORM_3 = new Actor(aAnimArr3, a3, new Vector2d(1.f, 6.f),
-                           new OffsetMatrix(
-                                            new Vector2d(0.f,6.f), new Vector2d(0.f,6.f),
-                                            new Vector2d(0.f, -8.f), new Vector2d(0.f,-8.f)));
+                           new OffsetMatrix(new Vector2d(0.f,0.f), new Vector2d(0.f,0.f), new Vector2d(0.f,0.f), new Vector2d(0.f,0.f)));
+//                                            new Vector2d(0.f,6.f), new Vector2d(0.f,6.f),
+//                                            new Vector2d(0.f, -8.f), new Vector2d(0.f,-8.f)));
     
     // Platform 2
     Sprite* s2 = new Sprite(279/IMAGE_WIDTH           ,264/IMAGE_HEIGHT          , 224/IMAGE_WIDTH  , 517/IMAGE_HEIGHT , textureID, false);
@@ -124,10 +123,10 @@ void ActorsLoader::initPlatforms(int textureID)
     aArr2[0] = a2;
     AnimationArray* aAnimArr2 = new AnimationArray(aArr2, 1);
     
-    PLATFORM_2 = new Actor(aAnimArr2, a2, new Vector2d(1.f, 6.f),
-                           new OffsetMatrix(
-                                            new Vector2d(0.f,6.f), new Vector2d(0.f,6.f),
-                                            new Vector2d(0.f, -8.f), new Vector2d(0.f,-8.f)));
+    PLATFORM_2 = new Actor(aAnimArr2, a2, new Vector2d(1.f, 3.5f),
+                           new OffsetMatrix(new Vector2d(0.f,0.f), new Vector2d(0.f,0.f), new Vector2d(0.f,0.f), new Vector2d(0.f,0.f)));
+//                                            new Vector2d(0.f,6.f), new Vector2d(0.f,6.f),
+//                                            new Vector2d(0.f, -8.f), new Vector2d(0.f,-8.f)));
     
 //    Sprite* s3 = new Sprite();
     
