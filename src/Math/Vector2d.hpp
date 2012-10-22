@@ -12,14 +12,25 @@
 #define __CatchiOS__Vector__
 
 struct Vector2d {
+    //  Construcs a Vector with the given x and y
     Vector2d(double x, double y);
+    
+    //  Constructs a vector that has the same x and y as vec
     Vector2d(Vector2d* vec);
+    
+    //  Constructs a vector that has the length magnitude and the same
+    //  direction as vec
     Vector2d(Vector2d* vec, double magnitude);
     Vector2d();
     double m_x, m_y;
+    
+    //  Gives you the length squared
     double lengthSquared();
+    
+    //  Sets x and y to zero
     void zap();
     
+    //  Checks if two vectors overlap
     double overlaps(Vector2d* otherVector);
     
     //  Operators

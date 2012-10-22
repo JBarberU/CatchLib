@@ -23,6 +23,7 @@ public:
     //  If zero vector is passed it will return a zero vector.
     static Vector2d* generateUnitVectorOf(Vector2d* vector);
     
+    //  Gives the absolute value of value
     static double abs(double value);
 };
 
