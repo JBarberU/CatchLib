@@ -13,13 +13,17 @@
 //
 //	License: The following code is licensed under the Catch22-License
 //
-/*
-#include "../Physics/PBody.hpp"
 
-class Obstacle : PBody {
+#include "../Physics/PBody.hpp"
+#include "../../EventHandling/EventBus.hpp"
+#include "../../Helper/Logger.hpp"
+#include "../../../Box2D/Collision/Shapes/b2PolygonShape.h"
+
+class Obstacle {
 
 public:
 	virtual void destroy() = 0;
-	virtual bool isDestroyed() = 0;
+	virtual void generatePbody(Vector2d position) = 0;
+	PBody* m_body;
 };
-*/
+

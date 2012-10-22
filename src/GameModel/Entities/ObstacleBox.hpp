@@ -12,16 +12,19 @@
 //
 //	License: The following code is licensed under the Catch22-License
 //
-/*
+
 #include "Obstacle.hpp"
 
 class ObstacleBox : Obstacle {
 
 private:
-	bool destroyed;
+	bool m_destroyed;
+	double m_height;
 
 public:
 	~ObstacleBox();
-	ObstacleBox(Vector2d* position);
+	ObstacleBox(Vector2d* position, float height);
+	void destroy();
+	void generatePbody(Vector2d position);
 };
-*/
+

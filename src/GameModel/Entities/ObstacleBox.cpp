@@ -13,29 +13,30 @@
 //
 //	License: The following code is licensed under the Catch22-License
 //
-/*
+
 #include "ObstacleBox.hpp"
 
 ObstacleBox::~ObstacleBox()
 {
 
 }
-ObstacleBox::ObstacleBox(Vector2d* position)
+ObstacleBox::ObstacleBox(Vector2d* position, float height)
 {
-	m_affectedByGravity = true;
-	this->m_movement = 0;
-	m_size = new Vector2d(2.0, 2.0);
+	m_height = height;
+	ObstacleBox::generatePbody(position);
+	EventBus::getSharedInstance()->publishEvent(PBODY_CREATED_PHYSICS, (PBody *)m_body);
+
 }
 void ObstacleBox::destroy()
 {
-	this->destroyed = true;
+	EventBus::getSharedInstance()->publishEvent(PBODY_DESTROYED_PHYSICS, (PBody *)m_body);
 }
-bool ObstacleBox::isDestroyed()
+
+void ObstacleBox::generatePbody(Vector2d position)
 {
-	return this->destroyed;
+	b2Vec2 pos = b2Vec2(position.m_x, position.m_y);
+	b2Vec2 size = b2Vec2(2.0f, m_height);
+    m_body = new PBody(size, pos, true, false, PB_OBSTACLE_BOX);
+
 }
-bool ObstacleBox::isColliding(PBody* otherBody)
-{
-	return destroyed ? false : PBody::isColliding(otherBody);
-}
-*/
+
