@@ -27,7 +27,7 @@ public:
     ~Chainsaw();
     // Returns true if chainsaw has passed it's target.
     bool targetReached();
-    void update();
+    void update(float dt);
     void setTarget(b2Vec2);
     void setBody(b2Body* body);
     
