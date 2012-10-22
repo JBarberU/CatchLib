@@ -17,6 +17,7 @@
 
 PlatformBlock::PlatformBlock(Blocktype type, Vector2d* vector)
 {
+
 	this->m_type = type;
 	this->m_body = generatePBody(vector);
 	EventBus::getSharedInstance()->publishEvent(PBODY_CREATED_PHYSICS, (PBody *)m_body);
@@ -95,13 +96,16 @@ PBody* PlatformBlock::generatePBody(Vector2d* vector)
     
     int32 num = 4;
     b2Vec2* vertecies = new b2Vec2[num];
+
+    int max = (vector->m_y > endVector->m_y) ? vector->m_y : endVector->m_y;
     
     vertecies[0] = b2Vec2(2.f, 0.f);
-    vertecies[1] = b2Vec2(2.f, 7.f);
-    vertecies[2] = b2Vec2(0.f, 7.f);
+    vertecies[1] = b2Vec2(2.f, 7.f - (max - endVector->m_y));
+    vertecies[2] = b2Vec2(0.f, 7.f - (max - vector->m_y));
     vertecies[3] = b2Vec2(0.f, 0.f);
-    b2Vec2 position = b2Vec2(vector->m_x, vector->m_y - 7.f);
-    
+
+    b2Vec2 position = b2Vec2(vector->m_x, max - 7.f);
+
     b2PolygonShape shape;
     shape.Set(vertecies, num);
 	
