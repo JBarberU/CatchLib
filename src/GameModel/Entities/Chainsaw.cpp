@@ -13,6 +13,7 @@
 #include "Chainsaw.hpp"
 #include "../../EventHandling/EventBus.hpp"
 #include "../../EventHandling/EEvent.hpp"
+#include "../../Helper/Logger.hpp"
 
 double Chainsaw::CHAINSAW_MOVEMENT_SPEED = 10.0;
 
@@ -41,7 +42,11 @@ void Chainsaw::update(float dt)
     dir.x *= CHAINSAW_MOVEMENT_SPEED * dt;
     dir.y *= CHAINSAW_MOVEMENT_SPEED * dt;
     
-    this->getBody()->SetTransform(dir, 0.f);
+    Log(LOG_INFO, "Chainsaw", generateCString("The chainsaw is at position %d,%d ,  moving towards %d, %d" , getPosition().x, getPosition().y, m_target.x, m_target.y));
+    this->getBody()->SetTransform(getPosition() + dir, 0.f);
+    if (this->getPosition().x > m_target.x && this->getPosition().y > m_target.y){
+        m_targetReached = true;
+    }
 }
 
 void Chainsaw::setBody(b2Body* body)
