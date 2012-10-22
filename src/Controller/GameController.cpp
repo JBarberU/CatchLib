@@ -68,7 +68,7 @@ void GameController::didRecieveInputEvent(InputType type, int locX, int locY)
     if (conX < m_deviceHeight * 0.3) {
         m_gameModel->playerJump();
     } else {
-        m_gameModel->playerThrowAt(conX, conY);
+        m_gameModel->playerThrowAt(conX / m_deviceHeight, conY / m_deviceWidth);
     }
     
 	Log(LOG_EVENT, "GameController",  "DidRecieveInputEvent");
