@@ -41,7 +41,10 @@ public:
     b2Body* getBody();
     const b2Vec2 getPosition();
     b2BodyDef* getBodyDefinition();
+    
     virtual void setBody(b2Body* body);
+    virtual void update(float dt){}
+    virtual void onCollide(PBody* other){}
     
     PBodyType getTag();
 };
