@@ -202,7 +202,7 @@ GeneratedBlock* MapGenerator::selectBlock(set<GeneratedBlock> allowedSet)
 			roll-=(*it).chance;
 		}
 	}
-	return *it;
+	return new GeneratedBlock((*it).dy, (*it).type, (*it).chance);
 }
 
 
