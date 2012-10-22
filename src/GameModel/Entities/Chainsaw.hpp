@@ -1,11 +1,11 @@
 //
-//  File:       EventBus.hpp
-//  Class:      EventBus
-//  Author:     Jesper Persson and Sebastian Odbjer
+//  File:       Chainsaw.hpp
+//  Class:      Chainsaw
+//  Author:     Jesper Persson
 //              All code is our own except where credited to others.
 //
 //	Copyright (c) 2012 by Catch22. All Rights Reserved.
-//  Date: 		02/10-2012
+//  Date: 		22/10-2012
 //
 //	License: The following code is licensed under the Catch22-License
 //
@@ -29,9 +29,11 @@ public:
     bool targetReached();
     void update(float dt);
     void setTarget(b2Vec2);
-    void setBody(b2Body* body);
+
+    virtual void setBody(b2Body* body);
     
 private:
     bool m_targetReached;
     b2Vec2 m_target;
+    static double CHAINSAW_MOVEMENT_SPEED;
 };
