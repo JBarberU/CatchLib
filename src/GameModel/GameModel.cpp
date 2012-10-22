@@ -27,7 +27,7 @@ void GameModel::update(float dt)
 {
     m_physicsManager->update(dt);
     m_player->update();
-//    m_gameMap->update();
+    m_gameMap->update(m_player->getPosition().x);
 }
 Vector2d* GameModel::getCenterPoint()
 {
