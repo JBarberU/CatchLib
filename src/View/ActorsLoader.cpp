@@ -202,7 +202,7 @@ void ActorsLoader::initObstacle(int textureID)
     aArr[0] = a;
     AnimationArray* aAnimArr = new AnimationArray(aArr, 1);
     
-    OBSTACLE_BOX = new Actor(aAnimArr, a, new Vector2d(1.2, 1.2));
+    OBSTACLE_BOX = new Actor(aAnimArr, a, new Vector2d(1.0f, 1.0f));
 }
 
 void ActorsLoader::init(int textureID)
