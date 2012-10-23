@@ -27,26 +27,26 @@ const double IMAGE_HEIGHT = 2048;
 void ActorsLoader::initMainCharacter(int textureID)
 {
     
-    double sW = 111;
-    double sH = 133;
+    double sW = 111; // Character sprite width in pixels
+    double sH = 133; // Character sprite height in pixels
     
     // Player character
-    Sprite* s0 = new Sprite(0*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
+    Sprite* s0 = new Sprite(0*sW/IMAGE_WIDTH    ,2/IMAGE_HEIGHT
                             , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID, false);
     
-    Sprite* s1 = new Sprite(1*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
+    Sprite* s1 = new Sprite(1*sW/IMAGE_WIDTH    ,2/IMAGE_HEIGHT
                             , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID, false);
     
-    Sprite* s2 = new Sprite(2*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
+    Sprite* s2 = new Sprite(2*sW/IMAGE_WIDTH    ,2/IMAGE_HEIGHT
                             , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT, textureID, false);
     
-    Sprite* s3 = new Sprite(3*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
+    Sprite* s3 = new Sprite(3*sW/IMAGE_WIDTH    ,2/IMAGE_HEIGHT
                             , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID, false);
     
-    Sprite* s4 = new Sprite(4*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
+    Sprite* s4 = new Sprite(4*sW/IMAGE_WIDTH    ,2/IMAGE_HEIGHT
                             , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID, false);
     
-    Sprite* s5 = new Sprite(5*sW/IMAGE_WIDTH    ,0*sH/IMAGE_HEIGHT
+    Sprite* s5 = new Sprite(5*sW/IMAGE_WIDTH    ,2/IMAGE_HEIGHT
                             , sW/IMAGE_WIDTH  , sH/IMAGE_HEIGHT , textureID, false);
     
     Sprite** sp = new Sprite*[6];
