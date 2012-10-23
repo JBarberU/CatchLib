@@ -25,6 +25,7 @@ class ActorsLoader {
 private:
     static void initMainCharacter(int textureID);
     static void initPlatforms(int textureID);
+    static void initChainsaw(int textureID);
     static void initObstacle(int textureID);
     
 public:
@@ -53,6 +54,11 @@ public:
      * This is a DECLINE platform.
      */
     static Actor* newPlatformActor_3();
+
+    /**
+     * Creates a Chainsaw Actor.
+     */
+    static Actor* newChainsawActor();
 
     /**
      * Creates an Obstacle Actor.

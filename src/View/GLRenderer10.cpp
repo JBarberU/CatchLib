@@ -139,7 +139,7 @@ void GLRenderer10::render()
     
     glBindTexture(GL_TEXTURE_2D, m_texture);
     
-    for (int i = 0; i < m_actors->m_index; i++) {
+    for (int i = m_actors->m_index - 1; i >= 0; i--) {
         const Vertex* vertexData = m_actors->m_actors[i]->getVertexData();
         glVertexPointer(2, GL_FLOAT, sizeof(Vertex), &vertexData[0].Position[0]);
         glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), &m_actors->m_actors[i]->getTextureVertexData()[0].Position[0]);
@@ -228,6 +228,9 @@ void GLRenderer10::onEvent (EEvent event, void* source)
                 break;
             case PB_PLATFORM_3:
                 newActor = ActorsLoader::newPlatformActor_3();
+                break;
+            case PB_CHAINSAW:
+                newActor = ActorsLoader::newChainsawActor();
                 break;
             case PB_OBSTACLE_BOX:
                 newActor = ActorsLoader::newObstacleBoxActor();

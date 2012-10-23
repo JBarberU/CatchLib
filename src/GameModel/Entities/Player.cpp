@@ -20,7 +20,7 @@
 #include "../../../Box2D/Dynamics/b2Fixture.h"
 
 Vector2d*   JUMP = new Vector2d(0.f,400.f);
-b2Vec2      MOVEMENT_SPEED = b2Vec2(3.f,0.f);
+b2Vec2      MOVEMENT_SPEED = b2Vec2(6.f,0.f);
 
 Player::Player() :
 PBody(b2Vec2(2.f, 2.f), b2Vec2(0.f, 12.f), false, false, PB_PLAYER)

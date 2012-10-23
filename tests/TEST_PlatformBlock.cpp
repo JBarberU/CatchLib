@@ -18,7 +18,7 @@ TEST_CASE("PlatformBlock", "Tests the PlatformBlock: creates some new platformbl
 {
 
 	//Create a physicsmanager in order to make the getters work.
-	PhysicsManager manager = PhysicsManager();
+	PhysicsManager* manager = new PhysicsManager();
 
 	//Create the platformBlocks
 	PlatformBlock platformblock1 = PlatformBlock(INCLINE, new Vector2d(0.0, 3.0));
@@ -40,5 +40,6 @@ TEST_CASE("PlatformBlock", "Tests the PlatformBlock: creates some new platformbl
 	CHECK(platformblock2.getType() == HORIZONTAL);
 	CHECK(platformblock3.getType() == DECLINE);
 
+    delete manager;
 }
 

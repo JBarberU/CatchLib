@@ -54,7 +54,7 @@ void GameModel::playerThrowAt(int x, int y)
                         
         b2Vec2 spawn = b2Vec2(m_player->getPosition().x, m_player->getPosition().y);
     
-        m_chainsaw = new Chainsaw(b2Vec2(1.0, 1.0 ),spawn , b2Vec2(x,y), false, true, PB_PLAYER);
+        m_chainsaw = new Chainsaw(b2Vec2(0.3, 0.15),spawn , b2Vec2(x,y), false, true, PB_CHAINSAW);
     }
 }
 

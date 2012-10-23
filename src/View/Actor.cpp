@@ -48,14 +48,18 @@ const Vertex* Actor::getVertexData()
         
         const Vertex* v = new const Vertex[4]
         {
-            Vertex(m_pBody->getBody()->GetPosition().x - m_offset->m_topLeft->m_x,
-                   m_pBody->getBody()->GetPosition().y + m_halfSize->m_y * 2 + m_offset->m_topLeft->m_y),
-            Vertex(m_pBody->getBody()->GetPosition().x + m_halfSize->m_x * 2 + m_offset->m_topRight->m_x,
-                   m_pBody->getBody()->GetPosition().y + m_halfSize->m_y * 2 + m_offset->m_topRight->m_y),
-            Vertex(m_pBody->getBody()->GetPosition().x + m_halfSize->m_x * 2 + m_offset->m_bottomRight->m_x,
-                   m_pBody->getBody()->GetPosition().y - m_offset->m_bottomRight->m_y),
-            Vertex(m_pBody->getBody()->GetPosition().x - m_offset->m_bottomLeft->m_x,
-                   m_pBody->getBody()->GetPosition().y - m_offset->m_bottomLeft->m_y),
+        	/* Top right point */
+            Vertex(m_pBody->getBody()->GetPosition().x + m_offset->m_topRight->m_x,
+            	   m_pBody->getBody()->GetPosition().y + m_halfSize->m_y * 2 + m_offset->m_topRight->m_y),
+            /* Top left point */
+			Vertex(m_pBody->getBody()->GetPosition().x + m_halfSize->m_x * 2 + m_offset->m_topLeft->m_x,
+				   m_pBody->getBody()->GetPosition().y + m_halfSize->m_y * 2 + m_offset->m_topLeft->m_y),
+			/* Bottom left point */
+			Vertex(m_pBody->getBody()->GetPosition().x + m_halfSize->m_x * 2 + m_offset->m_bottomLeft->m_x,
+				   m_pBody->getBody()->GetPosition().y + m_offset->m_bottomLeft->m_y),
+			/* Bottom right point */
+			Vertex(m_pBody->getBody()->GetPosition().x + m_offset->m_bottomRight->m_x,
+				   m_pBody->getBody()->GetPosition().y + m_offset->m_bottomRight->m_y),
         };
         
         return v;

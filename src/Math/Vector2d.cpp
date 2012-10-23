@@ -3,7 +3,7 @@
 //  CatchiOS
 //
 //  Created by John Barbero Unenge on 10/2/12.
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Copyright (c) 2012 Catch22. All rights reserved.
 //
 //	License: The following code is licensed under the Catch22-License
 //

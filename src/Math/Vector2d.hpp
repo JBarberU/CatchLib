@@ -3,13 +3,13 @@
 //  CatchiOS
 //
 //  Created by John Barbero Unenge on 10/2/12.
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Copyright (c) 2012 Catch22. All rights reserved.
 //
 //	License: The following code is licensed under the Catch22-License
 //
 
-#ifndef __CatchiOS__Vector__
-#define __CatchiOS__Vector__
+#ifndef __Vector__
+#define __Vector__
 
 struct Vector2d {
     //  Construcs a Vector with the given x and y
@@ -43,4 +43,4 @@ struct Vector2d {
     Vector2d operator*(Vector2d vector);
 };
 
-#endif /* defined(__CatchiOS__Vector__) */
+#endif /* defined(__Vector__) */

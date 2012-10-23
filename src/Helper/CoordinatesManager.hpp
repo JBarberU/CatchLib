@@ -3,14 +3,14 @@
 //  Author: John Barbero Unenge 
 //	Date:  	10/22/12.
 //
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Copyright (c) 2012 Catch22. All rights reserved.
 //
 //	All code is my own except where credited to others.
 //
 
 
-#ifndef __CatchiOS__CoordinatesManager__
-#define __CatchiOS__CoordinatesManager__
+#ifndef __CoordinatesManager__
+#define __CoordinatesManager__
 
 #include "../Math/Vector2d.hpp"
 
@@ -41,4 +41,4 @@ public:
     void getWorldCoordinates(Vector2d screenCoordinates, Vector2d& worldVector);
 };
 
-#endif /* defined(__CatchiOS__CoordinatesManager__) */
+#endif /* defined(__CoordinatesManager__) */

@@ -3,11 +3,11 @@
 //  CatchiOS
 //
 //  Created by John Barbero Unenge on 10/11/12.
-//  Copyright (c) 2012 John Barbero Unenge. All rights reserved.
+//  Copyright (c) 2012 John Catch22. All rights reserved.
 //
 
-#ifndef CatchiOS_EPBodyType_hpp
-#define CatchiOS_EPBodyType_hpp
+#ifndef __EPBodyType__
+#define __EPBodyType__
 
 enum PBodyType {
     PB_PLAYER,
