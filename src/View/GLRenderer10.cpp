@@ -229,6 +229,9 @@ void GLRenderer10::onEvent (EEvent event, void* source)
             case PB_PLATFORM_3:
                 newActor = ActorsLoader::newPlatformActor_3();
                 break;
+            case PB_CHAINSAW:
+                newActor = ActorsLoader::newChainsawActor();
+                break;
             case PB_OBSTACLE_BOX:
                 newActor = ActorsLoader::newObstacleBoxActor();
                 break;

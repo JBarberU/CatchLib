@@ -16,6 +16,7 @@
 #include "../Helper/Logger.hpp"
 
 Actor* MAIN_CHARACTER = 0;
+Actor* CHAINSAW = 0;
 Actor* PLATFORM_1 = 0;
 Actor* PLATFORM_2 = 0;
 Actor* PLATFORM_3 = 0;
@@ -138,18 +139,54 @@ void ActorsLoader::initPlatforms(int textureID)
     AnimationArray* aAnimArr2 = new AnimationArray(aArr2, 1);
     
     PLATFORM_2 = new Actor(aAnimArr2, a2, new Vector2d(1.f, 3.5f),
-                           new OffsetMatrix(new Vector2d(0.f,0.f), new Vector2d(0.f,0.f), new Vector2d(0.f,0.f), new Vector2d(0.f,0.f)));
-//                                            new Vector2d(0.f,6.f), new Vector2d(0.f,6.f),
-//                                            new Vector2d(0.f, -8.f), new Vector2d(0.f,-8.f)));
+                           new OffsetMatrix(
+                        		   new Vector2d(0.16f,0.f),
+                        		   new Vector2d(-0.15f,0.f),
+                        		   new Vector2d(0.16f,0.f),
+                        		   new Vector2d(-0.15f,0.f)));
     
 //    Sprite* s3 = new Sprite();
     
     
 }
+
+void ActorsLoader::initChainsaw(int textureID)
+{
+	//  Chainsaw
+	Sprite* s1 = new Sprite(  5/IMAGE_WIDTH,
+							185/IMAGE_HEIGHT,
+							 64/IMAGE_WIDTH,
+							 27/IMAGE_HEIGHT,
+							textureID, false);
+
+	Sprite* s2 = new Sprite(  5/IMAGE_WIDTH,
+							218/IMAGE_HEIGHT,
+							 64/IMAGE_WIDTH,
+							 27/IMAGE_HEIGHT,
+							textureID, false);
+
+	Sprite** sp = new Sprite*[2];
+	sp[0] = s1;
+	sp[1] = s2;
+
+	SpriteArray* arr1 = new SpriteArray(sp, 2);
+
+	Animation* a = new Animation(arr1, s1, 50, true);
+	Animation** aArr = new Animation*[1];
+	aArr[0] = a;
+	AnimationArray* aAnimArr = new AnimationArray(aArr, 1);
+
+	CHAINSAW = new Actor(aAnimArr, a, new Vector2d(0.6f, 0.3f));
+}
+
 void ActorsLoader::initObstacle(int textureID)
 {
     //  Obstacle Box
-    Sprite* s1 = new Sprite(19.0/128.0           ,19.0/128.0          , 2.0/128.0  , 2.0/128.0 , textureID, true);
+    Sprite* s1 = new Sprite(896/IMAGE_WIDTH,
+							  2/IMAGE_HEIGHT,
+							161/IMAGE_WIDTH,
+							159/IMAGE_HEIGHT,
+							textureID, true);
     
     Sprite** sp = new Sprite*[1];
     sp[0] = s1;
@@ -169,6 +206,7 @@ void ActorsLoader::init(int textureID)
 {
     ActorsLoader::initMainCharacter(textureID);
     ActorsLoader::initPlatforms(textureID);
+    ActorsLoader::initChainsaw(textureID);
     ActorsLoader::initObstacle(textureID);
 }
 Actor* ActorsLoader::newMainCharacterActor()
@@ -208,6 +246,16 @@ Actor* ActorsLoader::newPlatformActor_3()
     }
     
     return new Actor(PLATFORM_3);
+}
+
+Actor* ActorsLoader::newChainsawActor()
+{
+    if (CHAINSAW == 0) {
+        Log(LOG_ERROR, "ActorsLoader", "CHAINSAW is null, probably because init was never called.");
+        return 0;
+    }
+    
+    return new Actor(CHAINSAW);
 }
 
 Actor* ActorsLoader::newObstacleBoxActor()
