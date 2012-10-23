@@ -233,7 +233,7 @@ Actor* ActorsLoader::newPlatformActor_1()
 Actor* ActorsLoader::newPlatformActor_2()
 {
     if (PLATFORM_2 == 0) {
-        Log(LOG_ERROR, "ActorsLoader", "PLATFORM_1 is null, probably because init was never called.");
+        Log(LOG_ERROR, "ActorsLoader", "PLATFORM_2 is null, probably because init was never called.");
         return 0;
     }
     
@@ -244,7 +244,7 @@ Actor* ActorsLoader::newPlatformActor_2()
 Actor* ActorsLoader::newPlatformActor_3()
 {
     if (PLATFORM_3 == 0) {
-        Log(LOG_ERROR, "ActorsLoader", "PLATFORM_1 is null, probably because init was never called.");
+        Log(LOG_ERROR, "ActorsLoader", "PLATFORM_3 is null, probably because init was never called.");
         return 0;
     }
     
@@ -264,9 +264,9 @@ Actor* ActorsLoader::newChainsawActor()
 Actor* ActorsLoader::newObstacleBoxActor()
 {
     if (OBSTACLE_BOX == 0) {
-        Log(LOG_ERROR, "ActorsLoader", "PLATFORM_1 is null, probably because init was never called.");
+        Log(LOG_ERROR, "ActorsLoader", "OBSTACLE_BOX is null, probably because init was never called.");
         return 0;
     }
-    
+
     return new Actor(OBSTACLE_BOX);
 }
