@@ -1,0 +1,10 @@
+Catch22 License
+-----------------------
+
+Source code
+Copyright © 2012 Catch22. All rights reserved.
+All code is free to reuse by any of the original developers in Catch22 (John Barbero Unenge, Jesper Persson, Alexander Hederstaf, Jonatan Rapp and Sebastian Odbjer) under the condition that this license still applies to the reused code. The author(s) of each individual file has the right to relicense the code however they want. The code is provided as is, with no warranties of any kind.
+
+Graphics and sound
+Copyright © 2012 Catch22. All rights reserved.
+The graphics and sounds belong to Catch22 and may not be reused by anyone else.

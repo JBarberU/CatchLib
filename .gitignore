@@ -12,4 +12,41 @@
 *.a
 
 #OS X noise
+*.DS_Store
+
+# Eclipse stuff
+apps/CatchAndroid/.settings
+
+# Java related
+apps/CatchAndroid/bin/*
+*.class
+*.jar
+*.war
+*.war
+apps/CatchAndroid/gen/R.java
+apps/CatchAndroid/gen/R.java.d
+
+# C/C++ related
+apps/CatchAndroid/libcatchLib.so
+apps/CatchAndroid/obj/*
+
+# OS X noise
 .DS_Store
+
+# Android related
+apps/CatchAndroid/local.properties
+
+# Xcode noise
+apps/CatchiOS/build/*
+*.perspective
+*.perspectivev3
+*.pbxuser
+*.xcworkspace
+*.mode1
+*.mode2v3
+*.mode1v3
+apps/CatchiOS/xcuserdata
+apps/CatchiOS/Snapshots
+apps/CatchiOS/profile
+apps/CatchiOS/DerivedData
+
