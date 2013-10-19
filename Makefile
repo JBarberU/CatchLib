@@ -6,9 +6,8 @@ BOX_LIB = $(ls libBox2d.so | grep 'No such file'); \
 exec:
 	./$(OUTPUT)
 compile:	
-	rm -f $(OUTPUT)
 	g++  $(FOLDERS) -o $(OUTPUT)
-	echo "Compiling"
+	echo "Done compiling!"
 	
 compile_box2d:
 	mkdir tmp; \
@@ -21,3 +20,6 @@ compile_box2d:
 test:
 	make compile; \
 	./$(OUTPUT)
+
+clean:
+	rm $(OUTPUT)
