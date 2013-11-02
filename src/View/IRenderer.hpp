@@ -20,17 +20,6 @@
 #include "CLTexture.hpp"
 #include "../Controller/IDeviceRotationResponder.hpp"
 
-struct ActorArray {
-    Actor**  m_actors;
-    int     m_size;
-    int     m_index;
-    ActorArray() {
-        m_size = 20;
-        m_index = 0;
-        m_actors = new Actor*[m_size];
-    }
-};
-
 class IRenderer : public IDeviceRotationResponder{
 public:
     //  Initialize the renderer with the provided width, height and texture data.
@@ -43,10 +32,10 @@ public:
     virtual void update(float dt) = 0;
     
     //  Add an actor, which is used to ecapsulate amimations.
-    virtual void addActor(Actor* actor) = 0;
+    virtual void addActor(const Actor &actor) = 0;
     
     //  Remove the given actor.
-    virtual void removeActor(Actor* actor) = 0;
+    virtual void removeActor(const Actor &actor) = 0;
     
     virtual void centerCameraOn(Vector2d point) = 0;
     

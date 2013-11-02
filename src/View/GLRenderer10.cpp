@@ -77,9 +77,7 @@ void GLRenderer10::init(int width, int height, CLTexture* texture)
     m_currentAngle = m_desiredAngle;
     m_deviceWidth = width;
     m_deviceHeight = height;
-    
-    m_actors = new ActorArray();
-    
+     
     ActorsLoader::init(m_texture);
     
     m_background = new Sprite(0.f, 1.f/2.f, 1.f, 1.f/2.f, m_texture, false);
@@ -139,10 +137,11 @@ void GLRenderer10::render()
     
     glBindTexture(GL_TEXTURE_2D, m_texture);
     
-    for (int i = m_actors->m_index - 1; i >= 0; i--) {
-        const Vertex* vertexData = m_actors->m_actors[i]->getVertexData();
+    for (auto it = m_actors.begin(); it != m_actors.end(); it++) {
+        const Vertex* vertexData = (*it).getVertexData();
         glVertexPointer(2, GL_FLOAT, sizeof(Vertex), &vertexData[0].Position[0]);
-        glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), &m_actors->m_actors[i]->getTextureVertexData()[0].Position[0]);
+        const Vertex* textureData = (*it).getTextureVertexData();
+        glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), &textureData[0].Position[0]);
         
         glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
         delete [] vertexData;
@@ -158,27 +157,13 @@ void GLRenderer10::update(float dt)
         m_currentAngle += m_desiredAngle > m_currentAngle ? 10 : -10;
     }
     
-    for (int i = 0; i < m_actors->m_index; i++) {
-        m_actors->m_actors[i]->update(dt);
+    for (auto it = m_actors.begin(); it != m_actors.end(); it++) {
+        (*it).update(dt);
     }
 }
-void GLRenderer10::addActor(Actor* actor)
+void GLRenderer10::addActor(const Actor &actor)
 {
-    if (m_actors == 0)
-        m_actors = new ActorArray();
-    
-    if (m_actors->m_index == m_actors->m_size) {
-        m_actors->m_size += 20;
-        Actor** newActors = new Actor*[m_actors->m_size];
-        
-        for (int i = 0; i < m_actors->m_index; i++) {
-            newActors[i] = m_actors->m_actors[i];
-        }
-        
-        m_actors->m_actors = newActors;
-    }
-    
-    m_actors->m_actors[m_actors->m_index++] = actor;
+    m_actors.push_back(actor);
 }
 void GLRenderer10::onRotate(DeviceOrientation orientation)
 {
@@ -194,16 +179,10 @@ void GLRenderer10::onRotate(DeviceOrientation orientation)
     
 }
 
-void GLRenderer10::removeActor(Actor* actor)
+// Not removing anything at this point!!
+void GLRenderer10::removeActor(const Actor &actor)
 {
-    if (actor == 0)
-        return;
-    
-    for (int i = 0; i < m_actors->m_index; i++) {
-        if (m_actors->m_actors[i] == actor) {
-            m_actors->m_actors[i] = m_actors->m_actors[--m_actors->m_index];
-        }
-    }
+    // m_actors
 }
 void GLRenderer10::centerCameraOn(Vector2d point)
 {
@@ -240,7 +219,6 @@ void GLRenderer10::onEvent (EEvent event, void* source)
         }
         
         newActor->setPBody((PBody *) source);
-        this->addActor(newActor);
+        this->addActor(*newActor);
     }
-    
 }

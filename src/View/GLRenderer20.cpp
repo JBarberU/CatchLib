@@ -145,11 +145,11 @@ void GLRenderer20::onRotate(DeviceOrientation orientation)
 {
     // Intentionally left empty
 }
-void GLRenderer20::addActor(Actor* actor)
+void GLRenderer20::addActor(const Actor &actor)
 {
     // Intentionally left empty
 }
-void GLRenderer20::removeActor(Actor* actor)
+void GLRenderer20::removeActor(const Actor &actor)
 {
     // Intentionally left empty
 }

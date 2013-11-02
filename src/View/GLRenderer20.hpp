@@ -37,8 +37,8 @@ public:
 	void render();
     void update(float dt);
     void onRotate(DeviceOrientation orientation);
-    virtual void addActor(Actor* actor);
-    virtual void removeActor(Actor* actor);
+    virtual void addActor(const Actor &actor);
+    virtual void removeActor(const Actor &actor);
     virtual void centerCameraOn(Vector2d point);
     
 private:

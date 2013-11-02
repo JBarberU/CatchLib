@@ -17,15 +17,20 @@
 #ifdef __IPHONE_NA
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
-#else
+#elif __ANDROID__
 #include <GLES/gl.h>
 #include <GLES/glext.h>
+#elif __gnu_linux__
+#include <GL/gl.h>
+#include <GL/glext.h>
 #endif
 
 #include "IRenderer.hpp"
 #include "CLTexture.hpp"
 
 #include "../EventHandling/IEventListener.hpp"
+
+#include <vector>
 
 class GLRenderer10 : public IRenderer, public IEventListener{
 public:
@@ -37,8 +42,8 @@ public:
 	void render();
     void update(float dt);
     void onRotate(DeviceOrientation orientation);
-    void addActor(Actor* actor);
-    void removeActor(Actor* actor);
+    void addActor(const Actor &actor);
+    void removeActor(const Actor &actor);
     void centerCameraOn(Vector2d point);
     
     //  Inherited from IEventListener
@@ -52,7 +57,7 @@ private:
     Sprite* m_background;
     const Vertex* m_screenVertecies;
     
-    ActorArray* m_actors;
+    std::vector<Actor> m_actors;
     
     GLfloat m_currentAngle;
     GLfloat m_desiredAngle;

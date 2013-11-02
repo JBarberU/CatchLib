@@ -38,6 +38,11 @@ void Actor::CreateActor(AnimationArray* animations, Animation* currentAnimation,
     m_offset = offsetMatrix;
 }
 
+Actor::~Actor()
+{
+    // Do nothing at this point
+}
+
 void Actor::setPBody(PBody* pBody)
 {
     m_pBody = pBody;
