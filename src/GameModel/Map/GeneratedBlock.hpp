@@ -10,28 +10,38 @@
 //
 //	License: The following code is licensed under the Catch22-License
 //
-//  Description:
 
 #include "PlatformBlock.hpp"
 
+/**
+ * Helper class for MapGenerator. A GeneratedBlock represents the different
+ * possible blocks the MapGenerator can use to create a Map. The Map is then
+ * created with PlatformBlocks in Platforms.
+ *
+ * @see MapGenerator.hpp, PlatformBlock.hpp, Platform.hpp
+ *
+ */
 class GeneratedBlock {
 
 public:
 
 	/*
-	 * The "Jump" made by this platform from the earlier platform.
-	 * This creates a vertical wall.
+	 * The height difference from the previous platform to this platform.
+	 * When this variable is not 0 we get a vertical wall.
 	 */
 	int dy;
 
 	/*
-	 * Enum BlockType of the block
-	 * INCLINE, HORIZONTAL, DECLINE
+	 * BlockType of the block describes which of the three blocktypes
+	 * this block has.
+	 * INCLINE (goes up 1 level in a slope)
+	 * HORIZONTAL (doesn't change height and is flat)
+	 * DECLINE (goes down 1 level in a slope)
 	 */
 	Blocktype type;
 
 	/*
-	 * Chance value for this block to be randomed in map generation.
+	 * The random chance of this block to be used for a map in map generation.
 	 */
 	int chance;
 
@@ -40,7 +50,8 @@ public:
 	/**
 	 * Creates a GeneratedBlock
 	 * @param dy
-	 * 		How many units of a "jump" this block should make.
+	 * 		How many units of difference in height this block should have
+	 * 		compared to the previous one.
 	 * @param type
 	 * 		Type of slope for this block.
 	 * @param baseChance

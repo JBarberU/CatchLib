@@ -24,6 +24,13 @@
 #ifndef MAPGENERATOR_H_
 #define MAPGENERATOR_H_
 
+/**
+ * MapGenerator used to Generate Platforms. Platforms are created using
+ * set constructions of GeneratedBlocks. Platforms are constructed with
+ * PlatformBlocks.
+ *
+ * @see Platform.hpp, PlatformBlock.hpp, GeneratedBlocks.hpp
+ */
 class MapGenerator {
 
 private:
@@ -38,13 +45,13 @@ private:
 	/*
 	 * Basic sets used to calculate new sets by difference.
 	 */
-	set<GeneratedBlock> all;
-	set<GeneratedBlock> zeroIncline;
-	set<GeneratedBlock> zeroDecline;
-	set<GeneratedBlock> plusTwo;
-    set<GeneratedBlock> plusOne;
-	set<GeneratedBlock> allDeltaY;
-	set<GeneratedBlock> allZeroes;
+	set<GeneratedBlock> all; // All types.
+	set<GeneratedBlock> zeroIncline; // Incline, 0 height difference.
+	set<GeneratedBlock> zeroDecline; // Decline, 0 height difference.
+	set<GeneratedBlock> plusTwo; // All types with 2 height difference.
+    set<GeneratedBlock> plusOne; // All types with 1 height difference.
+	set<GeneratedBlock> allZeroes; // All types with 0 height difference
+    set<GeneratedBlock> allDeltaY; // All types with height difference including slope.
 
 	/**
 	 * Returns a set of GeneratedBlocks which contain the possible
@@ -52,7 +59,6 @@ private:
 	 *
 	 * The purpose of this method is to prevent undesirable map structures.
 	 * Note though that no checks are made to obey the height limitations.
-	 * see getAllowedSet()
 	 *
 	 * @param previousBlock
 	 *		The block preceding this one in a Platform. 0 if there was no
@@ -60,6 +66,9 @@ private:
 	 * @return
 	 * 		A set containing only the GeneratedBlocks that can be placed after
 	 * 		the preceding one.
+	 *
+	 * @see getAllowedSet()
+	 *
 	 */
 	set<GeneratedBlock> getPossibleSet(GeneratedBlock* previousBlock);
 
@@ -102,16 +111,19 @@ private:
 	 * 		The set to select a GeneratedBlock from.
 	 * @return
 	 * 		The selected GeneratedBlock.
+	 *
 	 */
 	GeneratedBlock* selectBlock(set<GeneratedBlock> allowedSet);
 
 	/**
-	 * Adds a GeneratedBlock at the end of recentlyUsedBuffer
-	 * vector, and removes the first one. This way the buffer vector
-	 * will always maintain the size defined in BUFFER_SIZE.
+	 * Updates the buffer of recently used blocks.
+	 *
+	 * @postcondition
+	 * 		will always maintain the size defined in BUFFER_SIZE.
 	 *
 	 * @param usedBlock
 	 * 		The GeneratedBlock to add to the end of the buffer.
+	 *
 	 */
 	void addToBuffer(GeneratedBlock usedBlock);
 
@@ -130,8 +142,9 @@ public:
 	/**
 	 * This function generates a new platform of random length and content
 	 * which originates from the provided startPoint.
-	 * The height of a platform may never surpass HEIGHT_MAX, and
-	 * never go below HEIGHT_MIN.
+	 *
+	 * The height of any point in the platform may never surpass HEIGHT_MAX
+	 * and never go below HEIGHT_MIN.
 	 *
 	 * @param startPoint
 	 * 		The point this platform will originate from.

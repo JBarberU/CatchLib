@@ -8,10 +8,6 @@
 //  Date: 		Sep 29, 2012
 //
 //	License: The following code is licensed under the Catch22-License
-//
-//  Description:
-//	A class for representing a block in a Platform.
-
 
 #include "../Physics/PBody.hpp"
 #include "../Physics/EPBodyType.hpp"
@@ -27,6 +23,11 @@ enum Blocktype
 	DECLINE
 };
 
+/**
+ *
+ * A PlatformBlock represents a part of a Platform.
+ *
+ */
 class PlatformBlock {
 public:
 	~PlatformBlock();

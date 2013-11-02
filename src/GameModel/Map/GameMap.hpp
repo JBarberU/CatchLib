@@ -8,15 +8,18 @@
 //  Date: 		Sep 29,-2012
 //
 //	License: The following code is licensed under the Catch22-License
-//
-//
-//  Description:
-//	A GameMap is a collection of Platforms at a distance from each other used
-//	as the world in the Game.
-//
-//
+
 #include "MapGenerator.hpp"
 
+
+/**
+ *
+ * The GameMap is the world map used for the game. A GameMap is built
+ * with Platforms. The GameMap is generated using a map generator
+ *
+ * @see Platform.hpp, MapGenerator.hpp
+ *
+ */
 class GameMap
 {
 public:
@@ -49,7 +52,9 @@ public:
 private:
 
 	/**
+	 *
 	 * Generates an appropriate start point for the next platform based on a given Vector2d.
+	 *
 	 * @param lastEnd
 	 * 		The position where the last platform ended.
 	 * @return
@@ -58,8 +63,10 @@ private:
 	Vector2d* nextPlatformStart(Vector2d* lastEnd);
 
 	/**
+	 *
 	 * Generates a flat surface of platform blocks that represents a starting area platform,
-	 * followed by six randomly generated platforms.
+	 * followed by randomly generated platforms.
+	 *
 	 */
 	void generateStartMap();
 

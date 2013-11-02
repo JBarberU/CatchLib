@@ -48,6 +48,7 @@ void GameMap::generateStartMap()
 	Platform* p = generator->generateFlatPlatform(new Vector2d(0.f, 7.f), 8);
 	addPlatform(p);
 
+	// Generate two additional Platforms
 	for (int i = 0; i < 2; i++) {
 		p = generator->generatePlatform(nextPlatformStart(p->endPoint()));
 		addPlatform(p);
@@ -62,7 +63,6 @@ void GameMap::addPlatform(Platform* platform)
 void GameMap::reformGameMap()
 {
 	platforms.erase(platforms.begin());
-	//Generate new platformBlocks in this platform
 	Platform* p = platforms.back();
 	addPlatform(generator->generatePlatform(nextPlatformStart(p->endPoint())));
 }

@@ -8,10 +8,6 @@
 //  Date: 		Sep 29, 2012
 //
 //	License: The following code is licensed under the Catch22-License
-//
-//  Description:
-//	This class is for representing a Platform in a GameMap.
-//	Each Platform is made up by several PlatformBlocks.
 
 
 #include "PlatformBlock.hpp"
@@ -19,6 +15,14 @@
 
 using namespace std;
 
+/**
+ *
+ * A Platform is built using one to many PlatformBlocks.
+ * Platforms are used to create the game's map.
+ *
+ * @see PlatformBlock.hpp, GameMap.hpp
+ *
+ */
 class Platform
 {
 public:
@@ -26,7 +30,7 @@ public:
 	Platform();
 
 	/**
-	 * Returns a vector of PlatformBlock pointers to the platformblocks of this platform.
+	 * Returns a vector of the PlatformBlocks of this platform.
 	 */
 	vector<PlatformBlock*> getPlatformBlocks();
 

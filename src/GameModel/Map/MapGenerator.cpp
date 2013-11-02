@@ -33,7 +33,6 @@ const GeneratedBlock Hn1 = GeneratedBlock(-1, HORIZONTAL, 4);
 const GeneratedBlock Dn1 = GeneratedBlock(-1, DECLINE, 4);
 
 const GeneratedBlock Hn2 = GeneratedBlock(-2, HORIZONTAL, 4);
-// End of GeneratedBlocks
 
 MapGenerator::~MapGenerator()
 {
@@ -42,9 +41,12 @@ MapGenerator::~MapGenerator()
 
 MapGenerator::MapGenerator()
 {
+	// Resize and populate the recently used buffer with H0 blocks.
 	recentlyUsedBuffer.resize(BUFFER_SIZE, H0);
+
+	// Number of the different elements currently in the buffer.
 	bufferElementCounter.resize(11, 0);
-	bufferElementCounter[4] = 20; //20x Horizontal dy = 0 blocks
+	bufferElementCounter[4] = 20; // 20x Horizontal (dy = 0) blocks
 
 	all.insert(Ip2);
 	all.insert(Hp2);
@@ -85,9 +87,12 @@ set<GeneratedBlock> MapGenerator::getPossibleSet(GeneratedBlock* previousBlock)
 	set<GeneratedBlock> possibleSet = all;
 
 	if (!previousBlock)  {
+		// There was no previous block.
 		return possibleSet;
 	}
 
+
+	// Remove sets of types from possible sets depending on previous blocks.
 	if (previousBlock->type == DECLINE) {
 		// remove zeroIncline
 		set<GeneratedBlock> tmp;
@@ -136,7 +141,7 @@ set<GeneratedBlock> MapGenerator::getAllowedSet(set<GeneratedBlock> possibleSet,
 	for (it = possibleSet.begin(); it != possibleSet.end(); it++) {
 		int dy = (*it).dy;
 		int t = (*it).type;
-		t = dy + (-1) * (t - 1); // t is now an int representing deltaY added by slope type.
+		t = dy + (-1) * (t - 1); // t is difference in height from the start vector to highest point.
 		if (((startVector->m_y + t) <= HEIGHT_MAX && (startVector->m_y + t) >= HEIGHT_MIN)
 				&& (startVector->m_y <= HEIGHT_MAX && startVector->m_y >= HEIGHT_MIN)) {
 			// Only keep GeneratedBlocks that stay within the allowed height margin
@@ -148,13 +153,24 @@ set<GeneratedBlock> MapGenerator::getAllowedSet(set<GeneratedBlock> possibleSet,
 
 void MapGenerator::addToBuffer(GeneratedBlock usedBlock)
 {
+	// recentlyUsedBuffer is used to remember the oldest blocktype
+	// still in the buffer.
+
+	// Remove oldest block from buffer.
 	vector<GeneratedBlock>::iterator it = recentlyUsedBuffer.begin();
 	recentlyUsedBuffer.erase(recentlyUsedBuffer.begin());
+
+	// Save removed block separately.
 	GeneratedBlock removed = *it;
+
+	// Decrease count of removed block.
 	int position = distance(all.begin(), all.find(removed));
 	bufferElementCounter[position]--;
 
+	// Add used block to the buffer.
 	recentlyUsedBuffer.push_back(usedBlock);
+
+	// Increase count of used block.
 	position = distance(all.begin(), all.find(usedBlock));
 	bufferElementCounter[position]++;
 }
@@ -162,6 +178,9 @@ void MapGenerator::addToBuffer(GeneratedBlock usedBlock)
 void MapGenerator::modifyChances(set<GeneratedBlock>& allowedSet, Vector2d* startVector)
 {
 	set<GeneratedBlock>::iterator it;
+
+	// Loop all GeneratedBlocks still available and modify the chances
+	// based on occurrences in the buffer.
 	for (it = allowedSet.begin(); it != allowedSet.end(); ++it) {
 		GeneratedBlock block = *it;
 		block.chance -=  2 * bufferElementCounter[distance(all.begin(), all.find(block))];
@@ -176,6 +195,8 @@ void MapGenerator::modifyChances(set<GeneratedBlock>& allowedSet, Vector2d* star
 			}
 			block.chance /= 4;
 		}
+
+		// replace the base block with a new one with changed chances.
 		allowedSet.erase(*it);
 		allowedSet.insert(block);
 	}
@@ -195,6 +216,7 @@ GeneratedBlock* MapGenerator::selectBlock(set<GeneratedBlock> allowedSet)
 	}
 
 	int roll = (rand() % totalChance) + 1;
+
 	for (it = allowedSet.begin(); it != allowedSet.end(); ++it) {
 		if (roll <= (*it).chance) {
 			break;
