@@ -50,3 +50,5 @@ apps/CatchiOS/Snapshots
 apps/CatchiOS/profile
 apps/CatchiOS/DerivedData
 
+# Qt creator
+qt/qtproject/qtproject.pro.user
