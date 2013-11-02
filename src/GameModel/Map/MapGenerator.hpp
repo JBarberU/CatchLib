@@ -121,6 +121,7 @@ public:
 	const static int HEIGHT_MAX = 7;
 	const static int PLATFORM_LENGTH_MIN = 7;
 	const static int PLATFORM_LENGTH_MAX = 12;
+	const static int PLATFORM_GAP_LENGTH = 4;
 	const static int BUFFER_SIZE = 20;
 
 	~MapGenerator();

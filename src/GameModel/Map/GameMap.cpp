@@ -27,14 +27,20 @@ GameMap::~GameMap()
 
 Vector2d* GameMap::nextPlatformStart(Vector2d* lastEnd)
 {
-	int minAllowed = lastEnd->m_y - 1 >= generator->HEIGHT_MIN ? -1 : 0;
-	int maxAllowed = lastEnd->m_y + 1 <= generator->HEIGHT_MAX ?  1 : 0;
+	// Find the allowed change in height based on max and min
+	// height for the generator. Compare previous platforms end
+	// point plus and minus one with the max and min values.
+	int minAllowed = (lastEnd->m_y - 1 >= generator->HEIGHT_MIN) ? -1 : 0;
+	int maxAllowed = (lastEnd->m_y + 1 <= generator->HEIGHT_MAX) ?  1 : 0;
 
+	// Randomize the difference in height.
 	int range = maxAllowed - minAllowed;
 	int random = rand() % (range + 1) + minAllowed;
 
-	// Note: constant length in between platforms (2)
-	return new Vector2d(lastEnd->m_x + 4, lastEnd->m_y + random);
+	// Add the difference in height to the height of the last platforms
+	// end point. Add a constant horizontal distance between platforms.
+	return new Vector2d(lastEnd->m_x + generator->PLATFORM_GAP_LENGTH
+			, lastEnd->m_y + random);
 }
 
 void GameMap::generateStartMap()
