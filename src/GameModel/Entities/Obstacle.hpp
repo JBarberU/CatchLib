@@ -18,9 +18,16 @@
 #include "../../Helper/Logger.hpp"
 #include "../../../Box2D/Collision/Shapes/b2PolygonShape.h"
 
-class Obstacle {
 
+/**
+ *
+ * Obstacles are placed on the game map. Obstacles have different properties
+ * effecting gameplay. Some Obstacles can be destroyed using the Chainsaw.
+ *
+ */
+class Obstacle {
 public:
+
 	/**
 	 * Removes the Obstacle in a suitable way to this specific obstacle.
 	 */
@@ -31,4 +38,3 @@ public:
 	virtual void generatePbody(Vector2d position) = 0;
 	PBody* m_body;
 };
-

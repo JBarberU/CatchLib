@@ -24,12 +24,9 @@
  */
 class Chainsaw : public PBody
 {    
-protected:
-
-	~Chainsaw();
-
 public:
 
+	~Chainsaw();
 	Chainsaw(b2Vec2 size, b2Vec2 position, b2Vec2 target, bool stationary, bool rotatable, PBodyType tag);
 
     /**
