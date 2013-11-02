@@ -12,7 +12,6 @@
 //
 
 #include "GeneratedBlock.hpp"
-#include <stdio.h>
 
 GeneratedBlock::GeneratedBlock(int dy, Blocktype type, int baseChance)
 {
