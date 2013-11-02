@@ -25,6 +25,11 @@ GeneratedBlock::~GeneratedBlock()
 
 }
 
+int GeneratedBlock::hashCode() const
+{
+	return this->dy*3 + (this->type == INCLINE ? 0 : this->type == HORIZONTAL ? 1 : 2);
+}
+
 bool operator==(GeneratedBlock const& lhsBlock, GeneratedBlock const& rhsBlock)
 {
 	return lhsBlock.dy == rhsBlock.dy && lhsBlock.type == rhsBlock.type;
@@ -32,11 +37,5 @@ bool operator==(GeneratedBlock const& lhsBlock, GeneratedBlock const& rhsBlock)
 
 bool operator<(GeneratedBlock const& lhsBlock, GeneratedBlock const& rhsBlock)
 {
-	/*
-	 * return value based on type and dY to order
-	 * the GeneratedBlocks.
-	 */
-	int thisValue = lhsBlock.dy*3 + (lhsBlock.type == INCLINE ? 0 : lhsBlock.type == HORIZONTAL ? 1 : 2);
-	int otherValue = rhsBlock.dy*3 + (rhsBlock.type == INCLINE ? 0 : rhsBlock.type == HORIZONTAL ? 1 : 2);
-	return thisValue < otherValue;
+	return lhsBlock.hashCode() < rhsBlock.hashCode();
 }

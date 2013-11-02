@@ -61,13 +61,20 @@ public:
 
 	/**
 	 * Overloads == operator.
-	 * Compares dy and type.
+	 * Compares difference in height and type of block.
 	 */
 	friend bool operator==(GeneratedBlock const& lhsBlock, GeneratedBlock const& rhsBlock);
 
 	/**
 	 * Overloads < operator for use in set.
-	 * Compares dy and type.
+	 * Compares hashCode for the different GeneratedBlocks for use in sorted sets.
 	 */
 	friend bool operator<(GeneratedBlock const& lhsBlock, GeneratedBlock const& rhsBlock);
+
+	/**
+	 * Generates an unique hashCode for the GeneratedBLock with any combination of
+	 * type and height difference.
+	 */
+	int hashCode(void) const;
+
 };
