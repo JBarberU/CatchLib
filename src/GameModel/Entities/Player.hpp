@@ -9,30 +9,41 @@
 //  Date: Oct 7, 2012
 //
 //	License: The following code is licensed under the Catch22-License
-//
-//  Description:
 
-#ifndef __CatchiOS__Player__
-#define __CatchiOS__Player__
+
+#ifndef __Player__
+#define __Player__
 
 #include "../Physics/PBody.hpp"
 
-class Player : public PBody {
+/**
+ *
+ * The Player is the Player object in the game. The Player is
+ * a PBody for the physics engine.
+ *
+ */
+class Player : public PBody
+{
 private:
-    
+
 public:
     Player();
     ~Player();
     
-    //  Set the box2d body of the player
+    /**
+     * Set the box2d body of the player
+     */
     virtual void setBody(b2Body* body);
     
-    
-    //  Make the player jump
+    /**
+     * Make the player jump
+     */
     void jump();
-    
-    //  Update the player
+
+    /**
+     * Update the player
+     */
     void update();
 };
 
-#endif /* defined(__CatchiOS__Player__) */
+#endif /* defined(__Player__) */

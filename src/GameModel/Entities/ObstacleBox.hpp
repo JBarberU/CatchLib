@@ -32,7 +32,9 @@ public:
 	 */
 	void destroy();
 
-	// See Obstacle.hpp
+	/**
+	 * @see Obstacle.hpp
+	 */
 	void generatePbody(Vector2d position);
 };
 
