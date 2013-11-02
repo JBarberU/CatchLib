@@ -17,6 +17,13 @@ struct OffsetMatrix {
     Vector2d* m_bottomRight;
     Vector2d* m_topLeft;
     Vector2d* m_topRight;
+    OffsetMatrix()
+    {
+        m_bottomLeft = new Vector2d(0.0,0.0);
+        m_bottomRight = new Vector2d(0.0,0.0);
+        m_topLeft = new Vector2d(0.0,0.0);
+        m_topRight = new Vector2d(0.0,0.0);
+    }
     OffsetMatrix(Vector2d* bottomLeft, Vector2d* bottomRight, Vector2d* topLeft, Vector2d* topRight) {
         m_bottomLeft = bottomLeft;
         m_bottomRight = bottomRight;

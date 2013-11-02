@@ -194,7 +194,7 @@ void GLRenderer10::onEvent (EEvent event, void* source)
 {
     if (event == PBODY_CREATED_ACTORS) {
 
-        Actor* newActor;
+        Actor newActor;
         switch (((PBody *) source)->getTag()) {
             case PB_PLAYER:
                 newActor = ActorsLoader::newMainCharacterActor();
@@ -218,7 +218,7 @@ void GLRenderer10::onEvent (EEvent event, void* source)
                 return;
         }
         
-        newActor->setPBody((PBody *) source);
-        this->addActor(*newActor);
+        newActor.setPBody((PBody *) source);
+        this->addActor(newActor);
     }
 }

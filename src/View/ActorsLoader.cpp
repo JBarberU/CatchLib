@@ -15,12 +15,12 @@
 #include "ActorsLoader.hpp"
 #include "../Helper/Logger.hpp"
 
-Actor* MAIN_CHARACTER = 0;
-Actor* CHAINSAW = 0;
-Actor* PLATFORM_1 = 0;
-Actor* PLATFORM_2 = 0;
-Actor* PLATFORM_3 = 0;
-Actor* OBSTACLE_BOX = 0;
+Actor MAIN_CHARACTER;
+Actor CHAINSAW;
+Actor PLATFORM_1;
+Actor PLATFORM_2;
+Actor PLATFORM_3;
+Actor OBSTACLE_BOX;
 
 const double IMAGE_WIDTH = 2048;
 const double IMAGE_HEIGHT = 2048;
@@ -60,13 +60,13 @@ void ActorsLoader::initMainCharacter(int textureID)
     
     SpriteArray* arr = new SpriteArray(sp, 6);
     
-    Animation* a = new Animation(arr, s1, 100, true);
-    Animation** aArr = new Animation*[1];
-    aArr[0] = a;
-    AnimationArray* aAnimArr = new AnimationArray(aArr, 1);
-    
-    MAIN_CHARACTER = new Actor(aAnimArr, a, new Vector2d(1.f, 1.f),
-                           new OffsetMatrix(new Vector2d(0.f,0.f), new Vector2d(0.f,0.f), new Vector2d(0.f,0.f), new Vector2d(0.f,0.f)));
+    Animation a = new Animation(arr, s1, 100, true);
+    int FIRST_ANIMATION = 0;
+    std::vector<Animation> animations;
+    animations.push_back(a);
+
+    MAIN_CHARACTER = Actor(animations, FIRST_ANIMATION, Vector2d(1.f, 1.f),
+                           OffsetMatrix(new Vector2d(0.f,0.f), new Vector2d(0.f,0.f), new Vector2d(0.f,0.f), new Vector2d(0.f,0.f)));
 //                                                new Vector2d(.75f, 0.2f),
 //                                                new Vector2d(.75f, 0.2f),
 //                                                new Vector2d(.75f, .4f),
@@ -87,13 +87,13 @@ void ActorsLoader::initPlatforms(int textureID)
     
     SpriteArray* arr1 = new SpriteArray(sp1, 1);
     
-    Animation* a1 = new Animation(arr1, s1, 300, true);
-    Animation** aArr1 = new Animation*[1];
-    aArr1[0] = a1;
-    AnimationArray* aAnimArr1 = new AnimationArray(aArr1, 1);
-    
-    PLATFORM_1 = new Actor(aAnimArr1, a1, new Vector2d(1.f, 3.5f),
-					new OffsetMatrix(
+    Animation a1 = new Animation(arr1, s1, 300, true);
+    int FIRST_ANIMATION1 = 0;
+    std::vector<Animation> animations1;
+    animations1.push_back(a1);
+
+    PLATFORM_1 = Actor(animations1, FIRST_ANIMATION1, Vector2d(1.f, 3.5f),
+                    OffsetMatrix(
 						   new Vector2d(0.05f,0.f),
 						   new Vector2d(-0.13f,0.f),
 						   new Vector2d(0.05f,0.f),
@@ -113,11 +113,11 @@ void ActorsLoader::initPlatforms(int textureID)
     SpriteArray* arr3 = new SpriteArray(sp3, 1);
     
     Animation* a3 = new Animation(arr3, s3, 300, true);
-    Animation** aArr3 = new Animation*[1];
-    aArr3[0] = a3;
-    AnimationArray* aAnimArr3 = new AnimationArray(aArr3, 1);
+    int FIRST_ANIMATION3 = 0;
+    std::vector<Animation> animations3;
+    animations3.push_back(a3);
     
-    PLATFORM_3 = new Actor(aAnimArr3, a3, new Vector2d(1.f, 3.5f),
+    PLATFORM_3 = Actor(animations3, FIRST_ANIMATION3, new Vector2d(1.f, 3.5f),
 					new OffsetMatrix(
 						   new Vector2d(0.05f,0.f),
 						   new Vector2d(-0.13f,0.f),
@@ -137,11 +137,11 @@ void ActorsLoader::initPlatforms(int textureID)
     SpriteArray* arr2 = new SpriteArray(sp2, 1);
     
     Animation* a2 = new Animation(arr2, s2, 300, true);
-    Animation** aArr2 = new Animation*[1];
-    aArr2[0] = a2;
-    AnimationArray* aAnimArr2 = new AnimationArray(aArr2, 1);
+    int FIRST_ANIMATION2 = 0;
+    std::vector<Animation> animations2;
+    animations2.push_back(a2);
     
-    PLATFORM_2 = new Actor(aAnimArr2, a2, new Vector2d(1.f, 3.5f),
+    PLATFORM_2 = Actor(animations2, FIRST_ANIMATION2, new Vector2d(1.f, 3.5f),
                            new OffsetMatrix(
                         		   new Vector2d(0.16f,0.f),
                         		   new Vector2d(-0.15f,0.f),
@@ -175,11 +175,11 @@ void ActorsLoader::initChainsaw(int textureID)
 	SpriteArray* arr1 = new SpriteArray(sp, 2);
 
 	Animation* a = new Animation(arr1, s1, 50, true);
-	Animation** aArr = new Animation*[1];
-	aArr[0] = a;
-	AnimationArray* aAnimArr = new AnimationArray(aArr, 1);
+    int FIRST_ANIMATION = 0;
+    std::vector<Animation> animations;
+    animations.push_back(a);
 
-	CHAINSAW = new Actor(aAnimArr, a, new Vector2d(0.6f, 0.3f));
+    CHAINSAW = Actor(animations, FIRST_ANIMATION, Vector2d(0.6f, 0.3f));
 }
 
 void ActorsLoader::initObstacle(int textureID)
@@ -198,11 +198,11 @@ void ActorsLoader::initObstacle(int textureID)
     SpriteArray* arr1 = new SpriteArray(sp, 1);
     
     Animation* a = new Animation(arr1, s1, 1, true);
-    Animation** aArr = new Animation*[1];
-    aArr[0] = a;
-    AnimationArray* aAnimArr = new AnimationArray(aArr, 1);
+    int FIRST_ANIMATION = 0;
+    std::vector<Animation> animations;
+    animations.push_back(a);
     
-    OBSTACLE_BOX = new Actor(aAnimArr, a, new Vector2d(1.0f, 1.0f));
+    OBSTACLE_BOX = Actor(animations, FIRST_ANIMATION, Vector2d(1.0f, 1.0f));
 }
 
 void ActorsLoader::init(int textureID)
@@ -212,61 +212,32 @@ void ActorsLoader::init(int textureID)
     ActorsLoader::initChainsaw(textureID);
     ActorsLoader::initObstacle(textureID);
 }
-Actor* ActorsLoader::newMainCharacterActor()
+Actor ActorsLoader::newMainCharacterActor()
 {
-    if (MAIN_CHARACTER == 0) {
-        Log(LOG_ERROR, "ActorsLoader", "MAIN_CHARACTER is null, probably because init was never called.");
-        return 0;
-    }
-    
-    return new Actor(MAIN_CHARACTER);
+    return MAIN_CHARACTER;
 }
-Actor* ActorsLoader::newPlatformActor_1()
+
+Actor ActorsLoader::newPlatformActor_1()
 {
-    if (PLATFORM_1 == 0) {
-        Log(LOG_ERROR, "ActorsLoader", "PLATFORM_1 is null, probably because init was never called.");
-        return 0;
-    }
-    
-    return new Actor(PLATFORM_1);
+    return PLATFORM_1;
 }
-Actor* ActorsLoader::newPlatformActor_2()
+Actor ActorsLoader::newPlatformActor_2()
 {
-    if (PLATFORM_2 == 0) {
-        Log(LOG_ERROR, "ActorsLoader", "PLATFORM_2 is null, probably because init was never called.");
-        return 0;
-    }
-    
-    return new Actor(PLATFORM_2);
+    return PLATFORM_2;
 }
 
 
-Actor* ActorsLoader::newPlatformActor_3()
+Actor ActorsLoader::newPlatformActor_3()
 {
-    if (PLATFORM_3 == 0) {
-        Log(LOG_ERROR, "ActorsLoader", "PLATFORM_3 is null, probably because init was never called.");
-        return 0;
-    }
-    
-    return new Actor(PLATFORM_3);
+    return PLATFORM_3;
 }
 
-Actor* ActorsLoader::newChainsawActor()
+Actor ActorsLoader::newChainsawActor()
 {
-    if (CHAINSAW == 0) {
-        Log(LOG_ERROR, "ActorsLoader", "CHAINSAW is null, probably because init was never called.");
-        return 0;
-    }
-    
-    return new Actor(CHAINSAW);
+    return CHAINSAW;
 }
 
-Actor* ActorsLoader::newObstacleBoxActor()
+Actor ActorsLoader::newObstacleBoxActor()
 {
-    if (OBSTACLE_BOX == 0) {
-        Log(LOG_ERROR, "ActorsLoader", "OBSTACLE_BOX is null, probably because init was never called.");
-        return 0;
-    }
-
-    return new Actor(OBSTACLE_BOX);
+    return OBSTACLE_BOX;
 }

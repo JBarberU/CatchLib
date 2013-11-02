@@ -35,35 +35,35 @@ public:
     /**
      * Creates a MainCharacter Actor.
      */
-    static Actor* newMainCharacterActor();
+    static Actor newMainCharacterActor();
 
     /**
      * Creates a Platform Actor of type 1.
      * This is a INCLINE platform.
      */
-    static Actor* newPlatformActor_1();
+    static Actor newPlatformActor_1();
 
     /**
      * Creates a Platform Actor of type 2.
      * This is a HORIZONTAL platform.
      */
-    static Actor* newPlatformActor_2();
+    static Actor newPlatformActor_2();
 
     /**
      * Creates a Platform Actor of type 3.
      * This is a DECLINE platform.
      */
-    static Actor* newPlatformActor_3();
+    static Actor newPlatformActor_3();
 
     /**
      * Creates a Chainsaw Actor.
      */
-    static Actor* newChainsawActor();
+    static Actor newChainsawActor();
 
     /**
      * Creates an Obstacle Actor.
      */
-    static Actor* newObstacleBoxActor();
+    static Actor newObstacleBoxActor();
 };
 
 #endif /* defined(__ActorsLoader__) */
