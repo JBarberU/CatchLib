@@ -12,6 +12,6 @@ FILE_LIST += $(wildcard $(LOCAL_PATH)/CatchLib/Box2D/*/*/*.cpp)   #Box2d
 LOCAL_SRC_FILES := $(FILE_LIST:$(LOCAL_PATH)/%=%)
 LOCAL_MODULE := catchLib
 LOCAL_LDLIBS := -lGLESv2 -lGLESv1_CM -llog
-
+LOCAL_CFLAGS := -std=c++11
 
 include $(BUILD_SHARED_LIBRARY)
