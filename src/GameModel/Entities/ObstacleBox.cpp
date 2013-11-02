@@ -18,9 +18,11 @@ ObstacleBox::~ObstacleBox()
 {
 
 }
+
 ObstacleBox::ObstacleBox(Vector2d* position, float height)
 {
 	m_height = height;
+	m_width = 2.0f;
 	ObstacleBox::generatePbody(position);
 	EventBus::getSharedInstance()->publishEvent(PBODY_CREATED_PHYSICS, (PBody *)m_body);
 
@@ -33,8 +35,6 @@ void ObstacleBox::destroy()
 void ObstacleBox::generatePbody(Vector2d position)
 {
 	b2Vec2 pos = b2Vec2(position.m_x, position.m_y);
-	b2Vec2 size = b2Vec2(2.0f, m_height);
+	b2Vec2 size = b2Vec2(m_width, m_height);
     m_body = new PBody(size, pos, true, false, PB_OBSTACLE_BOX);
-
 }
-

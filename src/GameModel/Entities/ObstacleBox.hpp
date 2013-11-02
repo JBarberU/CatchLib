@@ -9,18 +9,18 @@
 //  Date: Oct 8, 2012
 //
 //	License: The following code is licensed under the Catch22-License
-//
-//  Description: A class for representing a obstacle formed like a box.
-
-
 
 #include "Obstacle.hpp"
 
+/**
+ * A Box obstacle. An Obstacle in the form of a Box.
+ */
 class ObstacleBox : Obstacle {
 
 private:
 	bool m_destroyed;
 	double m_height;
+	double m_width;
 
 public:
 	~ObstacleBox();
